@@ -8,34 +8,39 @@ using Unity.VisualScripting;
 
 public class CharacterControl : MonoBehaviour
 {
-
-    private CharacterController _controller;
-    private PlayerInput _input;
-    private Camera _camera;
-
-    [SerializeField]
-    private float _minimumInput = 0.1f;
-
+    [Header("Input")]
     [SerializeField]
     private float _moveSpeed = 10f;
     [SerializeField]
     private float _rotationSpeed = 720f;
-    [SerializeField]
-    private float _throwForce = 10f;
+    private float _minimumInput = 0.1f;
 
+    [Header("Player Data")]
     [SerializeField]
     private Material[] _playerColours;
+    private PlayerInput _input;
+    private CharacterController _controller;
 
-
+    //camera stuff
+    private Camera _camera;
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
 
+    //picking up data and variables
+    [Header("Pickup and Throw Data")]
     private Rigidbody _heldObject;
+    private bool _canPickup = true;
 
-    private bool _canLift;
-
+    [SerializeField]
+    private float _timeToPickup = 1f;
+    private float _pickuptimer;
+    [SerializeField]
     private float _pickupDistance = 2f;
-
+    [SerializeField]
+    private float _throwForce = 10f;
+    [SerializeField]
+    private float _timeToFullThrowForce = 3f;
+    private float _throwTimer;
 
     //input system stuff
     private Vector2 _movementInput = Vector2.zero;
@@ -45,11 +50,12 @@ public class CharacterControl : MonoBehaviour
 
     private void Start()
     {
+        //retrieve components
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInput>();
         _camera = Camera.main;
+        //calculations
         CalculateCameraDirections();
-
         HandlePlayerColour(_input.playerIndex);
     }
 
@@ -101,7 +107,7 @@ public class CharacterControl : MonoBehaviour
     private void HandleGravity()
     {
         if (_controller.isGrounded) moveDirection.y = 0;
-        else 
+        else
         {
             moveDirection.y += gravity * Time.deltaTime;
         }
@@ -111,50 +117,42 @@ public class CharacterControl : MonoBehaviour
     Vector2 lookInput = Vector2.zero;
     private void HandleInput()
     {
-
-        if (_interact)
+        if (_canPickup)
         {
             TryPickupObject();
         }
-        if (_heldObject != null)
+
+        if (!_canPickup)
         {
-            if (!_interact)
+            _pickuptimer += Time.deltaTime;
+            if (_pickuptimer >= _timeToPickup)
             {
-                ThrowObject();
+                _pickuptimer = 0f;
+                Debug.Log("You can pick things up again");
+                _canPickup = true;
             }
         }
 
-        //if (Gamepad.current != null)
-        //{
-        //    //moveInput = Gamepad.current.leftStick.ReadValue();
-        //    //lookInput = Gamepad.current.rightStick.ReadValue();
-        //    if (Gamepad.current.rightTrigger.wasReleasedThisFrame) ThrowObject();
-        //    if (Gamepad.current.rightTrigger.wasPressedThisFrame) TryPickupObject();
-
-        if (Gamepad.current != null)
-            if (Gamepad.current.leftShoulder.wasReleasedThisFrame) Debug.Log(_input.playerIndex);
-
-        //}
-        //else if (Keyboard.current != null)
-        //{
-        //    //moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        //    //lookInput = new Vector2(Input.GetAxis("AltHorizontal"), Input.GetAxis("AltVertical"));
-
-        //    if (Input.GetKeyDown(KeyCode.Space)) ThrowObject();
-        //}
-
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-
-        //float lookHorizontal = Input.GetAxis("AltHorizontal");
-        //float lookVertical = Input.GetAxis("AltVertical");
-
-
-        //for some reason the lookinput is reversed, sooooo eeeeeeeermm
-        //okay so, i was actually just pretty stupid
-        //i placed the glasses on the back of the character :skull:
-
-
+        if (_heldObject != null)
+        {
+            if (_interact)
+            {
+                _throwTimer += Time.deltaTime;
+                if (_throwTimer >= _timeToFullThrowForce)
+                {
+                    Debug.Log("Fully charged");
+                    //_throwTimer = _timeToFullThrowForce;
+                    ThrowObject();
+                    _throwTimer = 0f;
+                }
+            }
+            if (!_interact && _throwTimer > _minimumInput)
+            {
+                Debug.Log("You're throwing");
+                ThrowObject();
+                _throwTimer = 0f;
+            }
+        }
     }
 
     Vector3 moveDirection = Vector3.zero;
@@ -193,13 +191,6 @@ public class CharacterControl : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
-        //Gizmos.DrawSphere(transform.position, _pickupDistance);
-    }
-
     private void TryPickupObject()
     {
         //Debug.Log("triggered");
@@ -219,6 +210,7 @@ public class CharacterControl : MonoBehaviour
                 _heldObject.isKinematic = true;
                 _heldObject.transform.SetParent(transform);
                 _heldObject.transform.localPosition = new Vector3(0, 1, 1);
+                _canPickup = false;
                 break;
             }
         }
@@ -226,23 +218,36 @@ public class CharacterControl : MonoBehaviour
 
     private void ThrowObject()
     {
-        if (_heldObject != null)
-        {
-            _heldObject.useGravity = true;
-            _heldObject.isKinematic = false; 
-            _heldObject.transform.SetParent(null);
+        _canPickup = false;
+        _heldObject.useGravity = true;
+        _heldObject.isKinematic = false;
+        _heldObject.transform.SetParent(null);
 
-            //CalculateThrowForce();
+        CalculateThrowForce();
 
-            Vector3 throwDirection = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized;
+        Vector3 throwDirection = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized;
 
-            _heldObject.AddForce(throwDirection * _throwForce, ForceMode.Impulse);
-            _heldObject = null;
-        }
+        _heldObject.AddForce(throwDirection * CalculateThrowForce(), ForceMode.Impulse);
+        _heldObject = null;
     }
 
-    private void CalculateThrowForce()
+    private float CalculateThrowForce()
     {
-        throw new NotImplementedException();
+        return _throwForce * (_throwTimer / _timeToFullThrowForce);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
+
+
+        if( _heldObject != null )
+        {
+            Gizmos.color = Color.red;
+            Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
+            Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
+        }
+        //Gizmos.DrawSphere(transform.position, _pickupDistance);
     }
 }
