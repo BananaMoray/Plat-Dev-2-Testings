@@ -4,11 +4,13 @@ using UnityEngine.InputSystem;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using UnityEngine.InputSystem.XR;
 using UnityEditor;
+using Unity.VisualScripting;
 
 public class CharacterControl : MonoBehaviour
 {
-    [SerializeField]
+
     private CharacterController _controller;
+    private PlayerInput _input;
     private Camera _camera;
 
     [SerializeField]
@@ -20,6 +22,10 @@ public class CharacterControl : MonoBehaviour
     private float _rotationSpeed = 720f;
     [SerializeField]
     private float _throwForce = 10f;
+
+    [SerializeField]
+    private Material[] _playerColours;
+
 
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
@@ -40,9 +46,18 @@ public class CharacterControl : MonoBehaviour
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _input = GetComponent<PlayerInput>();
         _camera = Camera.main;
         CalculateCameraDirections();
+
+        HandlePlayerColour(_input.playerIndex);
     }
+
+    private void HandlePlayerColour(int playerIndex)
+    {
+        GetComponent<MeshRenderer>().material = _playerColours[playerIndex];
+    }
+
     private void CalculateCameraDirections()
     {
         //grab the camera transforms
@@ -80,25 +95,6 @@ public class CharacterControl : MonoBehaviour
         HandleRotation(_lookInput.y, _lookInput.x);
         HandleGravity();
         ApplyMovement(moveDirection);
-
-        //float motorspeed = 0.25f;
-
-        
-
-        //if (Gamepad.current != null)
-        //{
-        //    Debug.Log("Current Gamepad: " + Gamepad.current.name);
-        //    if (_heldObject != null)
-        //    {
-        //        Gamepad.current.SetMotorSpeeds(motorspeed, motorspeed);
-        //        _canLift = false;
-        //    }
-        //    else
-        //    {
-        //        Gamepad.current.SetMotorSpeeds(0f, 0f);
-        //        _canLift = true;
-        //    }
-        //}
     }
 
     float gravity = -9.81f;
@@ -134,7 +130,9 @@ public class CharacterControl : MonoBehaviour
         //    //lookInput = Gamepad.current.rightStick.ReadValue();
         //    if (Gamepad.current.rightTrigger.wasReleasedThisFrame) ThrowObject();
         //    if (Gamepad.current.rightTrigger.wasPressedThisFrame) TryPickupObject();
-            
+
+        if (Gamepad.current != null)
+            if (Gamepad.current.leftShoulder.wasReleasedThisFrame) Debug.Log(_input.playerIndex);
 
         //}
         //else if (Keyboard.current != null)
@@ -156,7 +154,7 @@ public class CharacterControl : MonoBehaviour
         //okay so, i was actually just pretty stupid
         //i placed the glasses on the back of the character :skull:
 
-        
+
     }
 
     Vector3 moveDirection = Vector3.zero;
