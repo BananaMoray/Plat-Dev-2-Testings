@@ -15,21 +15,31 @@ public class CharacterControl : MonoBehaviour
     private float _rotationSpeed = 720f;
     private float _minimumInput = 0.1f;
 
+
     [Header("Player Data")]
     [SerializeField]
     private Material[] _playerColours;
-    private PlayerInput _input;
+    private PlayerInput _playerInput;
     private CharacterController _controller;
+
 
     //camera stuff
     private Camera _camera;
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
 
+
     //picking up data and variables
     [Header("Pickup and Throw Data")]
     private Rigidbody _heldObject;
     private bool _canPickup = true;
+
+
+    [Header("Trajectory Rendering")]
+    private LineRenderer _lineRenderer;
+    [SerializeField] 
+    private int _trajectoryResolution = 30;
+
 
     [SerializeField]
     private float _timeToPickup = 1f;
@@ -51,12 +61,13 @@ public class CharacterControl : MonoBehaviour
     private void Start()
     {
         //retrieve components
+        _lineRenderer = GetComponent<LineRenderer>();
         _controller = GetComponent<CharacterController>();
-        _input = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
         _camera = Camera.main;
         //calculations
         CalculateCameraDirections();
-        HandlePlayerColour(_input.playerIndex);
+        HandlePlayerColour(_playerInput.playerIndex);
     }
 
     private void HandlePlayerColour(int playerIndex)
@@ -97,19 +108,24 @@ public class CharacterControl : MonoBehaviour
     void Update()
     {
         HandleInput();
-        CalculateMovement(_movementInput.y, _movementInput.x);
+        HandleMovement(_movementInput.y, _movementInput.x);
         HandleRotation(_lookInput.y, _lookInput.x);
         HandleGravity();
         ApplyMovement(moveDirection);
+
+
+        if (_heldObject == null)
+        {
+            _lineRenderer.positionCount = 0;
+        }
     }
 
-    float gravity = -9.81f;
     private void HandleGravity()
     {
         if (_controller.isGrounded) moveDirection.y = 0;
         else
         {
-            moveDirection.y += gravity * Time.deltaTime;
+            moveDirection.y += gravity.y * Time.deltaTime;
         }
     }
 
@@ -137,6 +153,7 @@ public class CharacterControl : MonoBehaviour
         {
             if (_interact)
             {
+
                 _throwTimer += Time.deltaTime;
                 if (_throwTimer >= _timeToFullThrowForce)
                 {
@@ -145,10 +162,14 @@ public class CharacterControl : MonoBehaviour
                     ThrowObject();
                     _throwTimer = 0f;
                 }
+
+                DrawThrowTrajectoryInGameView();
             }
             if (!_interact && _throwTimer > _minimumInput)
             {
+                
                 Debug.Log("You're throwing");
+
                 ThrowObject();
                 _throwTimer = 0f;
             }
@@ -156,7 +177,7 @@ public class CharacterControl : MonoBehaviour
     }
 
     Vector3 moveDirection = Vector3.zero;
-    private void CalculateMovement(float vertical, float horizontal)
+    private void HandleMovement(float vertical, float horizontal)
     {
         //nothig happens if no input
         if (Mathf.Abs(horizontal) < _minimumInput
@@ -204,13 +225,22 @@ public class CharacterControl : MonoBehaviour
                     //Debug.Log("kinematic");
                     continue;
                 }
-                //Debug.Log("pickup");
+
+                if (collider.GetComponent<ToppingHandler>().PlayerIndex != _playerInput.playerIndex)
+                {
+                    continue;
+                }
+
                 _heldObject = collider.attachedRigidbody;
-                _heldObject.useGravity = false;
-                _heldObject.isKinematic = true;
+
+                HoldObject(true);
+
                 _heldObject.transform.SetParent(transform);
+
                 _heldObject.transform.localPosition = new Vector3(0, 1, 1);
+
                 _canPickup = false;
+
                 break;
             }
         }
@@ -218,17 +248,21 @@ public class CharacterControl : MonoBehaviour
 
     private void ThrowObject()
     {
-        _canPickup = false;
-        _heldObject.useGravity = true;
-        _heldObject.isKinematic = false;
+        HoldObject(false);
+
         _heldObject.transform.SetParent(null);
 
-        CalculateThrowForce();
+        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
-        Vector3 throwDirection = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized;
+        _heldObject.AddForce(velocity, ForceMode.Impulse);
 
-        _heldObject.AddForce(throwDirection * CalculateThrowForce(), ForceMode.Impulse);
         _heldObject = null;
+        _canPickup = false;
+    }
+    private void HoldObject(bool v)
+    {
+        _heldObject.useGravity = !v;
+        _heldObject.isKinematic = v;
     }
 
     private float CalculateThrowForce()
@@ -241,13 +275,63 @@ public class CharacterControl : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
 
-
-        if( _heldObject != null )
+        if (_heldObject != null)
         {
-            Gizmos.color = Color.red;
-            Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
-            Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
+            DrawThrowTrajectoryInSceneView();
         }
         //Gizmos.DrawSphere(transform.position, _pickupDistance);
     }
+
+    //welcome new gizmo tools
+    Vector3 startPosition = Vector3.zero;
+    Vector3 velocity = Vector3.zero;
+    float gizmoTimeStep = 0.1f;
+    Vector3 gravity = new Vector3(0, -9.81f, 0);
+
+    private void DrawThrowTrajectoryInGameView()
+    {
+        if (_lineRenderer == null) 
+            return; //use line renderer pls
+
+        Vector3[] points = new Vector3[_trajectoryResolution];
+
+        startPosition = _heldObject.position;
+        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+
+        for (int i = 0; i < _trajectoryResolution; i++)
+        {
+            float time = i * gizmoTimeStep;
+            Vector3 position = startPosition + velocity * time + 0.5f * gravity * (time * time);
+            if(position.y < -2) position.y = -2;
+            points[i] = position;
+        }
+
+        _lineRenderer.positionCount = _trajectoryResolution;
+        _lineRenderer.SetPositions(points);
+    }
+
+
+    private void DrawThrowTrajectoryInSceneView()
+    {
+            //the old trajectory code
+
+            //Gizmos.color = Color.red;
+            //Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
+            //Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
+
+            startPosition = _heldObject.position;
+
+            velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+
+            Gizmos.color = Color.green;
+
+            for (float time = 0; time < _timeToFullThrowForce; time += gizmoTimeStep)
+            {
+                //welcome back projectile motion you awful thing
+                Vector3 position = startPosition + velocity * time + 0.5f * gravity * (time * time);
+                //let's draw small spheres yay
+                Gizmos.DrawSphere(position, 0.1f);
+            }
+    }
 }
+
