@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1485957258161001062}
-  _camera: {fileID: 0}
   _minimumInput: 0.1
   _moveSpeed: 10
   _rotationSpeed: 720

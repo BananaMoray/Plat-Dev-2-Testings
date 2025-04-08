@@ -9,8 +9,6 @@ public class CharacterControl : MonoBehaviour
 {
     [SerializeField]
     private CharacterController _controller;
-
-    [SerializeField]
     private Camera _camera;
 
     [SerializeField]
@@ -83,24 +81,24 @@ public class CharacterControl : MonoBehaviour
         HandleGravity();
         ApplyMovement(moveDirection);
 
-        float motorspeed = 0.25f;
+        //float motorspeed = 0.25f;
 
         
 
-        if (Gamepad.current != null)
-        {
-            Debug.Log("Current Gamepad: " + Gamepad.current.name);
-            if (_heldObject != null)
-            {
-                Gamepad.current.SetMotorSpeeds(motorspeed, motorspeed);
-                _canLift = false;
-            }
-            else
-            {
-                Gamepad.current.SetMotorSpeeds(0f, 0f);
-                _canLift = true;
-            }
-        }
+        //if (Gamepad.current != null)
+        //{
+        //    Debug.Log("Current Gamepad: " + Gamepad.current.name);
+        //    if (_heldObject != null)
+        //    {
+        //        Gamepad.current.SetMotorSpeeds(motorspeed, motorspeed);
+        //        _canLift = false;
+        //    }
+        //    else
+        //    {
+        //        Gamepad.current.SetMotorSpeeds(0f, 0f);
+        //        _canLift = true;
+        //    }
+        //}
     }
 
     float gravity = -9.81f;
@@ -201,12 +199,12 @@ public class CharacterControl : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
-        Gizmos.DrawSphere(transform.position, _pickupDistance);
+        //Gizmos.DrawSphere(transform.position, _pickupDistance);
     }
 
     private void TryPickupObject()
     {
-        Debug.Log("triggered");
+        //Debug.Log("triggered");
         Collider[] colliders = Physics.OverlapSphere(transform.position, _pickupDistance);
         foreach (Collider collider in colliders)
         {
@@ -214,10 +212,10 @@ public class CharacterControl : MonoBehaviour
             {
                 if (collider.attachedRigidbody.isKinematic)
                 {
-                    Debug.Log("kinematic");
+                    //Debug.Log("kinematic");
                     continue;
                 }
-                Debug.Log("pickup");
+                //Debug.Log("pickup");
                 _heldObject = collider.attachedRigidbody;
                 _heldObject.useGravity = false;
                 _heldObject.isKinematic = true;

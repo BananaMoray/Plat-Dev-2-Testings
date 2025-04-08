@@ -176,17 +176,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "af9e0980-dc7f-437d-bdbb-d9aa9fb9d4e0",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "2D Vector",
                     "id": "e35e4b47-72e7-4155-9d47-2884e96ba567",
                     "path": "2DVector",
@@ -251,61 +240,6 @@
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "b2fe5c1d-6d25-4e95-aab6-e6fe3119b62b",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "723fd166-662a-4fcb-aa1d-b3b1a557b0a6",
-                    "path": "<HID::Nintendo Wireless Gamepad>/button2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "81013b00-32b5-4791-9284-88aa6c7897ad",
-                    "path": "<HID::Nintendo Wireless Gamepad>/button3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "79dec353-36e2-494a-ab0e-44c15fc9683c",
-                    "path": "<HID::Nintendo Wireless Gamepad>/button4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "6f7353e5-7467-4e2f-a58c-12c04ee840cd",
-                    "path": "<HID::Nintendo Wireless Gamepad>/button5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }
@@ -328,17 +262,6 @@
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
-        {
-            "name": "Joystick",
-            "bindingGroup": "Joystick",
-            "devices": [
-                {
-                    "devicePath": "<Joystick>",
                     "isOptional": false,
                     "isOR": false
                 }
