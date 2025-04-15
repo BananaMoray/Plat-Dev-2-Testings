@@ -111,7 +111,7 @@ public class CharacterControl : MonoBehaviour
         HandleMovement(_movementInput.y, _movementInput.x);
         HandleRotation(_lookInput.y, _lookInput.x);
         HandleGravity();
-        ApplyMovement(moveDirection);
+        ApplyMovement();
 
 
         if (_heldObject == null)
@@ -120,13 +120,41 @@ public class CharacterControl : MonoBehaviour
         }
     }
 
+    Vector3 moveDirection = Vector3.zero;
+    
+    //we now separate the vertical Y from the horizontal X and Z
+    //if we dont do that the gravity would reset every frame
+    private float verticalVelocity = 0f; 
+
+    private void HandleMovement(float vertical, float horizontal)
+    {
+        //yes, we recalculate the vector new all the time because otherwise you literally can not stand still
+        Vector3 inputDirection = Vector3.zero;
+
+        if (Mathf.Abs(horizontal) >= _minimumInput || Mathf.Abs(vertical) >= _minimumInput)
+        {
+            inputDirection = (_cameraForward * vertical + _cameraRight * horizontal).normalized;
+        }
+        moveDirection = inputDirection * _moveSpeed;
+    }
+
     private void HandleGravity()
     {
-        if (_controller.isGrounded) moveDirection.y = 0;
+        if (_controller.isGrounded)
+        {
+            //we apply a small downward velocity so the character controller stays grounded
+            verticalVelocity = -1f;
+        }
         else
         {
-            moveDirection.y += gravity.y * Time.deltaTime;
+            verticalVelocity += gravity.y * Time.deltaTime;
         }
+        moveDirection.y = verticalVelocity;
+    }
+
+    private void ApplyMovement()
+    {
+        _controller.Move(moveDirection * Time.deltaTime);
     }
 
     Vector2 moveInput = Vector2.zero;
@@ -174,21 +202,6 @@ public class CharacterControl : MonoBehaviour
                 _throwTimer = 0f;
             }
         }
-    }
-
-    Vector3 moveDirection = Vector3.zero;
-    private void HandleMovement(float vertical, float horizontal)
-    {
-        //nothig happens if no input
-        if (Mathf.Abs(horizontal) < _minimumInput
-            && Mathf.Abs(vertical) < _minimumInput) moveDirection = Vector3.zero;
-
-        moveDirection = _cameraForward * vertical + _cameraRight * horizontal;
-    }
-
-    private void ApplyMovement(Vector3 moveDirection)
-    {
-        _controller.Move(moveDirection * Time.deltaTime * _moveSpeed);
     }
 
     Vector3 lookDirection = Vector3.zero;
