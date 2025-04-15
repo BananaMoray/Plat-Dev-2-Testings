@@ -138,13 +138,13 @@ public class CharacterControl : MonoBehaviour
             TryPickupObject();
         }
 
-        if (!_canPickup)
+        if (!_canPickup && _heldObject == null)
         {
             _pickuptimer += Time.deltaTime;
             if (_pickuptimer >= _timeToPickup)
             {
                 _pickuptimer = 0f;
-                Debug.Log("You can pick things up again");
+                //Debug.Log("You can pick things up again");
                 _canPickup = true;
             }
         }
@@ -157,7 +157,7 @@ public class CharacterControl : MonoBehaviour
                 _throwTimer += Time.deltaTime;
                 if (_throwTimer >= _timeToFullThrowForce)
                 {
-                    Debug.Log("Fully charged");
+                    //Debug.Log("Fully charged");
                     //_throwTimer = _timeToFullThrowForce;
                     ThrowObject();
                     _throwTimer = 0f;
@@ -168,7 +168,7 @@ public class CharacterControl : MonoBehaviour
             if (!_interact && _throwTimer > _minimumInput)
             {
                 
-                Debug.Log("You're throwing");
+                //Debug.Log("You're throwing");
 
                 ThrowObject();
                 _throwTimer = 0f;
@@ -218,32 +218,29 @@ public class CharacterControl : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, _pickupDistance);
         foreach (Collider collider in colliders)
         {
-            if (collider.attachedRigidbody != null && _heldObject == null)
+            ToppingHandler topping = collider.GetComponent<ToppingHandler>();
+
+            if (topping == null) continue;
+
+            if (!topping.CanBePickedUp)
             {
-                if (collider.attachedRigidbody.isKinematic)
-                {
-                    //Debug.Log("kinematic");
-                    continue;
-                }
-
-                if (collider.GetComponent<ToppingHandler>().PlayerIndex != _playerInput.playerIndex)
-                {
-                    continue;
-                }
-
-                _heldObject = collider.attachedRigidbody;
-
-                HoldObject(true);
-
-                _heldObject.transform.SetParent(transform);
-
-                _heldObject.transform.localPosition = new Vector3(0, 1, 1);
-
-                _canPickup = false;
-
-                break;
+                continue;
             }
+
+            if (topping.PlayerIndex != _playerInput.playerIndex || !topping.CanBePickedUp) continue;
+
+            AssignHeldObject(collider.attachedRigidbody);
+            HoldObject(true);
+            _canPickup = false;
+            break;
         }
+    }
+
+    private void AssignHeldObject(Rigidbody rigidBody)
+    {
+        _heldObject = rigidBody;
+        _heldObject.transform.SetParent(transform);
+        _heldObject.transform.localPosition = new Vector3(0, 1, 1);
     }
 
     private void ThrowObject()
@@ -292,6 +289,11 @@ public class CharacterControl : MonoBehaviour
     {
         if (_lineRenderer == null) 
             return; //use line renderer pls
+
+        //there's an akward nullException when the object is being thrown automatically
+        //now we simply tell this function not to do anything if there is no heldobject
+        if (_heldObject == null)
+            return;
 
         Vector3[] points = new Vector3[_trajectoryResolution];
 
