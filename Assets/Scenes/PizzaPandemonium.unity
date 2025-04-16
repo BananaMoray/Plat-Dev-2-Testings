@@ -525,6 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 695422302}
+  - component: {fileID: 695422303}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -548,6 +549,22 @@ Transform:
   - {fileID: 617178868}
   m_Father: {fileID: 970846868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695422303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695422301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8b32f7df686da4296d92498c70cd54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerVisuals: {fileID: 1741344792}
+  _timer: 568
+  _seconds: 0
+  _minutes: 0
 --- !u!1001 &787619346
 PrefabInstance:
   m_ObjectHideFlags: 0
