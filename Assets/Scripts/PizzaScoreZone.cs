@@ -8,8 +8,6 @@ public class PizzaScoreZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        //this makes sure that the object that entered the scene is actually a topping
-        //i should probably return to CharacterControl and do the same there -- Freya
         ToppingHandler topping = collider.GetComponent<ToppingHandler>();
 
         //if the object doesnt possess a toppinghandler, nothing happens

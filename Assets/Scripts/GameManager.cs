@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-
-
     }
 
     // Update is called once per frame
@@ -47,7 +45,6 @@ public class GameManager : MonoBehaviour
             
             _timer -= Time.deltaTime;
         }
-
     }
 
     //return the player scores yay yippie yay
