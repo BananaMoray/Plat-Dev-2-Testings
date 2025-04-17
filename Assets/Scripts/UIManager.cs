@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     public void OpenScreen(GameObject screen)
     {
         screen.SetActive(true);
-        if(screen.active)
+        if(screen)
         {
             _gameManager.PauseGame();
         }
