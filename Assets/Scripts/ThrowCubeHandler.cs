@@ -24,10 +24,7 @@ public class ThrowCubeHandler : MonoBehaviour
 
         if (_rigidbody.linearVelocity.magnitude <= 0.01f)
         {
-            _player.transform.SetParent(null);
-            _player.transform.rotation = Quaternion.identity;
-            _player.GetComponent<CharacterController>().enabled = true;
-            _player.GetComponent<CharacterControl>().IsHit = false;
+            _player.GetComponent<CharacterControl>().ResetPlayer();
             Destroy(this.gameObject);
         }
 

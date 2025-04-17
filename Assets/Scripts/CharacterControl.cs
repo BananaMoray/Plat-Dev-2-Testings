@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.XR;
 using UnityEditor;
 using Unity.VisualScripting;
 using TreeEditor;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharacterControl : MonoBehaviour
 {
@@ -134,6 +135,15 @@ public class CharacterControl : MonoBehaviour
             _lineRenderer.positionCount = 0;
         }
     }
+
+    public void ResetPlayer()
+    {
+        transform.SetParent(null);
+        transform.rotation = Quaternion.identity;
+        _controller.enabled = true;
+        IsHit = false;
+    }
+
 
     //we now separate the vertical Y from the horizontal X and Z
     //if we dont do that the gravity would reset every frame
