@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OpenScreen(GameObject screen)
+    public void OpenScreen(GameObject screen)
     {
         screen.SetActive(true);
     }
