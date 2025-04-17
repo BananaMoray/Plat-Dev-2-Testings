@@ -44,10 +44,9 @@ public class PizzaScoreZone : MonoBehaviour
     {
         ToppingHandler topping = collider.GetComponent<ToppingHandler>();
 
-        if (!topping.CanBePickedUp) return;
-
         if (topping != null && topping.IsScored)
         {
+
             int playerIndex = topping.PlayerIndex;
 
             if (IsValidPlayer(playerIndex))

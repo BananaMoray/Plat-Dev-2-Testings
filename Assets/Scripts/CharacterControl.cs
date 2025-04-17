@@ -5,16 +5,10 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using UnityEngine.InputSystem.XR;
 using UnityEditor;
 using Unity.VisualScripting;
+using TreeEditor;
 
 public class CharacterControl : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField]
-    private float _moveSpeed = 10f;
-    [SerializeField]
-    private float _rotationSpeed = 720f;
-    private float _minimumInput = 0.1f;
-
 
     [Header("Player Data")]
     [SerializeField]
@@ -22,6 +16,20 @@ public class CharacterControl : MonoBehaviour
     private PlayerInput _playerInput;
     private CharacterController _controller;
     public bool IsHit;
+    [SerializeField]
+    private GameObject _throwCube;
+    private float _hitDistance = 1f;
+    [SerializeField]
+    private float _hitForce = 20f;
+
+    [Header("Input")]
+    [SerializeField]
+    private float _moveSpeed = 10f;
+    [SerializeField]
+    private float _rotationSpeed = 720f;
+    private float _minimumInput = 0.1f;
+    [SerializeField]
+    private UIManager _uiManager;
 
     //camera stuff
     private Camera _camera;
@@ -41,7 +49,7 @@ public class CharacterControl : MonoBehaviour
     [SerializeField]
     private int _trajectoryResolution = 30;
 
-
+    [Header("Topping Data")]
     [SerializeField]
     private float _timeToPickup = 1f;
     private float _pickuptimer;
@@ -58,6 +66,7 @@ public class CharacterControl : MonoBehaviour
     private Vector2 _lookInput = Vector2.zero;
     private bool _interact;
     private bool _fire;
+    private bool _pause;
 
     private void Start()
     {
@@ -106,15 +115,19 @@ public class CharacterControl : MonoBehaviour
     {
         _fire = context.action.triggered;
     }
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        _pause = context.action.triggered;
+    }
     void Update()
     {
-        if (!IsHit)
-        {
-            HandleInput();
-        }
+        HandleInput();
 
-        HandleGravity();
-        ApplyMovement();
+        if (_controller.enabled)
+        {
+            HandleGravity();
+            ApplyMovement();
+        }
 
         if (HeldTopping == null)
         {
@@ -160,44 +173,87 @@ public class CharacterControl : MonoBehaviour
 
     Vector2 moveInput = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
+
+    bool currentPauseInput;
+    bool previousPauseInput;
+
     private void HandleInput()
     {
-        HandleMovement(_movementInput.y, _movementInput.x);
-        HandleRotation(_lookInput.y, _lookInput.x);
-        HandlePickup();
-        HandleThrowing();
-        HandleAttack();
-    }
+        currentPauseInput = _pause;
 
+        if (previousPauseInput && !currentPauseInput)
+        {
+            Debug.Log("pause released");
+            //_uiManager.OpenScreen();
+        }
+
+        if (!previousPauseInput && currentPauseInput)
+        {
+            Debug.Log("pause pressed");
+        }
+
+        previousPauseInput = currentPauseInput;
+
+        if (!IsHit)
+        {
+            HandleMovement(_movementInput.y, _movementInput.x);
+            HandleRotation(_lookInput.y, _lookInput.x);
+            HandlePickup();
+            HandleThrowing();
+            HandleAttack();
+        }
+    }
 
     private void HandleAttack()
     {
-        if (HeldTopping == null)
+        if (HeldTopping != null) return;
+
+        if (_fire)
         {
-            if (_fire)
+            Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
+
+            Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
+            foreach (Collider collider in colliders)
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position + transform.forward, _pickupDistance);
-                foreach (Collider collider in colliders)
+                CharacterControl characterControl = collider.GetComponent<CharacterControl>();
+                if (characterControl == null)
                 {
-                    CharacterControl characterControl = collider.GetComponent<CharacterControl>();
-                    GameObject hitPlayer = characterControl.gameObject;
-
-                    if (characterControl == null) continue;
-
-                    if (GetComponent<PlayerInput>().playerIndex == _playerInput.playerIndex || characterControl.IsHit) continue;
-
-                    LaunchPlayer(hitPlayer, characterControl);
-
-                    break;
+                    continue;
                 }
 
+                int myIndex = GetComponent<PlayerInput>().playerIndex;
+                int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
+
+                if (myIndex == otherIndex)
+                {
+                    continue;
+                }
+
+                if (characterControl.IsHit)
+                {
+                    continue;
+                }
+
+                LaunchPlayer(characterControl.gameObject, characterControl);
+                break;
             }
         }
+        
     }
 
     private void LaunchPlayer(GameObject hitPlayer, CharacterControl characterControl)
     {
-        return;
+        GameObject cube = Instantiate(_throwCube, hitPlayer.transform.position, Quaternion.identity);
+
+        characterControl.IsHit = true;
+        hitPlayer.transform.SetParent(cube.transform);
+
+        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * _hitForce;
+
+        cube.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.Impulse);
+
+        hitPlayer.GetComponent<CharacterController>().enabled = false;
+
     }
 
     private void HandlePickup()
@@ -322,14 +378,16 @@ public class CharacterControl : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + transform.forward * 1.5f, _hitDistance);
+
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
 
-        if (_heldToppingBody != null)
-        {
-            DrawThrowTrajectoryInSceneView();
-        }
-        //Gizmos.DrawSphere(transform.position, _pickupDistance);
+        if (HeldTopping == null) return;
+
+        DrawThrowTrajectoryInSceneView();
     }
 
     //welcome new gizmo tools
@@ -350,7 +408,7 @@ public class CharacterControl : MonoBehaviour
 
         Vector3[] points = new Vector3[_trajectoryResolution];
 
-        startPosition = _heldToppingBody.position;
+        startPosition = HeldTopping.transform.position;
         velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
         for (int i = 0; i < _trajectoryResolution; i++)
@@ -368,13 +426,11 @@ public class CharacterControl : MonoBehaviour
 
     private void DrawThrowTrajectoryInSceneView()
     {
-        //the old trajectory code
 
-        //Gizmos.color = Color.red;
         //Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
         //Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
 
-        startPosition = _heldToppingBody.position;
+        startPosition = HeldTopping.transform.position;
 
         velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
