@@ -29,7 +29,7 @@ public class CharacterControl : MonoBehaviour
     private float _rotationSpeed = 720f;
     private float _minimumInput = 0.1f;
     [SerializeField]
-    private UIManager _uiManager;
+    private GameObject _uiManager;
 
     //camera stuff
     private Camera _camera;
@@ -184,12 +184,13 @@ public class CharacterControl : MonoBehaviour
         if (previousPauseInput && !currentPauseInput)
         {
             Debug.Log("pause released");
-            //_uiManager.OpenScreen();
+            
         }
 
         if (!previousPauseInput && currentPauseInput)
         {
             Debug.Log("pause pressed");
+            _uiManager.GetComponent<UIManager>().OpenPauseScreen();
         }
 
         previousPauseInput = currentPauseInput;

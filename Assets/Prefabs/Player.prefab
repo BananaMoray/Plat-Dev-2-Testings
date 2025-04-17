@@ -283,7 +283,7 @@ MonoBehaviour:
   _hitForce: 10
   _moveSpeed: 10
   _rotationSpeed: 720
-  _uiManager: {fileID: 0}
+  _uiManager: {fileID: 3994638321213142066, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
   HeldTopping: {fileID: 0}
   _trajectoryResolution: 30
   _timeToPickup: 1.5
