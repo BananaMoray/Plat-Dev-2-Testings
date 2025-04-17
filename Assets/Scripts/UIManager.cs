@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void OpenPauseScreen()
-    { 
+    {
         _screen.SetActive(true);
         if (_screen)
         {
