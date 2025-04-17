@@ -14,13 +14,12 @@ public class RespawnHandler : MonoBehaviour
     //private Rectangle _bounds = new Rectangle(0, 0, 100, 50);
 
     [SerializeField]
-    private GameObject[] _players;
+    GameObject[] _players;
     [SerializeField]
-    
-    private GameObject[] _toppings;
+    GameObject[] _toppings;
 
     [SerializeField]
-    private Transform[] _respawns;
+    Transform[] _respawns;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,8 +32,6 @@ public class RespawnHandler : MonoBehaviour
     void Update()
     {
         _players = GameObject.FindGameObjectsWithTag("Player");
-
-
         _toppings = GameObject.FindGameObjectsWithTag("Ingredient");
 
         foreach (GameObject player in _players)
@@ -89,7 +86,7 @@ public class RespawnHandler : MonoBehaviour
 
             }
 
-            //obj.transform.position = new Vector3(0, 5, 0);
+            obj.transform.position = new Vector3(0, 5, 0);
         }
 
     }
@@ -97,21 +94,14 @@ public class RespawnHandler : MonoBehaviour
     void Respawn(GameObject obj, int i)
     {
         print("Respawn triggered");
-        
-        CharacterController _char = obj.GetComponent<CharacterController>();
-
-        _char.enabled = false;
-
         obj.transform.position = _respawns[i].position;
 
-        _char.enabled = true;
         //obj.transform.position = new Vector3(0,5,0);
+
 
         print(obj.name);
 
     }
-
-
 
 
 
