@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.Utilities;
 using UnityEngine.InputSystem;
 using System.Diagnostics;
 using Unity.VisualScripting;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 public class RespawnHandler : MonoBehaviour
@@ -102,6 +103,11 @@ public class RespawnHandler : MonoBehaviour
         obj.transform.position = _respawns[i].position;
 
         _char.enabled = true;
+
+        _char.transform.SetParent(null);
+        _char.transform.rotation = Quaternion.identity;
+        _char.GetComponent<CharacterController>().enabled = true;
+        _char.GetComponent<CharacterControl>().IsHit = false;
 
         print(obj.name);
 

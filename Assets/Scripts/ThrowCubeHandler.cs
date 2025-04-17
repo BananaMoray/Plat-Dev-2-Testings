@@ -13,9 +13,14 @@ public class ThrowCubeHandler : MonoBehaviour
         _player = transform.GetChild(0).gameObject;
     }
 
+    Vector3 currentPos = Vector3.zero;
+    Vector3 previousPos = Vector3.zero;
+
+
     // Update is called once per frame
     void Update()
     {
+        currentPos = transform.position;
 
         if (_rigidbody.linearVelocity.magnitude <= 0.01f)
         {
@@ -25,5 +30,7 @@ public class ThrowCubeHandler : MonoBehaviour
             _player.GetComponent<CharacterControl>().IsHit = false;
             Destroy(this.gameObject);
         }
+
+        previousPos = currentPos;
     }
 }
