@@ -21,7 +21,6 @@ public class CharacterControl : MonoBehaviour
     private Material[] _playerColours;
     private PlayerInput _playerInput;
     private CharacterController _controller;
-    public bool IsHit;
 
 
     //camera stuff
@@ -32,8 +31,7 @@ public class CharacterControl : MonoBehaviour
 
     //picking up data and variables
     [Header("Pickup and Throw Data")]
-    public GameObject HeldTopping;
-    private Rigidbody _heldToppingBody;
+    private Rigidbody _heldObject;
     private bool _canPickup = true;
 
 
@@ -109,24 +107,24 @@ public class CharacterControl : MonoBehaviour
     }
     void Update()
     {
-        if (!IsHit)
-        {
-            HandleInput();
-        }
-
+        HandleInput();
+        HandleMovement(_movementInput.y, _movementInput.x);
+        HandleRotation(_lookInput.y, _lookInput.x);
         HandleGravity();
         ApplyMovement();
 
-        if (HeldTopping == null)
+
+        if (_heldObject == null)
         {
             _lineRenderer.positionCount = 0;
         }
     }
 
+    Vector3 moveDirection = Vector3.zero;
+    
     //we now separate the vertical Y from the horizontal X and Z
     //if we dont do that the gravity would reset every frame
-    float verticalVelocity = 0f;
-    Vector3 moveDirection = Vector3.zero;
+    private float verticalVelocity = 0f; 
 
     private void HandleMovement(float vertical, float horizontal)
     {
@@ -163,21 +161,12 @@ public class CharacterControl : MonoBehaviour
     Vector2 lookInput = Vector2.zero;
     private void HandleInput()
     {
-        HandleMovement(_movementInput.y, _movementInput.x);
-        HandleRotation(_lookInput.y, _lookInput.x);
-        HandlePickup();
-        HandleThrowing();
-        
-    }
-
-    private void HandlePickup()
-    {
         if (_canPickup)
         {
             TryPickupObject();
         }
 
-        if (!_canPickup && HeldTopping == null)
+        if (!_canPickup && _heldObject == null)
         {
             _pickuptimer += Time.deltaTime;
             if (_pickuptimer >= _timeToPickup)
@@ -187,14 +176,12 @@ public class CharacterControl : MonoBehaviour
                 _canPickup = true;
             }
         }
-    }
 
-    private void HandleThrowing()
-    {
-        if (HeldTopping != null)
+        if (_heldObject != null)
         {
             if (_interact)
             {
+
                 _throwTimer += Time.deltaTime;
                 if (_throwTimer >= _timeToFullThrowForce)
                 {
@@ -208,7 +195,7 @@ public class CharacterControl : MonoBehaviour
             }
             if (!_interact && _throwTimer > _minimumInput)
             {
-
+                
                 //Debug.Log("You're throwing");
 
                 ThrowObject();
@@ -255,38 +242,37 @@ public class CharacterControl : MonoBehaviour
 
             if (topping.PlayerIndex != _playerInput.playerIndex || !topping.CanBePickedUp) continue;
 
-            AssignHeldObject(collider.gameObject);
+            AssignHeldObject(collider.attachedRigidbody);
             HoldObject(true);
             _canPickup = false;
             break;
         }
     }
 
-    private void AssignHeldObject(GameObject obj)
+    private void AssignHeldObject(Rigidbody rigidBody)
     {
-        HeldTopping = obj;
-        HeldTopping.transform.SetParent(transform);
-        _heldToppingBody = obj.GetComponent<Rigidbody>();
-        _heldToppingBody.transform.localPosition = new Vector3(0, 1, 1);
+        _heldObject = rigidBody;
+        _heldObject.transform.SetParent(transform);
+        _heldObject.transform.localPosition = new Vector3(0, 1, 1);
     }
 
     private void ThrowObject()
     {
         HoldObject(false);
 
-        HeldTopping.transform.SetParent(null);
+        _heldObject.transform.SetParent(null);
 
         velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
-        _heldToppingBody.AddForce(velocity, ForceMode.Impulse);
+        _heldObject.AddForce(velocity, ForceMode.Impulse);
 
-        HeldTopping = null;
+        _heldObject = null;
         _canPickup = false;
     }
     private void HoldObject(bool v)
     {
-        _heldToppingBody.useGravity = !v;
-        _heldToppingBody.isKinematic = v;
+        _heldObject.useGravity = !v;
+        _heldObject.isKinematic = v;
     }
 
     private float CalculateThrowForce()
@@ -299,7 +285,7 @@ public class CharacterControl : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + lookDirection * 4);
 
-        if (_heldToppingBody != null)
+        if (_heldObject != null)
         {
             DrawThrowTrajectoryInSceneView();
         }
@@ -319,12 +305,12 @@ public class CharacterControl : MonoBehaviour
 
         //there's an akward nullException when the object is being thrown automatically
         //now we simply tell this function not to do anything if there is no heldobject
-        if (_heldToppingBody == null)
+        if (_heldObject == null)
             return;
 
         Vector3[] points = new Vector3[_trajectoryResolution];
 
-        startPosition = _heldToppingBody.position;
+        startPosition = _heldObject.position;
         velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
         for (int i = 0; i < _trajectoryResolution; i++)
@@ -348,7 +334,7 @@ public class CharacterControl : MonoBehaviour
             //Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
             //Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
 
-            startPosition = _heldToppingBody.position;
+            startPosition = _heldObject.position;
 
             velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 67593979851935937}
   - component: {fileID: 1311753078226172570}
   - component: {fileID: 387648893708025192}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2059336886948795998}
   - component: {fileID: 1485957258161001062}
   - component: {fileID: 6754728360942136491}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 2922426264430460966}
   - component: {fileID: 6869156157590570868}
   - component: {fileID: 6617032019881539516}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 369177829267031175}
   - component: {fileID: 6434001126762115704}
   - component: {fileID: 7228973606242960448}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
