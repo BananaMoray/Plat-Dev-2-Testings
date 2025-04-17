@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Device;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private GameManager _gameManager;
+    [SerializeField]
+    private GameObject _screen;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,15 +21,21 @@ public class UIManager : MonoBehaviour
         
     }
 
-    void CloseScreen()
+    public void CloseScreen(GameObject screen)
     {
-        gameObject.SetActive(false);
+        screen.SetActive(false);
     }
 
     public void OpenScreen(GameObject screen)
     {
         screen.SetActive(true);
-        if(screen)
+        
+    }
+
+    public void OpenPauseScreen()
+    { 
+        _screen.SetActive(true);
+        if (_screen)
         {
             _gameManager.PauseGame();
         }
