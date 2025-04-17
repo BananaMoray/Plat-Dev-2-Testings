@@ -94,10 +94,14 @@ public class RespawnHandler : MonoBehaviour
     void Respawn(GameObject obj, int i)
     {
         print("Respawn triggered");
+
+        CharacterController _char = obj.GetComponent<CharacterController>();
+
+        _char.enabled = false;
+
         obj.transform.position = _respawns[i].position;
 
-        //obj.transform.position = new Vector3(0,5,0);
-
+        _char.enabled = true;
 
         print(obj.name);
 
