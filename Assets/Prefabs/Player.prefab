@@ -281,7 +281,10 @@ MonoBehaviour:
   IsHit: 0
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _hitForce: 10
-  _moveSpeed: 10
+  _groundDrag: 6
+  _acceleration: 3
+  _moveSpeedMax: 10
+  _moveSpeedSlowMax: 8.5
   _rotationSpeed: 720
   _uiManager: {fileID: 3994638321213142066, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
   HeldTopping: {fileID: 0}

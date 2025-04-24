@@ -46,7 +46,6 @@ public class PizzaScoreZone : MonoBehaviour
 
         if (topping != null && topping.IsScored)
         {
-
             int playerIndex = topping.PlayerIndex;
 
             if (IsValidPlayer(playerIndex))

@@ -25,7 +25,13 @@ public class CharacterControl : MonoBehaviour
 
     [Header("Input")]
     [SerializeField]
-    private float _moveSpeed = 10f;
+    private float _groundDrag = 1f;
+    [SerializeField]
+    private float _acceleration = 5f;
+    [SerializeField]
+    private float _moveSpeedMax = 10f;
+    [SerializeField]
+    private float _moveSpeedSlowMax = 8.5f;
     [SerializeField]
     private float _rotationSpeed = 720f;
     private float _minimumInput = 0.1f;
@@ -127,12 +133,40 @@ public class CharacterControl : MonoBehaviour
         if (_controller.enabled)
         {
             HandleGravity();
-            ApplyMovement();
+            ApplyVelocity();
         }
 
         if (HeldTopping == null)
         {
             _lineRenderer.positionCount = 0;
+        }
+    }
+
+    private void HandleInput()
+    {
+        currentPauseInput = _pause;
+
+        if (previousPauseInput && !currentPauseInput)
+        {
+            Debug.Log("pause released");
+
+        }
+
+        if (!previousPauseInput && currentPauseInput)
+        {
+            Debug.Log("pause pressed");
+            _uiManager.GetComponent<UIManager>().OpenPauseScreen();
+        }
+
+        previousPauseInput = currentPauseInput;
+
+        if (!IsHit)
+        {
+            HandleMovement();
+            HandleRotation(_lookInput.y, _lookInput.x);
+            HandlePickup();
+            HandleThrowing();
+            HandleAttack();
         }
     }
 
@@ -144,22 +178,52 @@ public class CharacterControl : MonoBehaviour
         IsHit = false;
     }
 
-
     //we now separate the vertical Y from the horizontal X and Z
     //if we dont do that the gravity would reset every frame
     float verticalVelocity = 0f;
-    Vector3 moveDirection = Vector3.zero;
+    private Vector3 _velocity = Vector3.zero;
 
-    private void HandleMovement(float vertical, float horizontal)
+    private void HandleMovement()
     {
+
         //yes, we recalculate the vector new all the time because otherwise you literally can not stand still
         Vector3 inputDirection = Vector3.zero;
 
-        if (Mathf.Abs(horizontal) >= _minimumInput || Mathf.Abs(vertical) >= _minimumInput)
+        if (Mathf.Abs(_movementInput.x) >= _minimumInput || Mathf.Abs(_movementInput.y) >= _minimumInput)
         {
-            inputDirection = (_cameraForward * vertical + _cameraRight * horizontal).normalized;
+            inputDirection = (_cameraForward * _movementInput.y + _cameraRight * _movementInput.x).normalized;
         }
-        moveDirection = inputDirection * _moveSpeed;
+
+        _velocity += inputDirection * _acceleration;
+
+        ApplyGroundDrag();
+        ApplySpeedLimitation();
+
+    }
+
+    private void ApplyGroundDrag()
+    {
+        if (_controller.isGrounded)
+        {
+            _velocity *= (1 - Time.deltaTime * _groundDrag);
+        }
+    }
+
+    private void ApplySpeedLimitation()
+    {
+        float tempY = _velocity.y;
+
+        _velocity.y = 0;
+        if (HeldTopping != null)
+        {
+            _velocity = Vector3.ClampMagnitude(_velocity, _moveSpeedSlowMax);
+        }
+        else
+        {
+            _velocity = Vector3.ClampMagnitude(_velocity, _moveSpeedMax);
+        }
+
+        _velocity.y = tempY;
     }
 
     private void HandleGravity()
@@ -173,12 +237,12 @@ public class CharacterControl : MonoBehaviour
         {
             verticalVelocity += gravity.y * Time.deltaTime;
         }
-        moveDirection.y = verticalVelocity;
+        _velocity.y = verticalVelocity;
     }
 
-    private void ApplyMovement()
+    private void ApplyVelocity()
     {
-        _controller.Move(moveDirection * Time.deltaTime);
+        _controller.Move(_velocity * Time.deltaTime);
     }
 
     Vector2 moveInput = Vector2.zero;
@@ -186,34 +250,6 @@ public class CharacterControl : MonoBehaviour
 
     bool currentPauseInput;
     bool previousPauseInput;
-
-    private void HandleInput()
-    {
-        currentPauseInput = _pause;
-
-        if (previousPauseInput && !currentPauseInput)
-        {
-            Debug.Log("pause released");
-            
-        }
-
-        if (!previousPauseInput && currentPauseInput)
-        {
-            Debug.Log("pause pressed");
-            _uiManager.GetComponent<UIManager>().OpenPauseScreen();
-        }
-
-        previousPauseInput = currentPauseInput;
-
-        if (!IsHit)
-        {
-            HandleMovement(_movementInput.y, _movementInput.x);
-            HandleRotation(_lookInput.y, _lookInput.x);
-            HandlePickup();
-            HandleThrowing();
-            HandleAttack();
-        }
-    }
 
     private void HandleAttack()
     {
@@ -259,9 +295,9 @@ public class CharacterControl : MonoBehaviour
         characterControl.IsHit = true;
         hitPlayer.transform.SetParent(cube.transform);
 
-        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * _hitForce;
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * _hitForce;
 
-        cube.GetComponent<Rigidbody>().AddForce(velocity, ForceMode.Impulse);
+        cube.GetComponent<Rigidbody>().AddForce(objectVelocity, ForceMode.Impulse);
 
         hitPlayer.GetComponent<CharacterController>().enabled = false;
 
@@ -369,9 +405,9 @@ public class CharacterControl : MonoBehaviour
 
         HeldTopping.transform.SetParent(null);
 
-        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
-        _heldToppingBody.AddForce(velocity, ForceMode.Impulse);
+        _heldToppingBody.AddForce(objectVelocity, ForceMode.Impulse);
 
         HeldTopping = null;
         _canPickup = false;
@@ -403,7 +439,7 @@ public class CharacterControl : MonoBehaviour
 
     //welcome new gizmo tools
     Vector3 startPosition = Vector3.zero;
-    Vector3 velocity = Vector3.zero;
+    Vector3 objectVelocity = Vector3.zero;
     float gizmoTimeStep = 0.1f;
     Vector3 gravity = new Vector3(0, -9.81f, 0);
 
@@ -420,12 +456,12 @@ public class CharacterControl : MonoBehaviour
         Vector3[] points = new Vector3[_trajectoryResolution];
 
         startPosition = HeldTopping.transform.position;
-        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
         for (int i = 0; i < _trajectoryResolution; i++)
         {
             float time = i * gizmoTimeStep;
-            Vector3 position = startPosition + velocity * time + 0.5f * gravity * (time * time);
+            Vector3 position = startPosition + objectVelocity * time + 0.5f * gravity * (time * time);
             if (position.y < -2) position.y = -2;
             points[i] = position;
         }
@@ -443,14 +479,14 @@ public class CharacterControl : MonoBehaviour
 
         startPosition = HeldTopping.transform.position;
 
-        velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
         Gizmos.color = Color.green;
 
         for (float time = 0; time < _timeToFullThrowForce; time += gizmoTimeStep)
         {
             //welcome back projectile motion you awful thing
-            Vector3 position = startPosition + velocity * time + 0.5f * gravity * (time * time);
+            Vector3 position = startPosition + objectVelocity * time + 0.5f * gravity * (time * time);
             //let's draw small spheres yay
             Gizmos.DrawSphere(position, 0.1f);
         }

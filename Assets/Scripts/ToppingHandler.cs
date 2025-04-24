@@ -33,5 +33,9 @@ public class ToppingHandler : MonoBehaviour
         {
             CanBePickedUp = false;
         }
+        else
+        {
+            CanBePickedUp = true;
+        }
     }
 }
