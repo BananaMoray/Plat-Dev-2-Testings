@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     TMP_Text _timerVisuals;
 
     [SerializeField] //in seconds
-    float _timer;
+    public float _timer;
 
     [SerializeField]
     float _seconds, _minutes;
