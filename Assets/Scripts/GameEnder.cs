@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class GameEnder : MonoBehaviour
 {
     [SerializeField]
     private GameObject _gameEnderObject;
-   
+
+    [SerializeField]
+    private GameObject _characters;
+
     private GameManager _gameManager;
 
     private bool _isGameEnded;
@@ -26,8 +30,10 @@ public class GameEnder : MonoBehaviour
             _isGameEnded = true;
             Debug.Log("ended");
             Time.timeScale = 0;
-
-
+        }
+        if (_isGameEnded)
+        {
+            
         }
     }
 }
