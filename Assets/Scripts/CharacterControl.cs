@@ -43,6 +43,11 @@ public class CharacterControl : MonoBehaviour
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
 
+    [Header("Arm Animator stuff")]
+    [SerializeField]
+    private Animator _armRightAnimator;
+    [SerializeField]
+    private Animator _armLeftAnimator;
 
     //picking up data and variables
     [Header("Pickup and Throw Data")]
