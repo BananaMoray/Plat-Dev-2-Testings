@@ -22,6 +22,14 @@ public class RespawnHandler : MonoBehaviour
     [SerializeField]
     Transform[] _respawns;
 
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private float _radius = 5f;
+    [SerializeField] private float _spawnDelay = 20;
+    [SerializeField] private float _topicSpawnTimer;
+    [SerializeField] private int _maxTime;
+    [SerializeField] private int _height = 10;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,7 +47,16 @@ public class RespawnHandler : MonoBehaviour
         {
             HitBoundary(player);
         }
+        /*foreach (GameObject topp in _toppings)
+        {
+            HitBoundary(topp);
+        }*/
 
+        _spawnDelay -= Time.deltaTime;
+        if (_spawnDelay <= 0)
+        {
+            SpawnAtRandomCirclePosition();
+        }
     }
 
     void HitBoundary(GameObject obj)
@@ -113,7 +130,19 @@ public class RespawnHandler : MonoBehaviour
 
     }
 
+    void SpawnAtRandomCirclePosition()
+    {
+        _topicSpawnTimer -= Time.deltaTime;
 
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        Vector3 spawnPosition = new Vector3(Mathf.Cos(angle), _height, Mathf.Sin(angle)) * _radius;
+
+        if (_topicSpawnTimer <= 0)
+        {
+            Instantiate(_prefab, spawnPosition, Quaternion.identity);
+            _topicSpawnTimer = _maxTime;
+        }
+    }
 
 
 

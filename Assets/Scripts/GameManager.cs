@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour
         Timer();
     }
 
-
-
     void Timer()
     {
         _timerVisuals.text = string.Format("{0:00}:{1:00}", _minutes, _seconds);
