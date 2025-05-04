@@ -13,10 +13,14 @@ public class GameEnder : MonoBehaviour
 
     private bool _isGameEnded;
 
+    [SerializeField]
+    private Camera _endScreenCamera;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _gameManager = _gameEnderObject.GetComponent<GameManager>();
+        _endScreenCamera.enabled = false;
     }
 
     // Update is called once per frame
@@ -28,12 +32,12 @@ public class GameEnder : MonoBehaviour
         if (_gameManager._timer <= 0)
         {
             _isGameEnded = true;
-            Debug.Log("ended");
             Time.timeScale = 0;
         }
         if (_isGameEnded)
         {
-            
+           Camera.main.enabled = false;
+            _endScreenCamera.enabled = true;    
         }
     }
 }
