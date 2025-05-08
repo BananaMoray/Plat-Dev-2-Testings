@@ -25,12 +25,12 @@ public class CharacterControl : MonoBehaviour
     [SerializeField]
     private float _hitForce = 10f;
     [SerializeField]
-    private float _attackCooldownTime = 1f;
+    private float _attackCooldownTime = 0.8f;
     private float _attackTimer = 0f;
     [SerializeField] 
     private Color _hitColor = Color.red;
-    [SerializeField] 
-    private float _flashDuration = 0.2f;
+    [SerializeField]
+    private bool IsBlocking = false;
 
     [Header("Audio Data")]
     [SerializeField]
@@ -149,7 +149,6 @@ public class CharacterControl : MonoBehaviour
         HandleInput();
 
         _attackTimer += Time.deltaTime;
-        Debug.Log(_attackTimer);
 
         if (_controller.enabled)
         {
@@ -157,15 +156,17 @@ public class CharacterControl : MonoBehaviour
             ApplyVelocity();
         }
 
+        if (IsHit)
+        {
+            GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+
         if (HeldTopping == null)
         {
             _lineRenderer.positionCount = 0;
         }
 
-        if (IsHit)
-        {
-            GetComponent<MeshRenderer>().material = _playerColours[3];
-        }
+        
 
     }
 
@@ -194,10 +195,29 @@ public class CharacterControl : MonoBehaviour
             HandlePickup();
             HandleThrowing();
             HandleAttack();
+            HandleBlock();
         }
         else
         {
             ThrowObject();
+        }
+    }
+
+    private void HandleBlock()
+    {
+        Debug.Log(IsBlocking);
+
+        if (IsBlocking)
+        {
+            if (HeldTopping != null)
+                HeldTopping.transform.localRotation = Quaternion.Euler(90f, 0, 0);
+            _throwTimer = 0;
+
+        }
+        else
+        {
+            if (HeldTopping != null)
+                HeldTopping.transform.localRotation = new Quaternion(0, 0f, 0f, 0f);
         }
     }
 
@@ -286,43 +306,53 @@ public class CharacterControl : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (HeldTopping != null) return;
+        if (IsBlocking && !_fire)
+            IsBlocking = false;
 
         if (_fire)
         {
-            if (_attackTimer >= _attackCooldownTime)
+            if (HeldTopping != null)
+            {
+                IsBlocking = true;
+            }
+            else if (_attackTimer >= _attackCooldownTime)
             {
                 _attackTimer = 0f;
                 Debug.Log("Attack!!");
+                _armRightAnimator.SetTrigger("Attack");
+            }
+        }
 
-                Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
+    }
 
-                Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
-                foreach (Collider collider in colliders)
-                {
-                    CharacterControl characterControl = collider.GetComponent<CharacterControl>();
-                    if (characterControl == null)
-                    {
-                        continue;
-                    }
+    public void Attack()
+    {
+        Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
 
-                    int myIndex = GetComponent<PlayerInput>().playerIndex;
-                    int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
-
-                    if (myIndex == otherIndex || characterControl.IsHit)
-                    {
-                        continue;
-                    }
-                    _hitAudio.Play();
-                    LaunchPlayer(characterControl.gameObject, characterControl);
-                    break;
-                    
-                }
- 
+        Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
+        foreach (Collider collider in colliders)
+        {
+            CharacterControl characterControl = collider.GetComponent<CharacterControl>();
+            if (characterControl == null)
+            {
+                continue;
             }
 
+            int myIndex = GetComponent<PlayerInput>().playerIndex;
+            int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
+
+            if (myIndex == otherIndex || characterControl.IsHit)
+            {
+                continue;
+            }
+
+            if (!characterControl.IsBlocking)
+            {
+                _hitAudio.Play();
+                LaunchPlayer(characterControl.gameObject, characterControl);
+                break;
+            }
         }
-        
     }
 
     private void LaunchPlayer(GameObject hitPlayer, CharacterControl characterControl)
@@ -337,6 +367,8 @@ public class CharacterControl : MonoBehaviour
         cube.GetComponent<Rigidbody>().AddForce(objectVelocity, ForceMode.Impulse);
 
         hitPlayer.GetComponent<CharacterController>().enabled = false;
+
+        hitPlayer.GetComponent<MeshRenderer>().material.color = Color.gray;
 
     }
 
@@ -361,7 +393,7 @@ public class CharacterControl : MonoBehaviour
 
     private void HandleThrowing()
     {
-        if (HeldTopping != null)
+        if (!IsBlocking && HeldTopping != null)
         {
             if (_interact)
             {

@@ -10,9 +10,10 @@ public class CombatHandler : MonoBehaviour
     private float _hitForce = 10f;
     [SerializeField]
     private GameObject _throwCube;
-    [Header("Audio Data")]
+    [Header("Component Data")]
     [SerializeField]
     private AudioSource _hitAudio;
+    private Animator _rightArmAnim;
 
     private PlayerInput _playerInput;
     private CharacterController _characterController;
@@ -27,6 +28,7 @@ public class CombatHandler : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
         _characterController = GetComponent<CharacterController>();
+        _rightArmAnim = GetComponentInChildren<Animator>();
     }
 
     public void Update()
@@ -42,26 +44,31 @@ public class CombatHandler : MonoBehaviour
         {
             if (_attackTimer >= _attackCooldownTime)
             {
-
+                _rightArmAnim.SetTrigger("Attack");
+                Debug.Log("attack");
                 _attackTimer = 0;
-                Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
-                Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
-
-                foreach (Collider collider in colliders)
-                {
-                    CombatHandler otherCollision = collider.GetComponent<CombatHandler>();
-                    if (otherCollision == null || otherCollision.IsHit) continue;
-
-                    int myIndex = _playerInput.playerIndex;
-                    int otherIndex = collider.GetComponent<PlayerInput>().playerIndex;
-
-                    if (myIndex == otherIndex) continue;
-
-                    LaunchPlayer(collider.gameObject, otherCollision);
-                    _hitAudio.Play();
-                    break;
-                }
             }
+        }
+    }
+
+    public void Attack()
+    {
+        Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
+        Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
+
+        foreach (Collider collider in colliders)
+        {
+            CombatHandler otherCollision = collider.GetComponent<CombatHandler>();
+            if (otherCollision == null || otherCollision.IsHit) continue;
+
+            int myIndex = _playerInput.playerIndex;
+            int otherIndex = collider.GetComponent<PlayerInput>().playerIndex;
+
+            if (myIndex == otherIndex) continue;
+
+            LaunchPlayer(collider.gameObject, otherCollision);
+            _hitAudio.Play();
+            break;
         }
     }
 
