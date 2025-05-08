@@ -28,7 +28,7 @@ public class GameEnder : MonoBehaviour
     {
         //pause game when ended
         //redirect to the vizualize winner
-
+         
         if (_gameManager._timer <= 0)
         {
             _isGameEnded = true;

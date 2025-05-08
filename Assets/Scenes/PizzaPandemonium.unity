@@ -1121,6 +1121,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c6184d7d78e8d4468212ebb1f89ddcb, type: 3}
+--- !u!1 &1464140240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7320048542806856872, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+  m_PrefabInstance: {fileID: 8686130193344839784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1622667804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1660,6 +1665,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1127874702}
     m_Modifications:
+    - target: {fileID: 5151968717711363835, guid: ae8ee193aa9bf6d4893bd3d1f735b0db, type: 3}
+      propertyPath: _endScreenUI
+      value: 
+      objectReference: {fileID: 1464140240}
     - target: {fileID: 5151968717711363835, guid: ae8ee193aa9bf6d4893bd3d1f735b0db, type: 3}
       propertyPath: _endScreenCamera
       value: 
