@@ -4,7 +4,7 @@ using UnityEngine.TextCore.Text;
 public class GameEnder : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _gameEnderObject;
+    private GameObject _gameManagerObject;
 
     [SerializeField]
     private GameObject _characters;
@@ -15,11 +15,13 @@ public class GameEnder : MonoBehaviour
 
     [SerializeField]
     private Camera _endScreenCamera;
+    private Camera _mainCamera;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _gameManager = _gameEnderObject.GetComponent<GameManager>();
+        _gameManager = _gameManagerObject.GetComponent<GameManager>();
+        _mainCamera = Camera.main;
         _endScreenCamera.enabled = false;
     }
 
@@ -36,8 +38,8 @@ public class GameEnder : MonoBehaviour
         }
         if (_isGameEnded)
         {
-           Camera.main.enabled = false;
-            _endScreenCamera.enabled = true;    
+            _mainCamera.enabled = false;
+            _endScreenCamera.enabled = true;
         }
     }
 }
