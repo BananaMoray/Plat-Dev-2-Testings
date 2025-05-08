@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterInputHandler : MonoBehaviour
+public class CharacterHandler : MonoBehaviour
 {
     [SerializeField]
     private Material[] _playerColours;
@@ -70,11 +70,7 @@ public class CharacterInputHandler : MonoBehaviour
         _movement.IsHoldingObject = _pickup.IsHolding;
 
         _combat.HandleAttack(_fire, _pickup.IsHolding);
+        _pickup.ChargeThrow(_interact);
 
-        if (_interact)
-        {
-
-            _pickup.ChargeThrow();
-        }
     }
 }

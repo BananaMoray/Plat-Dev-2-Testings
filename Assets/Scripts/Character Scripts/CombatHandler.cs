@@ -3,12 +3,16 @@ using UnityEngine.InputSystem;
 
 public class CombatHandler : MonoBehaviour
 {
+    [Header("Attack Data")]
     [SerializeField]
     private float _hitDistance = 1.5f;
     [SerializeField]
     private float _hitForce = 10f;
     [SerializeField]
     private GameObject _throwCube;
+    [Header("Audio Data")]
+    [SerializeField]
+    private AudioSource _hitAudio;
 
     private PlayerInput _playerInput;
     private CharacterController _characterController;
@@ -38,6 +42,8 @@ public class CombatHandler : MonoBehaviour
         {
             if (_attackTimer >= _attackCooldownTime)
             {
+
+                _attackTimer = 0;
                 Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
                 Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
 
@@ -52,8 +58,7 @@ public class CombatHandler : MonoBehaviour
                     if (myIndex == otherIndex) continue;
 
                     LaunchPlayer(collider.gameObject, otherCollision);
-
-                    _attackTimer = 0;
+                    _hitAudio.Play();
                     break;
                 }
             }

@@ -26,8 +26,8 @@ public class ThrowCubeHandler : MonoBehaviour
         if (_rigidbody.linearVelocity.magnitude <= 0.01f || _resetTimer >= _timeToReset)
         {
             _resetTimer = 0;
-            if (_player.GetComponent<CharacterInputHandler>() != null)
-            _player.GetComponent<CharacterInputHandler>().ResetPlayer();
+            if (_player.GetComponent<CharacterHandler>() != null)
+            _player.GetComponent<CharacterHandler>().ResetPlayer();
             if (_player.GetComponent<CharacterControl>() != null)
             {
                 _player.GetComponent<CharacterControl>().ResetPlayer();

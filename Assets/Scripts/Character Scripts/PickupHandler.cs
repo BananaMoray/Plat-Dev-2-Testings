@@ -12,6 +12,8 @@ public class PickupHandler : MonoBehaviour
     [SerializeField]
     private float _timeToFullThrowForce = 2f;
     [SerializeField]
+    private float _minimumThrowTime = 0.1f;
+    [SerializeField]
     private LineRenderer _lineRenderer;
     [SerializeField]
     private int _trajectoryResolution = 30;
@@ -34,19 +36,13 @@ public class PickupHandler : MonoBehaviour
 
     private void Update()
     {
-        // Check for automatic pickup if no object is currently being held
+
         if (_heldTopping == null)
         {
             TryAutoPickup();
         }
 
-        // Handle the hold or throw logic if holding an object
-        if (_heldTopping != null)
-        {
-            DrawThrowTrajectory();
-        }
 
-        // Handle the pickup cooldown timer
         if (!_canPickup && _heldTopping == null)
         {
             _pickupTimer += Time.deltaTime;
@@ -60,7 +56,7 @@ public class PickupHandler : MonoBehaviour
 
     private void TryAutoPickup()
     {
-        // Check for nearby toppings to automatically pick up
+       
         Collider[] colliders = Physics.OverlapSphere(transform.position, _pickupDistance);
         foreach (Collider collider in colliders)
         {
@@ -77,12 +73,24 @@ public class PickupHandler : MonoBehaviour
         }
     }
 
-    public void ChargeThrow()
+    public void ChargeThrow( bool interact)
     {
         if (_heldTopping == null) return;
 
-        _throwTimer += Time.deltaTime;
-        if (_throwTimer >= _timeToFullThrowForce)
+        if (interact)
+        {
+            _throwTimer += Time.deltaTime;
+            if (_throwTimer >= _timeToFullThrowForce)
+            {
+                //Debug.Log("Fully charged");
+                //_throwTimer = _timeToFullThrowForce;
+                ThrowObject();
+                _throwTimer = 0f;
+            }
+            DrawThrowTrajectoryInSceneView();
+            DrawThrowTrajectoryInGameView();
+        }
+        if (!interact && _throwTimer > _minimumThrowTime)
         {
             ThrowObject();
             _throwTimer = 0f;
@@ -115,20 +123,57 @@ public class PickupHandler : MonoBehaviour
         return _throwForce * (_throwTimer / _timeToFullThrowForce);
     }
 
-    private void DrawThrowTrajectory()
+    //welcome new gizmo tools
+    Vector3 startPosition = Vector3.zero;
+    Vector3 objectVelocity = Vector3.zero;
+    float gizmoTimeStep = 0.1f;
+
+    private void DrawThrowTrajectoryInGameView()
     {
+        if (_lineRenderer == null)
+            return; //use line renderer pls
+
+        //there's an akward nullException when the object is being thrown automatically
+        //now we simply tell this function not to do anything if there is no heldobject
+        if (_heldToppingBody == null)
+            return;
+
         Vector3[] points = new Vector3[_trajectoryResolution];
-        Vector3 startPosition = _heldTopping.transform.position;
-        Vector3 velocity = (transform.forward + Vector3.up * 0.5f).normalized * CalculateThrowForce();
+
+        startPosition = _heldTopping.transform.position;
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
 
         for (int i = 0; i < _trajectoryResolution; i++)
         {
-            float time = i * 0.1f;
-            points[i] = startPosition + velocity * time + 0.5f * Physics.gravity * (time * time);
-            if (points[i].y < -2) points[i].y = -2;
+            float time = i * gizmoTimeStep;
+            Vector3 position = startPosition + objectVelocity * time + 0.5f * Physics.gravity * (time * time);
+            if (position.y < -2) position.y = -2;
+            points[i] = position;
         }
 
         _lineRenderer.positionCount = _trajectoryResolution;
         _lineRenderer.SetPositions(points);
+    }
+
+
+    private void DrawThrowTrajectoryInSceneView()
+    {
+
+        //Vector3 throwGizmo = new Vector3(transform.forward.x, 0.5f, transform.forward.z) * 10;
+        //Gizmos.DrawLine(_heldObject.position, _heldObject.position + throwGizmo * _throwTimer / _timeToFullThrowForce);
+
+        startPosition = _heldTopping.transform.position;
+
+        objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+
+        Gizmos.color = Color.green;
+
+        for (float time = 0; time < _timeToFullThrowForce; time += gizmoTimeStep)
+        {
+            //welcome back projectile motion you awful thing
+            Vector3 position = startPosition + objectVelocity * time + 0.5f * Physics.gravity * (time * time);
+            //let's draw small spheres yay
+            Gizmos.DrawSphere(position, 0.1f);
+        }
     }
 }
