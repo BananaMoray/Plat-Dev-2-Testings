@@ -241,10 +241,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6590770800258003348, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
-      propertyPath: _topicSpawnPoint
-      value: 
-      objectReference: {fileID: 6052022889871886270}
-    - target: {fileID: 6590770800258003348, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
       propertyPath: _topicSpawnTimer
       value: 3
       objectReference: {fileID: 0}
@@ -253,11 +249,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
---- !u!4 &6052022889871886270 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8609964705374146609, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
-  m_PrefabInstance: {fileID: 2630567863863400335}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8189516126643228623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6135774121696811072, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
