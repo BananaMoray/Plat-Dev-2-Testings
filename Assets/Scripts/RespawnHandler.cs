@@ -28,6 +28,7 @@ public class RespawnHandler : MonoBehaviour
     [SerializeField] private float _topicSpawnTimer;
     [SerializeField] private int _maxTime;
     [SerializeField] private int _height = 10;
+    [SerializeField] private Transform _topicSpawnPoint;
 
 
 
@@ -135,7 +136,7 @@ public class RespawnHandler : MonoBehaviour
         _topicSpawnTimer -= Time.deltaTime;
 
         float angle = Random.Range(0f, Mathf.PI * 2f);
-        Vector3 spawnPosition = new Vector3(Mathf.Cos(angle), _height, Mathf.Sin(angle)) * _radius;
+        Vector3 spawnPosition = new Vector3(Mathf.Cos(angle) * _radius, _topicSpawnPoint.position.y, Mathf.Sin(angle) * _radius) ;
 
         if (_topicSpawnTimer <= 0)
         {
