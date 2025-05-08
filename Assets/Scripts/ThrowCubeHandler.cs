@@ -6,6 +6,11 @@ public class ThrowCubeHandler : MonoBehaviour
     private Rigidbody _rigidbody;
     private GameObject _player;
 
+    [SerializeField]
+    private float _timeToReset = 3f;
+    private float _resetTimer;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,21 +18,23 @@ public class ThrowCubeHandler : MonoBehaviour
         _player = transform.GetChild(0).gameObject;
     }
 
-    Vector3 currentPos = Vector3.zero;
-    Vector3 previousPos = Vector3.zero;
-
-
     // Update is called once per frame
     void Update()
     {
-        currentPos = transform.position;
+        _resetTimer += Time.deltaTime;
 
-        if (_rigidbody.linearVelocity.magnitude <= 0.01f)
+        if (_rigidbody.linearVelocity.magnitude <= 0.01f || _resetTimer >= _timeToReset)
         {
-            _player.GetComponent<CharacterControl>().ResetPlayer();
-            Destroy(this.gameObject);
+            _resetTimer = 0;
+            if (_player.GetComponent<CharacterInputHandler>() != null)
+            _player.GetComponent<CharacterInputHandler>().ResetPlayer();
+            if (_player.GetComponent<CharacterControl>() != null)
+            {
+                _player.GetComponent<CharacterControl>().ResetPlayer();
+                _player.GetComponent<CharacterControl>().HandlePlayerColour();
+            }
+            Destroy(gameObject);
         }
 
-        previousPos = currentPos;
     }
 }

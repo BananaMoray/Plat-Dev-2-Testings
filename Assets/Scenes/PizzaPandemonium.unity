@@ -1994,7 +1994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _timer
-      value: 0.1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7385836309531069658, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: m_Enabled
