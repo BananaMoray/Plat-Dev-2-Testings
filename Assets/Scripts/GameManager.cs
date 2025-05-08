@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +17,10 @@ public class GameManager : MonoBehaviour
     float _seconds, _minutes;
 
 
+    [SerializeField] private List<GameObject> _UIScreens;
+    //numbereing is 0 = start screen, 1 = Pause Screen, 2 = End Screen
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +32,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Timer();
+        IsGamePaused(_UIScreens[1]);
+
     }
 
     void Timer()
@@ -35,7 +44,7 @@ public class GameManager : MonoBehaviour
         {
             _seconds = ((int)_timer % 60);
             _minutes = ((int)_timer / 60);
-            
+
             _timer -= Time.deltaTime;
         }
 
@@ -49,7 +58,21 @@ public class GameManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1;
-     }
+    }
+
+
+    private void IsGamePaused(GameObject pauseScreen)
+    {
+      
+        if (pauseScreen)
+        {
+            PauseGame();
+        }
+        else
+        {
+            ContinueGame();
+        }
+    }
 
 
 
