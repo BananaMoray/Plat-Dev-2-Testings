@@ -5,7 +5,7 @@ public class PizzaScoreZone : MonoBehaviour
 {
     [SerializeField] 
     private int _maxPlayers = 4;
-    private List<int> _playerScores;
+    public static List<int> _playerScores;
 
     //[SerializeField]
     //private GameObject _pizza;
@@ -60,7 +60,7 @@ public class PizzaScoreZone : MonoBehaviour
 
     //return the player scores yay yippie yay
     //it's also public so we can call it in our UI or anywhere else
-    public int GetPlayerScore(int playerIndex)
+    public static int GetPlayerScore(int playerIndex)
     {
         if (IsValidPlayer(playerIndex))
             return _playerScores[playerIndex];
@@ -70,7 +70,7 @@ public class PizzaScoreZone : MonoBehaviour
 
     //i ran into some issues with exceptions, so now we also check whether or not a players index is correct
     //yes i know, but trust me this will save us so much pain in the future
-    private bool IsValidPlayer(int index)
+    private static bool IsValidPlayer(int index)
     {
         //first checks if the player index is negative, which should be impossible
         //then checks that it doesn't exceed the playercount altogether

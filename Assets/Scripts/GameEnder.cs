@@ -7,22 +7,20 @@ public class GameEnder : MonoBehaviour
     private GameObject _gameManagerObject;
 
     [SerializeField]
+    private GameObject _endScreenUI;
+
+    [SerializeField]
     private GameObject _characters;
 
     private GameManager _gameManager;
 
     private bool _isGameEnded;
 
-    [SerializeField]
-    private Camera _endScreenCamera;
-    private Camera _mainCamera;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _endScreenUI.SetActive(false);
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
-        _mainCamera = Camera.main;
-        _endScreenCamera.enabled = false;
     }
 
     // Update is called once per frame
@@ -38,8 +36,8 @@ public class GameEnder : MonoBehaviour
         }
         if (_isGameEnded)
         {
-            _mainCamera.enabled = false;
-            _endScreenCamera.enabled = true;
+            //_mainCamera.enabled = false;
+            //_endScreenCamera.enabled = true;
         }
     }
 }

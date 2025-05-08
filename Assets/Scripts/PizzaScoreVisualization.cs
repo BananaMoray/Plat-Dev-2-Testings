@@ -18,7 +18,9 @@ public class PizzaScoreVisualization : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = $"P{i + 1}: {_pizzaScoreZone.GetPlayerScore(i)}";
+            transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = $"P{i + 1}: {PizzaScoreZone.GetPlayerScore(i)}";
         }
+        //Debug.Log(_pizzaScoreZone.GetPlayerScore(0));
     }
+    
 }
