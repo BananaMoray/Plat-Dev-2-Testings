@@ -16,25 +16,12 @@ public class CharacterControl : MonoBehaviour
     private Material[] _playerColours;
     private PlayerInput _playerInput;
     private CharacterController _controller;
-
-    [Header("Attack Data")]
     public bool IsHit;
     [SerializeField]
     private GameObject _throwCube;
     private float _hitDistance = 1f;
     [SerializeField]
-    private float _hitForce = 10f;
-    [SerializeField]
-    private float _attackCooldownTime = 1f;
-    private float _attackTimer = 0f;
-    [SerializeField] 
-    private Color _hitColor = Color.red;
-    [SerializeField] 
-    private float _flashDuration = 0.2f;
-
-    [Header("Audio Data")]
-    [SerializeField]
-    private AudioSource _hitAudio;
+    private float _hitForce = 20f;
 
     [Header("Input")]
     [SerializeField]
@@ -102,12 +89,12 @@ public class CharacterControl : MonoBehaviour
         _camera = Camera.main;
         //calculations
         CalculateCameraDirections();
-        HandlePlayerColour();
+        HandlePlayerColour(_playerInput.playerIndex);
     }
 
-    public void HandlePlayerColour()
+    private void HandlePlayerColour(int playerIndex)
     {
-        GetComponent<MeshRenderer>().material = _playerColours[_playerInput.playerIndex];
+        GetComponent<MeshRenderer>().material = _playerColours[playerIndex];
     }
 
     private void CalculateCameraDirections()
@@ -148,9 +135,6 @@ public class CharacterControl : MonoBehaviour
     {
         HandleInput();
 
-        _attackTimer += Time.deltaTime;
-        Debug.Log(_attackTimer);
-
         if (_controller.enabled)
         {
             HandleGravity();
@@ -161,12 +145,6 @@ public class CharacterControl : MonoBehaviour
         {
             _lineRenderer.positionCount = 0;
         }
-
-        if (IsHit)
-        {
-            GetComponent<MeshRenderer>().material = _playerColours[3];
-        }
-
     }
 
     private void HandleInput()
@@ -194,10 +172,6 @@ public class CharacterControl : MonoBehaviour
             HandlePickup();
             HandleThrowing();
             HandleAttack();
-        }
-        else
-        {
-            ThrowObject();
         }
     }
 
@@ -282,45 +256,39 @@ public class CharacterControl : MonoBehaviour
     bool currentPauseInput;
     bool previousPauseInput;
 
-
-
     private void HandleAttack()
     {
         if (HeldTopping != null) return;
 
         if (_fire)
         {
-            if (_attackTimer >= _attackCooldownTime)
+            Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
+
+            Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
+            foreach (Collider collider in colliders)
             {
-                _attackTimer = 0f;
-                Debug.Log("Attack!!");
-
-                Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
-
-                Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
-                foreach (Collider collider in colliders)
+                CharacterControl characterControl = collider.GetComponent<CharacterControl>();
+                if (characterControl == null)
                 {
-                    CharacterControl characterControl = collider.GetComponent<CharacterControl>();
-                    if (characterControl == null)
-                    {
-                        continue;
-                    }
-
-                    int myIndex = GetComponent<PlayerInput>().playerIndex;
-                    int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
-
-                    if (myIndex == otherIndex || characterControl.IsHit)
-                    {
-                        continue;
-                    }
-                    _hitAudio.Play();
-                    LaunchPlayer(characterControl.gameObject, characterControl);
-                    break;
-                    
+                    continue;
                 }
- 
-            }
 
+                int myIndex = GetComponent<PlayerInput>().playerIndex;
+                int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
+
+                if (myIndex == otherIndex)
+                {
+                    continue;
+                }
+
+                if (characterControl.IsHit)
+                {
+                    continue;
+                }
+
+                LaunchPlayer(characterControl.gameObject, characterControl);
+                break;
+            }
         }
         
     }

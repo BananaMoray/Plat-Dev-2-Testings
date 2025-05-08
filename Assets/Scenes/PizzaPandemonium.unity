@@ -2002,11 +2002,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _timer
-<<<<<<< HEAD
       value: 5
-=======
-      value: 3
->>>>>>> 48b7dd26f93a310b80cd0d6a8a0acbce32371503
       objectReference: {fileID: 0}
     - target: {fileID: 7385836309531069658, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: m_Enabled
