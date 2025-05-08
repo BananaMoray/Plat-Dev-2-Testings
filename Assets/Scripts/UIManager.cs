@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     {
         
         _screen.SetActive(true);
+
         if (_screen)
         {
             _gameManager.PauseGame();

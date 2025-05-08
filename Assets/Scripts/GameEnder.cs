@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -10,11 +11,12 @@ public class GameEnder : MonoBehaviour
     private GameObject _endScreenUI;
 
     [SerializeField]
+    private GameObject[] _textOfScores;
+
+    [SerializeField]
     private GameObject _characters;
 
     private GameManager _gameManager;
-
-    private bool _isGameEnded;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,16 +30,16 @@ public class GameEnder : MonoBehaviour
     {
         //pause game when ended
         //redirect to the vizualize winner
-         
+        
         if (_gameManager._timer <= 0)
         {
-            _isGameEnded = true;
             Time.timeScale = 0;
-        }
-        if (_isGameEnded)
-        {
-            //_mainCamera.enabled = false;
-            //_endScreenCamera.enabled = true;
+            _endScreenUI.SetActive(true);
+
+            for (int i = 0; i < 4; i++)
+            {
+                _textOfScores[i].GetComponent<TextMeshProUGUI>().text = $"{PizzaScoreZone.GetPlayerScore(i)}";
+            }
         }
     }
 }
