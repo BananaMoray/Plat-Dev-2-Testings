@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PizzaScoreVisualization : MonoBehaviour
 {
-    [SerializeField]
-    private PizzaScoreZone _pizzaScoreZone;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
