@@ -47,6 +47,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5016091885822761705, guid: 11a8401861a4a4f43970396ca4f59561, type: 3}
+      propertyPath: _timer
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5016091885822761705, guid: 11a8401861a4a4f43970396ca4f59561, type: 3}
       propertyPath: _timerVisuals
       value: 
       objectReference: {fileID: 1428792248845621103}
@@ -222,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6590770800258003348, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
       propertyPath: _height
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6590770800258003348, guid: 0f0e91aed62c1844988f2aae9d3298b4, type: 3}
       propertyPath: _prefab
