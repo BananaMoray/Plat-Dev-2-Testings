@@ -57,54 +57,54 @@ public class GameEnder : MonoBehaviour
                 _panelPositions[i] = _panelsOfPlayers[i].transform.position;
                 int j = i;
             }
-            int[] copyOfScore = new int[4];
+            int[] copyOfScores = new int[4];
             //copy the scores to a new array
-            copyOfScore = scores;
+            copyOfScores = scores;
             //order the copy of the scores
-            copyOfScore = copyOfScore.OrderByDescending(x => x).ToArray();
+            copyOfScores = copyOfScores.OrderByDescending(x => x).ToArray();
             //sort the scores
             for (int i = 0; i < 4; i++)
             {
-                if (scores[i] == copyOfScore[0] && _isPositionsOccupied[0])
+                if (scores[i] == copyOfScores[0] && !_isPositionsOccupied[0])
                 {
                     _isPositionsOccupied[0] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[0];
 
                     _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
                 }
-                else if (scores[i] == copyOfScore[1] && _isPositionsOccupied[1])
+                else if (scores[i] == copyOfScores[1] && !_isPositionsOccupied[1])
                 {
                     _isPositionsOccupied[1] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[1];
 
-                    if (copyOfScore[1] == copyOfScore[0])
+                    if (copyOfScores[1] == copyOfScores[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
                 }
-                else if (scores[i] == copyOfScore[2] && _isPositionsOccupied[2])
+                else if (scores[i] == copyOfScores[2] && !_isPositionsOccupied[2])
                 {
                     _isPositionsOccupied[2] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[2];
 
-                    if (copyOfScore[2] == copyOfScore[0])
+                    if (copyOfScores[2] == copyOfScores[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
-                    else if (copyOfScore[2] == copyOfScore[1])
+                    else if (copyOfScores[2] == copyOfScores[1])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
                 }
-                else if (scores[i] == copyOfScore[3] && _isPositionsOccupied[3])
+                else if (scores[i] == copyOfScores[3] && !_isPositionsOccupied[3])//last is position occupied actually not needed
                 {
                     _isPositionsOccupied[3] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[3];
 
 
-                    if (copyOfScore[3] == copyOfScore[0])
+                    if (copyOfScores[3] == copyOfScores[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
-                    else if (copyOfScore[3] == copyOfScore[1])
+                    else if (copyOfScores[3] == copyOfScores[1])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
-                    else if (copyOfScore[3] == copyOfScore[2])
+                    else if (copyOfScores[3] == copyOfScores[2])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
