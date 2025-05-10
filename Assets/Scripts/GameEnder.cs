@@ -23,6 +23,7 @@ public class GameEnder : MonoBehaviour
     private GameObject _characters;
 
     private GameManager _gameManager;
+    bool[] _isPositionsOccupied = new bool[4];
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,32 +60,31 @@ public class GameEnder : MonoBehaviour
             int[] copyOfScore = new int[4];
             copyOfScore = scores;
             copyOfScore = copyOfScore.OrderByDescending(x => x).ToArray();
-            bool[] isPositionsOccupied = new bool[4];
             //sort the scores
             for (int i = 0; i < 4; i++)
             {
-                if (scores[i] == copyOfScore[0] && isPositionsOccupied[0])
+                if (scores[i] == copyOfScore[0] && _isPositionsOccupied[0])
                 {
-                    isPositionsOccupied[0] = true;
+                    _isPositionsOccupied[0] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[0];
                     _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
                 }
-                else if (scores[i] == copyOfScore[1] && isPositionsOccupied[1])
+                else if (scores[i] == copyOfScore[1] && _isPositionsOccupied[1])
                 {
-                    isPositionsOccupied[1] = true;
+                    _isPositionsOccupied[1] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[1];
                     _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
 
                 }
-                else if (scores[i] == copyOfScore[2] && isPositionsOccupied[2])
+                else if (scores[i] == copyOfScore[2] && _isPositionsOccupied[2])
                 {
-                    isPositionsOccupied[2] = true;
+                    _isPositionsOccupied[2] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[2];
                     _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
                 }
-                else if (scores[i] == copyOfScore[3] && isPositionsOccupied[3])
+                else if (scores[i] == copyOfScore[3] && _isPositionsOccupied[3])
                 {
-                    isPositionsOccupied[3] = true;
+                    _isPositionsOccupied[3] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[3];
                     _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
 
