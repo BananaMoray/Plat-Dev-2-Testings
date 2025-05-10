@@ -106,7 +106,8 @@ public class GameEnder : MonoBehaviour
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
                     else if (scores[i] == copyOfScore[2])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
-                    _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
+                    else
+                        _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
 
                 }
             }
