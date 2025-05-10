@@ -2529,6 +2529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkSpace_Stijn
       objectReference: {fileID: 0}
+    - target: {fileID: 4257791512113694943, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6780119045297145634, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: m_Name
       value: GameUI
