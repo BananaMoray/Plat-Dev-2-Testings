@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 1485957258161001062}
   - component: {fileID: 6754728360942136491}
   - component: {fileID: 5708116854645112622}
+  - component: {fileID: 5755678345328401761}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -394,7 +395,9 @@ MonoBehaviour:
   IsHit: 0
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _hitForce: 10
-  _attackCooldownTime: 1
+  _attackCooldownTime: 0.8
+  _hitColor: {r: 1, g: 0, b: 0, a: 1}
+  IsBlocking: 0
   _hitAudio: {fileID: 5708116854645112622}
   _groundDrag: 6
   _acceleration: 3
@@ -402,7 +405,7 @@ MonoBehaviour:
   _moveSpeedSlowMax: 8.5
   _rotationSpeed: 720
   _uiManager: {fileID: 3994638321213142066, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
-  _armRightAnimator: {fileID: 0}
+  _armRightAnimator: {fileID: 5755678345328401761}
   _armLeftAnimator: {fileID: 0}
   HeldTopping: {fileID: 0}
   _trajectoryResolution: 30
@@ -713,6 +716,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5755678345328401761
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d077e3dbd7c7344b8128342d9f43181, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4274502695153550776
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +747,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5661800440009348125}
-  - component: {fileID: 128367414763639679}
   m_Layer: 0
   m_Name: ArmRight
   m_TagString: Untagged
@@ -747,28 +771,6 @@ Transform:
   - {fileID: 921052154257930377}
   m_Father: {fileID: 9210889835673971906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
---- !u!95 &128367414763639679
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274502695153550776}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1d077e3dbd7c7344b8128342d9f43181, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4857038581559391088
 GameObject:
   m_ObjectHideFlags: 0

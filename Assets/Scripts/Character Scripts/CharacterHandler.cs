@@ -66,6 +66,8 @@ public class CharacterHandler : MonoBehaviour
 
     private void Update()
     {
+        if (_combat.IsHit) return;
+
         _movement.SetInputs(_movementInput, _lookInput);
         _movement.IsHoldingObject = _pickup.IsHolding;
 
