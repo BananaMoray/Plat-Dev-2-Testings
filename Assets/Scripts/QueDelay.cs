@@ -6,6 +6,7 @@ using UnityEngine;
 public class QueDelay : MonoBehaviour
 {
     [SerializeField] private bool _inQue = false;
+    [SerializeField] public bool _startGame = false;
 
     [SerializeField] private List<GameObject> _gameUI;
 
@@ -34,6 +35,10 @@ public class QueDelay : MonoBehaviour
     {
         GetPlayers();
         QueTimer();
+        StartGame();
+
+
+
     }
 
 
@@ -69,6 +74,23 @@ public class QueDelay : MonoBehaviour
         }
 
 
+    }
+
+    void StartGame()
+    {
+        if(_delay <= 0)
+        {
+            _startGame = true;
+        }
+
+        if(_startGame)
+        {
+            foreach (GameObject game in _gameUI)
+            {
+                game.SetActive(true);
+            }
+            gameObject.GetComponent<QueDelay>().enabled = false;
+        }
     }
 
 

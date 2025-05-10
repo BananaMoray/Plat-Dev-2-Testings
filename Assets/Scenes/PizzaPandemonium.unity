@@ -1478,11 +1478,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inQue: 0
+  _startGame: 0
   _gameUI:
   - {fileID: 885943647}
   - {fileID: 317159365}
   - {fileID: 607527472}
-  - {fileID: 2067463881}
   _players: []
   _delay: 0
   _maxDelay: 10
@@ -2237,11 +2237,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6115138308369394328, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
   m_PrefabInstance: {fileID: 1954560668}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2067463881 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3400542063418592393, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-  m_PrefabInstance: {fileID: 3504954221428936340}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2089156766 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 568321014225805965, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
@@ -2540,8 +2535,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _timer
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 9220760247684556315, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _delay
+      value: 
+      objectReference: {fileID: 1339965700}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -22,6 +22,9 @@ public class RespawnHandler : MonoBehaviour
     [SerializeField]
     Transform[] _respawns;
 
+    [SerializeField] private QueDelay _delay;
+    [SerializeField] private bool _start;
+
     [SerializeField] private GameObject _prefab;
     [SerializeField] private float _radius = 5f;
     [SerializeField] private float _spawnDelay = 20;
@@ -52,11 +55,17 @@ public class RespawnHandler : MonoBehaviour
             HitBoundary(topp);
         }*/
 
-        _spawnDelay -= Time.deltaTime;
-        if (_spawnDelay <= 0)
+        _start = _delay._startGame;
+
+        if (_start)
         {
-            SpawnAtRandomCirclePosition();
+            _spawnDelay -= Time.deltaTime;
+            if (_spawnDelay <= 0)
+            {
+                SpawnAtRandomCirclePosition();
+            }
         }
+
     }
 
     void HitBoundary(GameObject obj)
