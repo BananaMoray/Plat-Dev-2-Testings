@@ -5,7 +5,9 @@ public class PizzaScoreZone : MonoBehaviour
 {
     [SerializeField] 
     private int _maxPlayers = 4;
-    public static List<int> _playerScores;
+    public static List<int> PlayerScores;
+    [SerializeField]
+    private int _toppingValue = 3;
 
     //[SerializeField]
     //private GameObject _pizza;
@@ -15,7 +17,7 @@ public class PizzaScoreZone : MonoBehaviour
     private void Awake()
     {
 
-        _playerScores = new List<int>(new int[_maxPlayers]);
+        PlayerScores = new List<int>(new int[_maxPlayers]);
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -31,7 +33,7 @@ public class PizzaScoreZone : MonoBehaviour
 
             if (IsValidPlayer(playerIndex) && !topping.IsScored)
             {
-                _playerScores[playerIndex]++;
+                PlayerScores[playerIndex] += _toppingValue;
                 topping.IsScored = true;
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
@@ -50,7 +52,7 @@ public class PizzaScoreZone : MonoBehaviour
 
             if (IsValidPlayer(playerIndex))
             {
-                _playerScores[playerIndex]--;
+                PlayerScores[playerIndex] -= _toppingValue;
                 topping.IsScored = false;
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
@@ -63,7 +65,7 @@ public class PizzaScoreZone : MonoBehaviour
     public static int GetPlayerScore(int playerIndex)
     {
         if (IsValidPlayer(playerIndex))
-            return _playerScores[playerIndex];
+            return PlayerScores[playerIndex];
         return 0;
     }
 
@@ -74,6 +76,6 @@ public class PizzaScoreZone : MonoBehaviour
     {
         //first checks if the player index is negative, which should be impossible
         //then checks that it doesn't exceed the playercount altogether
-        return index >= 0 && index < _playerScores.Count;
+        return index >= 0 && index < PlayerScores.Count;
     }
 }
