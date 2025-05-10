@@ -214,7 +214,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -392,17 +392,22 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 74301590170f9694b89feb5f60a8436a, type: 2}
   - {fileID: 2100000, guid: 4733be00a479273469220ca7daca57f5, type: 2}
   - {fileID: 2100000, guid: 6736ce90b36ee92498ce52e3b3654744, type: 2}
+  - {fileID: 2100000, guid: 2db5135f61d71004da2845ad8847e207, type: 2}
+  - {fileID: 2100000, guid: c1bad24a465470a4d9ba369cda46b49e, type: 2}
+  - {fileID: 2100000, guid: f662fb048c999994e821b2b56184afcd, type: 2}
+  - {fileID: 2100000, guid: d898ea06c370c4b4391e4b378933d6ea, type: 2}
   IsHit: 0
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _hitForce: 10
   _attackCooldownTime: 0.8
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
   IsBlocking: 0
+  _canEarnPointsThroughAttacking: 1
   _hitAudio: {fileID: 5708116854645112622}
   _groundDrag: 6
   _acceleration: 3
   _moveSpeedMax: 10
-  _moveSpeedSlowMax: 8.5
+  _moveSpeedSlowMax: 4
   _rotationSpeed: 720
   _uiManager: {fileID: 3994638321213142066, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
   _armRightAnimator: {fileID: 5755678345328401761}
@@ -983,7 +988,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1091,7 +1096,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1307,7 +1312,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
