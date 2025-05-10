@@ -77,7 +77,7 @@ public class GameEnder : MonoBehaviour
                     _isPositionsOccupied[1] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[1];
 
-                    if (scores[i] == copyOfScore[0])
+                    if (copyOfScore[1] == copyOfScore[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
@@ -87,9 +87,9 @@ public class GameEnder : MonoBehaviour
                     _isPositionsOccupied[2] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[2];
 
-                    if (scores[i] == copyOfScore[0])
+                    if (copyOfScore[2] == copyOfScore[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
-                    else if (scores[i] == copyOfScore[1])
+                    else if (copyOfScore[2] == copyOfScore[1])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
@@ -100,11 +100,11 @@ public class GameEnder : MonoBehaviour
                     _panelsOfPlayers[i].transform.position = _panelPositions[3];
 
 
-                    if (scores[i] == copyOfScore[0])
+                    if (copyOfScore[3] == copyOfScore[0])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
-                    else if (scores[i] == copyOfScore[1])
+                    else if (copyOfScore[3] == copyOfScore[1])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
-                    else if (scores[i] == copyOfScore[2])
+                    else if (copyOfScore[3] == copyOfScore[2])
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
                     else
                         _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
