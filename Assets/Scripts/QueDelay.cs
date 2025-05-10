@@ -6,6 +6,7 @@ using UnityEngine;
 public class QueDelay : MonoBehaviour
 {
     [SerializeField] private bool _inQue = false;
+    [SerializeField] public bool _startGame = false;
 
     [SerializeField] private List<GameObject> _gameUI;
 
@@ -34,6 +35,10 @@ public class QueDelay : MonoBehaviour
     {
         GetPlayers();
         QueTimer();
+        StartGame();
+
+
+
     }
 
 
@@ -46,7 +51,7 @@ public class QueDelay : MonoBehaviour
     {
         if (_players.Count < 2)
         {
-            _timerText.enabled = false;
+            _timerText.text = "wainting for Players";
             _delay = _maxDelay;
         }
         else
@@ -57,7 +62,7 @@ public class QueDelay : MonoBehaviour
                 _delay -= Time.deltaTime;
             }
 
-            _timerText.text = _delay.ToString("F0");
+            _timerText.text ="Starting in: " + _delay.ToString("F0");
         }
 
         if (_players.Count > 1)
@@ -69,6 +74,23 @@ public class QueDelay : MonoBehaviour
         }
 
 
+    }
+
+    void StartGame()
+    {
+        if(_delay <= 0)
+        {
+            _startGame = true;
+        }
+
+        if(_startGame)
+        {
+            foreach (GameObject game in _gameUI)
+            {
+                game.SetActive(true);
+            }
+            gameObject.GetComponent<QueDelay>().enabled = false;
+        }
     }
 
 
