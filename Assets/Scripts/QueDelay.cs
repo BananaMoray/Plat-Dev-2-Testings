@@ -51,7 +51,7 @@ public class QueDelay : MonoBehaviour
     {
         if (_players.Count < 2)
         {
-            _timerText.enabled = false;
+            _timerText.text = "wainting for Players";
             _delay = _maxDelay;
         }
         else
@@ -62,7 +62,7 @@ public class QueDelay : MonoBehaviour
                 _delay -= Time.deltaTime;
             }
 
-            _timerText.text = _delay.ToString("F0");
+            _timerText.text ="Starting in: " + _delay.ToString("F0");
         }
 
         if (_players.Count > 1)
