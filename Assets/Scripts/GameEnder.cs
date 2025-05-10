@@ -58,7 +58,7 @@ public class GameEnder : MonoBehaviour
             }
             int[] copyOfScore = new int[4];
             copyOfScore = scores;
-            copyOfScore.OrderByDescending(x => x);
+            copyOfScore =  copyOfScore.OrderByDescending(x => x).ToArray();
             bool[] isPositionsOccupied = new bool[4];
             //sort the scores
             for (int i = 0; i < 4; i++)
