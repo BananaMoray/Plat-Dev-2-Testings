@@ -58,7 +58,7 @@ public class GameEnder : MonoBehaviour
             }
             int[] copyOfScore = new int[4];
             copyOfScore = scores;
-            copyOfScore =  copyOfScore.OrderByDescending(x => x).ToArray();
+            copyOfScore = copyOfScore.OrderByDescending(x => x).ToArray();
             bool[] isPositionsOccupied = new bool[4];
             //sort the scores
             for (int i = 0; i < 4; i++)
@@ -67,21 +67,27 @@ public class GameEnder : MonoBehaviour
                 {
                     isPositionsOccupied[0] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[0];
+                    _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "1st";
                 }
                 else if (scores[i] == copyOfScore[1] && isPositionsOccupied[1])
                 {
                     isPositionsOccupied[1] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[1];
+                    _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "2nd";
+
                 }
                 else if (scores[i] == copyOfScore[2] && isPositionsOccupied[2])
                 {
                     isPositionsOccupied[2] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[2];
+                    _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "3rd";
                 }
                 else if (scores[i] == copyOfScore[3] && isPositionsOccupied[3])
                 {
                     isPositionsOccupied[3] = true;
                     _panelsOfPlayers[i].transform.position = _panelPositions[3];
+                    _panelsOfPlayers[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "4th";
+
                 }
             }
 
