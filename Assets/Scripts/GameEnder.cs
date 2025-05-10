@@ -17,7 +17,7 @@ public class GameEnder : MonoBehaviour
     [SerializeField]
     private GameObject[] _panelsOfPlayers;
 
-    private Vector3[] _panelPosition;
+    private Vector3[] _panelPositions = new Vector3[4];
 
     [SerializeField]
     private GameObject _characters;
@@ -42,7 +42,6 @@ public class GameEnder : MonoBehaviour
             Time.timeScale = 0;
             _endScreenUI.SetActive(true);
 
-            int previousScore = 0;
             int[] scores = new int[4];
             for (int i = 0; i < 4; i++)
             {
@@ -54,9 +53,11 @@ public class GameEnder : MonoBehaviour
                 scores[i] = score;
 
                 //add all positions to the list
-                _panelPosition[i] = _panelsOfPlayers[i].transform.position;
+                _panelPositions[i] = _panelsOfPlayers[i].transform.localPosition;
+                int j = i;
             }
-            int[] copyOfScore = scores;
+            int[] copyOfScore = new int[4];
+            copyOfScore = scores;
             copyOfScore.OrderByDescending(x => x);
             bool[] isPositionsOccupied = new bool[4];
             //sort the scores
@@ -65,22 +66,22 @@ public class GameEnder : MonoBehaviour
                 if (scores[i] == copyOfScore[0] && isPositionsOccupied[0])
                 {
                     isPositionsOccupied[0] = true;
-                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[0];
                 }
                 else if (scores[i] == copyOfScore[1] && isPositionsOccupied[1])
                 {
                     isPositionsOccupied[1] = true;
-                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[1];
                 }
                 else if (scores[i] == copyOfScore[2] && isPositionsOccupied[2])
                 {
                     isPositionsOccupied[2] = true;
-                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[2];
                 }
                 else if (scores[i] == copyOfScore[3] && isPositionsOccupied[3])
                 {
                     isPositionsOccupied[3] = true;
-                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[3];
                 }
             }
 
