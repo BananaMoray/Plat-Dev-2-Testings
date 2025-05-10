@@ -53,7 +53,7 @@ public class GameEnder : MonoBehaviour
                 scores[i] = score;
 
                 //add all positions to the list
-                _panelPositions[i] = _panelsOfPlayers[i].transform.localPosition;
+                _panelPositions[i] = _panelsOfPlayers[i].transform.position;
                 int j = i;
             }
             int[] copyOfScore = new int[4];
@@ -66,22 +66,22 @@ public class GameEnder : MonoBehaviour
                 if (scores[i] == copyOfScore[0] && isPositionsOccupied[0])
                 {
                     isPositionsOccupied[0] = true;
-                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[0];
+                    _panelsOfPlayers[i].transform.position = _panelPositions[0];
                 }
                 else if (scores[i] == copyOfScore[1] && isPositionsOccupied[1])
                 {
                     isPositionsOccupied[1] = true;
-                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[1];
+                    _panelsOfPlayers[i].transform.position = _panelPositions[1];
                 }
                 else if (scores[i] == copyOfScore[2] && isPositionsOccupied[2])
                 {
                     isPositionsOccupied[2] = true;
-                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[2];
+                    _panelsOfPlayers[i].transform.position = _panelPositions[2];
                 }
                 else if (scores[i] == copyOfScore[3] && isPositionsOccupied[3])
                 {
                     isPositionsOccupied[3] = true;
-                    _panelsOfPlayers[i].transform.localPosition = _panelPositions[3];
+                    _panelsOfPlayers[i].transform.position = _panelPositions[3];
                 }
             }
 
