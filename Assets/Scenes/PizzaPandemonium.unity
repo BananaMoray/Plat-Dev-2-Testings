@@ -2055,6 +2055,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1127874702}
     m_Modifications:
+    - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.028461218
+      objectReference: {fileID: 0}
+    - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255367
+      objectReference: {fileID: 0}
     - target: {fileID: 1425407763706228048, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_LocalPosition.z
       value: -6
@@ -2074,6 +2090,62 @@ PrefabInstance:
     - target: {fileID: 4423746882696340373, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_LocalPosition.z
       value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_text
+      value: Player "Red"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190335
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.98294365
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255611
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_text
+      value: Player "White"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 6371977021320378736, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_Name
