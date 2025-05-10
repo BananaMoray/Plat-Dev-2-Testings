@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Timer();
-        IsGamePaused(_UIScreens[1]);
+        //IsGamePaused(_UIScreens[1]);
 
     }
 
