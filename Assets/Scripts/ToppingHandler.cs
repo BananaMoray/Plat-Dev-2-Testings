@@ -17,13 +17,14 @@ public class ToppingHandler : MonoBehaviour
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        PlayerIndex = Random.Range(0, _toppingColours.Count());
+        PlayerIndex = Random.Range(0, 4);
         HandleColour(PlayerIndex);
     }
 
     private void HandleColour(int colour)
     {
         GetComponent<MeshRenderer>().material = _toppingColours[colour];
+        
     }
 
     // Update is called once per frame
@@ -32,10 +33,12 @@ public class ToppingHandler : MonoBehaviour
         if (IsScored)
         {
             CanBePickedUp = false;
+            GetComponent<MeshRenderer>().material = _toppingColours[PlayerIndex+4];
         }
         else
         {
             CanBePickedUp = true;
+            GetComponent<MeshRenderer>().material = _toppingColours[PlayerIndex];
         }
     }
 }

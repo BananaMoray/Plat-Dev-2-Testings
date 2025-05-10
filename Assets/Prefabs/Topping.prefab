@@ -154,6 +154,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 74301590170f9694b89feb5f60a8436a, type: 2}
   - {fileID: 2100000, guid: 4733be00a479273469220ca7daca57f5, type: 2}
   - {fileID: 2100000, guid: 6736ce90b36ee92498ce52e3b3654744, type: 2}
+  - {fileID: 2100000, guid: 2db5135f61d71004da2845ad8847e207, type: 2}
+  - {fileID: 2100000, guid: c1bad24a465470a4d9ba369cda46b49e, type: 2}
+  - {fileID: 2100000, guid: f662fb048c999994e821b2b56184afcd, type: 2}
+  - {fileID: 2100000, guid: d898ea06c370c4b4391e4b378933d6ea, type: 2}
   PlayerIndex: 0
   IsScored: 0
   CanBePickedUp: 1

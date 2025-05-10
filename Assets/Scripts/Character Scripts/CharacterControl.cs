@@ -16,12 +16,13 @@ public class CharacterControl : MonoBehaviour
     private Material[] _playerColours;
     private PlayerInput _playerInput;
     private CharacterController _controller;
+    private PizzaScoreZone _score;
 
     [Header("Attack Data")]
     public bool IsHit;
     [SerializeField]
     private GameObject _throwCube;
-    private float _hitDistance = 1f;
+    private float _hitDistance = 1.5f;
     [SerializeField]
     private float _hitForce = 10f;
     [SerializeField]
@@ -31,6 +32,8 @@ public class CharacterControl : MonoBehaviour
     private Color _hitColor = Color.red;
     [SerializeField]
     private bool IsBlocking = false;
+    [SerializeField]
+    private bool _canEarnPointsThroughAttacking;
 
     [Header("Audio Data")]
     [SerializeField]
@@ -156,11 +159,6 @@ public class CharacterControl : MonoBehaviour
             ApplyVelocity();
         }
 
-        if (IsHit)
-        {
-            GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-
         if (HeldTopping == null)
         {
             _lineRenderer.positionCount = 0;
@@ -172,21 +170,21 @@ public class CharacterControl : MonoBehaviour
 
     private void HandleInput()
     {
-        currentPauseInput = _pause;
+        //currentPauseInput = _pause;
 
-        if (previousPauseInput && !currentPauseInput)
-        {
-            Debug.Log("pause released");
+        //if (previousPauseInput && !currentPauseInput)
+        //{
+        //    Debug.Log("pause released");
 
-        }
+        //}
 
-        if (!previousPauseInput && currentPauseInput)
-        {
-            Debug.Log("pause pressed");
-            _uiManager.GetComponent<UIManager>().OpenPauseScreen();
-        }
+        //if (!previousPauseInput && currentPauseInput)
+        //{
+        //    Debug.Log("pause pressed");
+        //    _uiManager.GetComponent<UIManager>().OpenPauseScreen();
+        //}
 
-        previousPauseInput = currentPauseInput;
+        //previousPauseInput = currentPauseInput;
 
         if (!IsHit)
         {
@@ -341,14 +339,20 @@ public class CharacterControl : MonoBehaviour
             int myIndex = GetComponent<PlayerInput>().playerIndex;
             int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
 
-            if (myIndex == otherIndex || characterControl.IsHit)
+            if (myIndex == otherIndex)
             {
                 continue;
             }
+            if (characterControl.IsHit) continue;
 
             if (!characterControl.IsBlocking)
             {
                 _hitAudio.Play();
+                if (_canEarnPointsThroughAttacking)
+                {
+                    PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
+                }
+
                 LaunchPlayer(characterControl.gameObject, characterControl);
                 break;
             }
@@ -368,7 +372,7 @@ public class CharacterControl : MonoBehaviour
 
         hitPlayer.GetComponent<CharacterController>().enabled = false;
 
-        hitPlayer.GetComponent<MeshRenderer>().material.color = Color.gray;
+        hitPlayer.GetComponent<MeshRenderer>().material = _playerColours[hitPlayer.GetComponent<PlayerInput>().playerIndex + 4];
 
     }
 
@@ -470,8 +474,11 @@ public class CharacterControl : MonoBehaviour
 
     private void ThrowObject()
     {
+        if (HeldTopping == null) return;
+
         HoldObject(false);
 
+        
         HeldTopping.transform.SetParent(null);
 
         objectVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
@@ -483,8 +490,12 @@ public class CharacterControl : MonoBehaviour
     }
     private void HoldObject(bool v)
     {
-        _heldToppingBody.useGravity = !v;
-        _heldToppingBody.isKinematic = v;
+        if (_heldToppingBody != null)
+        {
+            _heldToppingBody.useGravity = !v;
+            _heldToppingBody.isKinematic = v;
+        }
+
     }
 
     private float CalculateThrowForce()
