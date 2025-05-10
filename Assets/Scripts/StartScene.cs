@@ -20,7 +20,8 @@ public class StartScene : MonoBehaviour
 
    public void SceneChange(int index)
     {
-        SceneManager.LoadSceneAsync(index);
+        SceneManager.LoadScene(index);
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()

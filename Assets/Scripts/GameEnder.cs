@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -12,6 +13,11 @@ public class GameEnder : MonoBehaviour
 
     [SerializeField]
     private GameObject[] _textOfScores;
+
+    [SerializeField]
+    private GameObject[] _panelsOfPlayers;
+
+    private Vector3[] _panelPosition;
 
     [SerializeField]
     private GameObject _characters;
@@ -30,16 +36,57 @@ public class GameEnder : MonoBehaviour
     {
         //pause game when ended
         //redirect to the vizualize winner
-        
+
         if (_gameManager._timer <= 0)
         {
             Time.timeScale = 0;
             _endScreenUI.SetActive(true);
 
+            int previousScore = 0;
+            int[] scores = new int[4];
             for (int i = 0; i < 4; i++)
             {
-                _textOfScores[i].GetComponent<TextMeshProUGUI>().text = $"{PizzaScoreZone.GetPlayerScore(i)}";
+                int score = PizzaScoreZone.GetPlayerScore(i);
+
+                _textOfScores[i].GetComponent<TextMeshProUGUI>().text = $"{score}";
+
+                //add scores to scores array
+                scores[i] = score;
+
+                //add all positions to the list
+                _panelPosition[i] = _panelsOfPlayers[i].transform.position;
             }
+            int[] copyOfScore = scores;
+            copyOfScore.OrderByDescending(x => x);
+            bool[] isPositionsOccupied = new bool[4];
+            //sort the scores
+            for (int i = 0; i < 4; i++)
+            {
+                if (scores[i] == copyOfScore[0] && isPositionsOccupied[0])
+                {
+                    isPositionsOccupied[0] = true;
+                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                }
+                else if (scores[i] == copyOfScore[1] && isPositionsOccupied[1])
+                {
+                    isPositionsOccupied[1] = true;
+                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                }
+                else if (scores[i] == copyOfScore[2] && isPositionsOccupied[2])
+                {
+                    isPositionsOccupied[2] = true;
+                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                }
+                else if (scores[i] == copyOfScore[3] && isPositionsOccupied[3])
+                {
+                    isPositionsOccupied[3] = true;
+                    _panelsOfPlayers[i].transform.position = _panelPosition[0];
+                }
+            }
+
+
         }
+
+
     }
 }
