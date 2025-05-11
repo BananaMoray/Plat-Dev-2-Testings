@@ -2578,6 +2578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameEnder
       objectReference: {fileID: 0}
+    - target: {fileID: 5355237079718216687, guid: ae8ee193aa9bf6d4893bd3d1f735b0db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
