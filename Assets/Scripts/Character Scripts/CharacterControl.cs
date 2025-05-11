@@ -1,12 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using UnityEngine.InputSystem.XR;
-using UnityEditor;
-using Unity.VisualScripting;
-using TreeEditor;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class CharacterControl : MonoBehaviour
 {
@@ -163,9 +158,6 @@ public class CharacterControl : MonoBehaviour
         {
             _lineRenderer.positionCount = 0;
         }
-
-        
-
     }
 
     private void HandleInput()

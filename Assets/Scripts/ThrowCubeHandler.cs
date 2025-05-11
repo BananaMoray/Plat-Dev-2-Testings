@@ -23,7 +23,7 @@ public class ThrowCubeHandler : MonoBehaviour
     {
         _resetTimer += Time.deltaTime;
 
-        if (_rigidbody.linearVelocity.magnitude <= 0.01f || _resetTimer >= _timeToReset)
+        if (_resetTimer >= _timeToReset)
         {
             _resetTimer = 0;
             if (_player.GetComponent<CharacterHandler>() != null)

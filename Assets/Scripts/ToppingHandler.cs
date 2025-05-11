@@ -17,12 +17,20 @@ public class ToppingHandler : MonoBehaviour
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        PlayerIndex = Random.Range(0, 4);
+
         HandleColour(PlayerIndex);
+    }
+
+    private int CheckPlayercount()
+    {
+        int activePlayerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+        return Mathf.Max(1, activePlayerCount);
+         
     }
 
     private void HandleColour(int colour)
     {
+
         GetComponent<MeshRenderer>().material = _toppingColours[colour];
         
     }

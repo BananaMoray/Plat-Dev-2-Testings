@@ -36,9 +36,6 @@ public class QueDelay : MonoBehaviour
         GetPlayers();
         QueTimer();
         StartGame();
-
-
-
     }
 
 
@@ -51,7 +48,7 @@ public class QueDelay : MonoBehaviour
     {
         if (_players.Count < 2)
         {
-            _timerText.text = "wainting for Players";
+            _timerText.text = "Waiting for Players";
             _delay = _maxDelay;
         }
         else
@@ -85,6 +82,12 @@ public class QueDelay : MonoBehaviour
 
         if(_startGame)
         {
+            
+            for (int i = 0;  i < _players.Count; i++)
+            {
+                PizzaScoreZone.PlayerScores[i] = 0;
+            }
+
             foreach (GameObject game in _gameUI)
             {
                 game.SetActive(true);

@@ -691,6 +691,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8769958318867853214, guid: 8c6184d7d78e8d4468212ebb1f89ddcb, type: 3}
   m_PrefabInstance: {fileID: 1455669135}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &752631890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6225268089197189396, guid: 8c6184d7d78e8d4468212ebb1f89ddcb, type: 3}
+  m_PrefabInstance: {fileID: 1455669135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &787619346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1520,6 +1525,7 @@ MonoBehaviour:
   - {fileID: 885943647}
   - {fileID: 317159365}
   - {fileID: 607527472}
+  - {fileID: 752631890}
   _players: []
   _delay: 0
   _maxDelay: 10
@@ -2675,7 +2681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _timer
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8189516126643228623, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2685,6 +2691,10 @@ PrefabInstance:
       propertyPath: _delay
       value: 
       objectReference: {fileID: 1339965700}
+    - target: {fileID: 9220760247684556315, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _toppingPrefab
+      value: 
+      objectReference: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
