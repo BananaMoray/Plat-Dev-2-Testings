@@ -218,6 +218,7 @@ public class CharacterControl : MonoBehaviour
         transform.rotation = Quaternion.identity;
         _controller.enabled = true;
         IsHit = false;
+        HandlePlayerColour();
     }
 
     //we now separate the vertical Y from the horizontal X and Z
@@ -227,7 +228,6 @@ public class CharacterControl : MonoBehaviour
 
     private void HandleMovement()
     {
-
         //yes, we recalculate the vector new all the time because otherwise you literally can not stand still
         Vector3 inputDirection = Vector3.zero;
 
@@ -240,7 +240,6 @@ public class CharacterControl : MonoBehaviour
 
         ApplyGroundDrag();
         ApplySpeedLimitation();
-
     }
 
     private void ApplyGroundDrag()
@@ -293,8 +292,6 @@ public class CharacterControl : MonoBehaviour
     bool currentPauseInput;
     bool previousPauseInput;
 
-
-
     private void HandleAttack()
     {
         if (IsBlocking && !_fire)
@@ -302,7 +299,7 @@ public class CharacterControl : MonoBehaviour
 
         if (_fire)
         {
-            if (HeldTopping != null)
+            if (HeldTopping != null && !_interact)
             {
                 IsBlocking = true;
             }
@@ -336,10 +333,7 @@ public class CharacterControl : MonoBehaviour
 
             if (characterControl.IsBlocking)
             {
-                IsHit = true;
-                _hitAudio.Play();
-                GetComponent<MeshRenderer>().material = _playerColours[GetComponent<PlayerInput>().playerIndex + 4];
-                StartCoroutine(StunPlayer(_stunTime));
+                StunSelf();
                 continue;
             }
 
@@ -352,6 +346,15 @@ public class CharacterControl : MonoBehaviour
             LaunchPlayer(characterControl.gameObject, characterControl);
             break;
         }
+    }
+
+    private void StunSelf()
+    {
+        IsHit = true;
+        _velocity = Vector3.zero;
+        _hitAudio.Play();
+        GetComponent<MeshRenderer>().material = _playerColours[GetComponent<PlayerInput>().playerIndex + 4];
+        StartCoroutine(StunPlayer(_stunTime));
     }
 
     IEnumerator StunPlayer(float seconds)
