@@ -18,6 +18,8 @@ public class QueueDelay : MonoBehaviour
 
     [SerializeField] private TMP_Text _timerText;
 
+    [SerializeField] private GameObject _playerInputManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -94,6 +96,7 @@ public class QueueDelay : MonoBehaviour
                 game.SetActive(true);
             }
             gameObject.GetComponent<QueueDelay>().enabled = false;
+            _playerInputManager.SetActive(false);
         }
     }
 
