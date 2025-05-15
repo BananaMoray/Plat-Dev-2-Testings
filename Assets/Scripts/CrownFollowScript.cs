@@ -24,8 +24,8 @@ public class CrownFollowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        for (int i = 0; i < 4; i++)
+        Debug.Log("Winning Player Index: " + _winningPlayerIndex);
+        for (int i = 0; i < _queueDelay.Players.Count(); i++)
         {
             _listOfScores[i] = PizzaScoreZone.GetPlayerScore(i);
             _playerPositions[i] = _queueDelay.Players[i].transform.position;
@@ -33,7 +33,7 @@ public class CrownFollowScript : MonoBehaviour
         _listOfPreviousScores = _listOfScores;
         if (_listOfScores.Max(x => x) > _listOfPreviousScores.Max(x => x))
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < _queueDelay.Players.Count(); i++)
             {
                 if (_listOfScores[i] == _listOfScores.Max(x => x))
                 {
@@ -41,7 +41,6 @@ public class CrownFollowScript : MonoBehaviour
                 }
             }
         }
-        Debug.Log("Winning Player Index: " + _winningPlayerIndex);
         transform.position = Vector3.Lerp(transform.position, _playerPositions[_winningPlayerIndex] + new Vector3(0, 2, 0), Time.deltaTime * 2);
 
     }
