@@ -35,7 +35,7 @@ public class ToppingSpawner : MonoBehaviour
         {
             if (_players.Length == 0)
             {
-                _players = GameObject.FindGameObjectsWithTag("Player");
+                _players = _delay.Players;
             }
 
             _spawnDelay -= Time.deltaTime;

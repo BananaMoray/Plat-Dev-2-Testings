@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class QueDelay : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class QueDelay : MonoBehaviour
 
     [SerializeField] private List<GameObject> _gameUI;
 
-    [SerializeField] private List<GameObject> _players;
+    [SerializeField] public GameObject[] Players;
 
     [SerializeField] private float _delay;
     [SerializeField] private int _maxDelay;
@@ -41,12 +42,12 @@ public class QueDelay : MonoBehaviour
 
     void GetPlayers()
     {
-        _players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
+        Players = GameObject.FindGameObjectsWithTag("Player");
     }
 
     void QueTimer()
     {
-        if (_players.Count < 2)
+        if (Players.Count() < 2)
         {
             _timerText.text = "Waiting for Players";
             _delay = _maxDelay;
@@ -62,7 +63,7 @@ public class QueDelay : MonoBehaviour
             _timerText.text ="Starting in: " + _delay.ToString("F0");
         }
 
-        if (_players.Count > 1)
+        if (Players.Count() > 1)
         {
             if (_delay <= 0)
             {
@@ -83,7 +84,7 @@ public class QueDelay : MonoBehaviour
         if(_startGame)
         {
             
-            for (int i = 0;  i < _players.Count; i++)
+            for (int i = 0;  i < Players.Count(); i++)
             {
                 PizzaScoreZone.PlayerScores[i] = 0;
             }
