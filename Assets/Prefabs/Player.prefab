@@ -397,6 +397,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f662fb048c999994e821b2b56184afcd, type: 2}
   - {fileID: 2100000, guid: d898ea06c370c4b4391e4b378933d6ea, type: 2}
   IsHit: 0
+  _stunTime: 1
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _hitForce: 10
   _attackCooldownTime: 0.8
