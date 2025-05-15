@@ -297,9 +297,9 @@ public class CharacterControl : MonoBehaviour
         if (IsBlocking && !_fire)
             IsBlocking = false;
 
-        if (_fire)
+        if (_fire && !_interact)
         {
-            if (HeldTopping != null && !_interact)
+            if (HeldTopping != null)
             {
                 IsBlocking = true;
             }
