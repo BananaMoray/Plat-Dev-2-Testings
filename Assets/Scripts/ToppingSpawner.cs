@@ -7,7 +7,7 @@ public class ToppingSpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] _players;
     [SerializeField] 
-    private QueDelay _delay;
+    private QueueDelay _queDelay;
     [SerializeField] 
     private bool _start;
 
@@ -29,13 +29,13 @@ public class ToppingSpawner : MonoBehaviour
 
     private void Update()
     {
-        _start = _delay._startGame;
+        _start = _queDelay._startGame;
 
         if (_start)
         {
             if (_players.Length == 0)
             {
-                _players = _delay.Players;
+                _players = _queDelay.Players;
             }
 
             _spawnDelay -= Time.deltaTime;

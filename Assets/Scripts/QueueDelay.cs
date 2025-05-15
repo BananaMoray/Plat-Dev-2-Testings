@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 
-public class QueDelay : MonoBehaviour
+public class QueueDelay : MonoBehaviour
 {
-    [SerializeField] private bool _inQue = false;
+    [SerializeField] private bool _inQueue = false;
     [SerializeField] public bool _startGame = false;
 
     [SerializeField] private List<GameObject> _gameUI;
@@ -67,7 +67,7 @@ public class QueDelay : MonoBehaviour
         {
             if (_delay <= 0)
             {
-                _inQue = false;
+                _inQueue = false;
             }
         }
 
@@ -93,7 +93,7 @@ public class QueDelay : MonoBehaviour
             {
                 game.SetActive(true);
             }
-            gameObject.GetComponent<QueDelay>().enabled = false;
+            gameObject.GetComponent<QueueDelay>().enabled = false;
         }
     }
 

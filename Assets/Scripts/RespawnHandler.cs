@@ -18,7 +18,7 @@ public class RespawnHandler : MonoBehaviour
     [SerializeField]
     Transform[] _respawns;
 
-    [SerializeField] private QueDelay _delay;
+    [SerializeField] private QueueDelay _delay;
     [SerializeField] private bool _start;
 
 
