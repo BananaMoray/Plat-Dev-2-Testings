@@ -1,11 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class CharacterControl : MonoBehaviour
 {
-
     [Header("Player Data")]
     [SerializeField]
     private Material[] _playerColours;
@@ -15,6 +15,8 @@ public class CharacterControl : MonoBehaviour
 
     [Header("Attack Data")]
     public bool IsHit;
+    [SerializeField]
+    private float _stunTime = 1f;
     [SerializeField]
     private GameObject _throwCube;
     private float _hitDistance = 1.5f;
@@ -202,7 +204,6 @@ public class CharacterControl : MonoBehaviour
             if (HeldTopping != null)
                 HeldTopping.transform.localRotation = Quaternion.Euler(90f, 0, 0);
             _throwTimer = 0;
-
         }
         else
         {
@@ -323,32 +324,40 @@ public class CharacterControl : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             CharacterControl characterControl = collider.GetComponent<CharacterControl>();
-            if (characterControl == null)
-            {
-                continue;
-            }
+            if (characterControl == null) continue;
+
 
             int myIndex = GetComponent<PlayerInput>().playerIndex;
             int otherIndex = characterControl.GetComponent<PlayerInput>().playerIndex;
 
-            if (myIndex == otherIndex)
-            {
-                continue;
-            }
+            if (myIndex == otherIndex) continue;
+
             if (characterControl.IsHit) continue;
 
-            if (!characterControl.IsBlocking)
+            if (characterControl.IsBlocking)
             {
+                IsHit = true;
                 _hitAudio.Play();
-                if (_canEarnPointsThroughAttacking)
-                {
-                    PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
-                }
-
-                LaunchPlayer(characterControl.gameObject, characterControl);
-                break;
+                GetComponent<MeshRenderer>().material = _playerColours[GetComponent<PlayerInput>().playerIndex + 4];
+                StartCoroutine(StunPlayer(_stunTime));
+                continue;
             }
+
+            _hitAudio.Play();
+            if (_canEarnPointsThroughAttacking)
+            {
+                PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
+            }
+
+            LaunchPlayer(characterControl.gameObject, characterControl);
+            break;
         }
+    }
+
+    IEnumerator StunPlayer(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ResetPlayer();
     }
 
     private void LaunchPlayer(GameObject hitPlayer, CharacterControl characterControl)
@@ -367,6 +376,7 @@ public class CharacterControl : MonoBehaviour
         hitPlayer.GetComponent<MeshRenderer>().material = _playerColours[hitPlayer.GetComponent<PlayerInput>().playerIndex + 4];
 
     }
+
 
     private void HandlePickup()
     {
