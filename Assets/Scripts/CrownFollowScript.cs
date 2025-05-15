@@ -26,18 +26,20 @@ public class CrownFollowScript : MonoBehaviour
     void Update()
     {
         Debug.Log("Winning Player Index: " + _winningPlayerIndex);
+
         Debug.Log("List of previous Scores: " + string.Join(", ", _listOfPreviousScores));
         Debug.Log("List of Scores: " + string.Join(", ", _listOfScores));
         Debug.Log("best score: " + _listOfScores.Max());
         Debug.Log("best score: " + _listOfPreviousScores.Max());
-        _listOfPreviousScores = _listOfScores;
+
+
         for (int i = 0; i < _queueDelay.Players.Count(); i++)
         {
             _listOfScores[i] = PizzaScoreZone.GetPlayerScore(i);
             _playerPositions[i] = _queueDelay.Players[i].transform.position;
         }
-        if (_listOfScores.Max() > _listOfPreviousScores.Max())
-        {
+        //if (_listOfScores.Max() > _listOfPreviousScores.Max())
+        //{
             for (int i = 0; i < _queueDelay.Players.Count(); i++)
             {
                 if (_listOfScores[i] == _listOfScores.Max())
@@ -45,7 +47,8 @@ public class CrownFollowScript : MonoBehaviour
                     _winningPlayerIndex = i;
                 }
             }
-        }
+        //}
+        _listOfPreviousScores = _listOfScores;
         //if (active == false)
         //{
 
