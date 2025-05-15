@@ -1605,6 +1605,7 @@ MonoBehaviour:
   _delay: 0
   _maxDelay: 10
   _timerText: {fileID: 245465941}
+  _playerInputManager: {fileID: 0}
 --- !u!1 &1402443328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2852,6 +2853,10 @@ PrefabInstance:
       propertyPath: _timerText
       value: 
       objectReference: {fileID: 245465941}
+    - target: {fileID: 1966017854248728571, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
+      propertyPath: _playerInputManager
+      value: 
+      objectReference: {fileID: 58884779}
     - target: {fileID: 1966017854248728571, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
       propertyPath: '_gameUI.Array.data[0]'
       value: 
