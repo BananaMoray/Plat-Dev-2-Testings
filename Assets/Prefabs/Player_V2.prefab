@@ -214,7 +214,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -235,13 +235,14 @@ GameObject:
   - component: {fileID: 2059336886948795998}
   - component: {fileID: 1485957258161001062}
   - component: {fileID: 6754728360942136491}
-  - component: {fileID: 6975902479820591469}
-  - component: {fileID: -9146643744622344016}
-  - component: {fileID: -5274720859837713626}
-  - component: {fileID: 187223340825386602}
-  - component: {fileID: 5214590199353474652}
+  - component: {fileID: 5708116854645112622}
+  - component: {fileID: 5755678345328401761}
+  - component: {fileID: 4150584288358316131}
+  - component: {fileID: 4318215162837411488}
+  - component: {fileID: 1271589297116126474}
+  - component: {fileID: 4793337999289507738}
   m_Layer: 6
-  m_Name: Player Refurbished
+  m_Name: Player_V2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,8 +295,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6975902479820591469}
-        m_TargetAssemblyTypeName: CharacterInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 4150584288358316131}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -310,8 +311,8 @@ MonoBehaviour:
     m_ActionName: 'PlayerControls/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6975902479820591469}
-        m_TargetAssemblyTypeName: CharacterInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 4150584288358316131}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -326,8 +327,8 @@ MonoBehaviour:
     m_ActionName: 'PlayerControls/Look[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/rightStick]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6975902479820591469}
-        m_TargetAssemblyTypeName: CharacterInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 4150584288358316131}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
@@ -342,8 +343,8 @@ MonoBehaviour:
     m_ActionName: 'PlayerControls/Interact[/Keyboard/space,/Mouse/leftButton,/XInputControllerWindows/rightTrigger]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6975902479820591469}
-        m_TargetAssemblyTypeName: CharacterInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 4150584288358316131}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
@@ -358,8 +359,8 @@ MonoBehaviour:
     m_ActionName: 'PlayerControls/Fire[/Keyboard/c,/Mouse/rightButton,/XInputControllerWindows/leftTrigger]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6975902479820591469}
-        m_TargetAssemblyTypeName: CharacterInputHandler, Assembly-CSharp
+      - m_Target: {fileID: 4150584288358316131}
+        m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
         m_Arguments:
@@ -583,78 +584,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &6975902479820591469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828197326072397535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef4cdcf031e740446a9652a20b0a460e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerColours:
-  - {fileID: 2100000, guid: 2185dccaaffda704abf9e655bb703679, type: 2}
-  - {fileID: 2100000, guid: 74301590170f9694b89feb5f60a8436a, type: 2}
-  - {fileID: 2100000, guid: 4733be00a479273469220ca7daca57f5, type: 2}
-  - {fileID: 2100000, guid: 6736ce90b36ee92498ce52e3b3654744, type: 2}
---- !u!114 &-9146643744622344016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828197326072397535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 781a6805cd8e77d4a99f9a7d89315c40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundDrag: 6
-  _acceleration: 3
-  _moveSpeedMax: 10
-  _moveSpeedSlowMax: 8.5
-  _rotationSpeed: 720
-  _minimumInput: 0.1
---- !u!114 &-5274720859837713626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828197326072397535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6973509a8e5efe4088d7bee59f89c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitDistance: 1.5
-  _hitForce: 10
-  _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
-  _hitAudio: {fileID: 5214590199353474652}
-  IsHit: 0
---- !u!114 &187223340825386602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2828197326072397535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 767d90580d6548a45ba391d9d769e44c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pickupDistance: 2
-  _timeToPickup: 1.5
-  _throwForce: 15
-  _timeToFullThrowForce: 2
-  _minimumThrowTime: 0.1
-  _lineRenderer: {fileID: 6754728360942136491}
-  _trajectoryResolution: 30
---- !u!82 &5214590199353474652
+--- !u!82 &5708116854645112622
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -751,6 +681,108 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5755678345328401761
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d077e3dbd7c7344b8128342d9f43181, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4150584288358316131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e22701d6e2a29a408f5b88badbad628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerColours:
+  - {fileID: 2100000, guid: 2185dccaaffda704abf9e655bb703679, type: 2}
+  - {fileID: 2100000, guid: 74301590170f9694b89feb5f60a8436a, type: 2}
+  - {fileID: 2100000, guid: 4733be00a479273469220ca7daca57f5, type: 2}
+  - {fileID: 2100000, guid: 6736ce90b36ee92498ce52e3b3654744, type: 2}
+  - {fileID: 2100000, guid: 2db5135f61d71004da2845ad8847e207, type: 2}
+  - {fileID: 2100000, guid: c1bad24a465470a4d9ba369cda46b49e, type: 2}
+  - {fileID: 2100000, guid: f662fb048c999994e821b2b56184afcd, type: 2}
+  - {fileID: 2100000, guid: d898ea06c370c4b4391e4b378933d6ea, type: 2}
+--- !u!114 &4318215162837411488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781a6805cd8e77d4a99f9a7d89315c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundDrag: 6
+  _acceleration: 3
+  _moveSpeedMax: 10
+  _moveSpeedSlowMax: 4
+  _rotationSpeed: 720
+  _minimumInput: 0.1
+  Velocity: {x: 0, y: 0, z: 0}
+--- !u!114 &1271589297116126474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6973509a8e5efe4088d7bee59f89c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitDistance: 1.5
+  _hitForce: 10
+  _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
+  _canEarnPointsThroughAttacking: 1
+  _stunTime: 1
+  _hitAudio: {fileID: 5708116854645112622}
+  IsHit: 0
+  IsBlocking: 0
+--- !u!114 &4793337999289507738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2828197326072397535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767d90580d6548a45ba391d9d769e44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupDistance: 2
+  _timeToPickup: 1.5
+  _throwForce: 15
+  _minThrowForce: 3
+  _timeToFullThrowForce: 2
+  _minimumThrowTime: 0.01
+  _lineRenderer: {fileID: 6754728360942136491}
+  _trajectoryResolution: 30
 --- !u!1 &4274502695153550776
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,9 +792,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5661800440009348125}
-  - component: {fileID: 128367414763639679}
-  - component: {fileID: 5066597938858384923}
-  - component: {fileID: 3988439561942888575}
   m_Layer: 0
   m_Name: ArmRight
   m_TagString: Untagged
@@ -787,142 +816,6 @@ Transform:
   - {fileID: 921052154257930377}
   m_Father: {fileID: 9210889835673971906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
---- !u!95 &128367414763639679
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274502695153550776}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1d077e3dbd7c7344b8128342d9f43181, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5066597938858384923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274502695153550776}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6973509a8e5efe4088d7bee59f89c20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitDistance: 1.5
-  _hitForce: 10
-  _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
-  _hitAudio: {fileID: 3988439561942888575}
-  IsHit: 0
---- !u!82 &3988439561942888575
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274502695153550776}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3fd23be9feb1a474cb53cddbfc3ad797, type: 3}
-  m_Resource: {fileID: 8300000, guid: 3fd23be9feb1a474cb53cddbfc3ad797, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4857038581559391088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1028,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1243,7 +1136,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1459,7 +1352,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2

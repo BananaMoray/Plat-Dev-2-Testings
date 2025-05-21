@@ -10,7 +10,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] 
     private float _moveSpeedMax = 10f;
     [SerializeField] 
-    private float _moveSpeedSlowMax = 8.5f;
+    private float _moveSpeedSlowMax = 4f;
     [SerializeField] 
     private float _rotationSpeed = 720f;
     [SerializeField] 
@@ -22,7 +22,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 _cameraForward;
     private Vector3 _cameraRight;
 
-    private Vector3 _velocity;
+    public Vector3 Velocity;
     private float _verticalVelocity;
     private Vector3 _gravity = new Vector3(0, -9.81f, 0);
 
@@ -69,7 +69,7 @@ public class CharacterMovement : MonoBehaviour
         else
             _verticalVelocity += _gravity.y * Time.deltaTime;
 
-        _velocity.y = _verticalVelocity;
+        Velocity.y = _verticalVelocity;
     }
 
     private void HandleMovement()
@@ -78,15 +78,16 @@ public class CharacterMovement : MonoBehaviour
         if (Mathf.Abs(_movementInput.x) >= _minimumInput || Mathf.Abs(_movementInput.y) >= _minimumInput)
             inputDir = (_cameraForward * _movementInput.y + _cameraRight * _movementInput.x).normalized;
 
-        _velocity += inputDir * _acceleration;
+        Velocity += inputDir * _acceleration;
 
         if (_controller.isGrounded)
-            _velocity *= (1 - Time.deltaTime * _groundDrag);
+            Velocity *= (1 - Time.deltaTime * _groundDrag);
 
-        float tempY = _velocity.y;
-        _velocity.y = 0;
-        _velocity = Vector3.ClampMagnitude(_velocity, IsHoldingObject ? _moveSpeedSlowMax : _moveSpeedMax);
-        _velocity.y = tempY;
+        float tempY = Velocity.y;
+        Velocity.y = 0;
+        //if holding an object ? returns _moveSpeedSlowMax, if not returns _moveSpeedMax
+        Velocity = Vector3.ClampMagnitude(Velocity, IsHoldingObject ? _moveSpeedSlowMax : _moveSpeedMax);
+        Velocity.y = tempY;
     }
 
     private void HandleRotation()
@@ -104,6 +105,6 @@ public class CharacterMovement : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        _controller.Move(_velocity * Time.deltaTime);
+        _controller.Move(Velocity * Time.deltaTime);
     }
 }

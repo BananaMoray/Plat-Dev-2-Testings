@@ -16,6 +16,7 @@ public class ThrowCubeHandler : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _player = transform.GetChild(0).gameObject;
+        
     }
 
     // Update is called once per frame
@@ -26,8 +27,8 @@ public class ThrowCubeHandler : MonoBehaviour
         if (_resetTimer >= _timeToReset)
         {
             _resetTimer = 0;
-            if (_player.GetComponent<CharacterHandler>() != null)
-            _player.GetComponent<CharacterHandler>().ResetPlayer();
+            if (_player.GetComponent<CharacterManager>() != null)
+            _player.GetComponent<CharacterManager>().ResetPlayer();
             if (_player.GetComponent<CharacterControl>() != null)
             {
                 _player.GetComponent<CharacterControl>().ResetPlayer();

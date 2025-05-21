@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterHandler : MonoBehaviour
+public class CharacterManager : MonoBehaviour
 {
     [SerializeField]
     private Material[] _playerColours;
@@ -25,7 +25,7 @@ public class CharacterHandler : MonoBehaviour
         _pickup = GetComponent<PickupHandler>();
         HandlePlayerColour(_playerInput.playerIndex);
     }
-    private void HandlePlayerColour(int playerIndex)
+    public void HandlePlayerColour(int playerIndex)
     {
         GetComponent<MeshRenderer>().material = _playerColours[playerIndex];
     }
@@ -60,8 +60,9 @@ public class CharacterHandler : MonoBehaviour
         transform.SetParent(null);
         transform.rotation = Quaternion.identity;
         GetComponent<CharacterController>().enabled = true;
-
+        GetComponent<CharacterMovement>().enabled = true;
         _combat.IsHit = false;
+        HandlePlayerColour(_playerInput.playerIndex);
     }
 
     private void Update()

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,14 +11,22 @@ public class CombatHandler : MonoBehaviour
     private float _hitForce = 10f;
     [SerializeField]
     private GameObject _throwCube;
+    [SerializeField]
+    private bool _canEarnPointsThroughAttacking = true;
+    [SerializeField]
+    private float _stunTime = 1f;
+
     [Header("Component Data")]
     [SerializeField]
     private AudioSource _hitAudio;
-    private Animator _rightArmAnim;
+    private Animator _anim;
 
     private PlayerInput _playerInput;
     private CharacterController _characterController;
+    private CharacterManager _characterManager;
+
     public bool IsHit;
+    public bool IsBlocking;
 
     private Vector3 _objectVelocity = Vector3.zero;
 
@@ -28,7 +37,8 @@ public class CombatHandler : MonoBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
         _characterController = GetComponent<CharacterController>();
-        _rightArmAnim = GetComponentInChildren<Animator>();
+        _anim = GetComponentInChildren<Animator>();
+        _characterManager = GetComponent<CharacterManager>();
     }
 
     public void Update()
@@ -38,14 +48,26 @@ public class CombatHandler : MonoBehaviour
 
     public void HandleAttack(bool fireInput, bool isHolding)
     {
-        if (isHolding || IsHit) return;
+        //if (IsBlocking && !fireInput)
+        //    IsBlocking = false;
 
-        if (fireInput)
+        if (isHolding && fireInput)
+        {
+            IsBlocking = true;
+        }
+        else
+        {
+            IsBlocking = false;
+        }
+
+        if (IsHit) return;
+
+        if (fireInput && !isHolding)
         {
             if (_attackTimer >= _attackCooldownTime)
             {
-                _rightArmAnim.SetTrigger("Attack");
-                Debug.Log("attack");
+                _anim.SetTrigger("Attack");
+                
                 _attackTimer = 0;
             }
         }
@@ -54,20 +76,35 @@ public class CombatHandler : MonoBehaviour
     public void Attack()
     {
         Vector3 hitOrigin = transform.position + transform.forward * 1.5f;
-        Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
 
+        Collider[] colliders = Physics.OverlapSphere(hitOrigin, _hitDistance);
         foreach (Collider collider in colliders)
         {
-            CombatHandler otherCollision = collider.GetComponent<CombatHandler>();
-            if (otherCollision == null || otherCollision.IsHit) continue;
+            CombatHandler otherCombat = collider.GetComponent<CombatHandler>();
+            if (otherCombat == null) continue;
 
-            int myIndex = _playerInput.playerIndex;
-            int otherIndex = collider.GetComponent<PlayerInput>().playerIndex;
+
+            int myIndex = GetComponent<PlayerInput>().playerIndex;
+            int otherIndex = otherCombat.GetComponent<PlayerInput>().playerIndex;
 
             if (myIndex == otherIndex) continue;
 
-            LaunchPlayer(collider.gameObject, otherCollision);
+            if (otherCombat.IsHit) continue;
+
+            if (otherCombat.IsBlocking)
+            {
+                StunSelf();
+                continue;
+            }
+
             _hitAudio.Play();
+            if (_canEarnPointsThroughAttacking)
+            {
+                PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
+            }
+
+            otherCombat.gameObject.GetComponent<CharacterManager>().HandlePlayerColour(otherIndex + 4);
+            LaunchPlayer(otherCombat.gameObject, otherCombat);
             break;
         }
     }
@@ -75,6 +112,7 @@ public class CombatHandler : MonoBehaviour
     private void LaunchPlayer(GameObject hitPlayer, CombatHandler targetHandler)
     {
         GameObject throwCube = Instantiate(_throwCube, hitPlayer.transform.position, Quaternion.identity);
+
         targetHandler.IsHit = true;
         hitPlayer.transform.SetParent(throwCube.transform);
 
@@ -82,13 +120,24 @@ public class CombatHandler : MonoBehaviour
         throwCube.GetComponent<Rigidbody>().AddForce(_objectVelocity, ForceMode.Impulse);
 
         hitPlayer.GetComponent<CharacterController>().enabled = false;
+        hitPlayer.GetComponent<CharacterMovement>().enabled = false;
     }
 
-    public void ResetPlayer()
+    private void StunSelf()
     {
-        transform.SetParent(null);
-        transform.rotation = Quaternion.identity;
-        _characterController.enabled = true;
-        IsHit = false;
+        IsHit = true;
+        GetComponent<CharacterMovement>().enabled = false;
+        GetComponent<CharacterManager>().HandlePlayerColour(_playerInput.playerIndex + 4);
+        _hitAudio.Play();
+        
+        StartCoroutine(StunPlayer(_stunTime));
     }
+
+    IEnumerator StunPlayer(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _characterManager.ResetPlayer();
+    }
+
+
 }

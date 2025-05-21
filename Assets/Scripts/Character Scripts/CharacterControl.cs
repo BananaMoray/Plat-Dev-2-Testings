@@ -44,7 +44,7 @@ public class CharacterControl : MonoBehaviour
     [SerializeField]
     private float _moveSpeedMax = 10f;
     [SerializeField]
-    private float _moveSpeedSlowMax = 8.5f;
+    private float _moveSpeedSlowMax = 4f;
     [SerializeField]
     private float _rotationSpeed = 720f;
     private float _minimumInput = 0.1f;
@@ -197,7 +197,6 @@ public class CharacterControl : MonoBehaviour
 
     private void HandleBlock()
     {
-        Debug.Log(IsBlocking);
 
         if (IsBlocking)
         {
@@ -310,7 +309,6 @@ public class CharacterControl : MonoBehaviour
                 _armRightAnimator.SetTrigger("Attack");
             }
         }
-
     }
 
     public void Attack()
