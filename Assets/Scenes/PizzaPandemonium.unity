@@ -3138,6 +3138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinuteRemaining
       objectReference: {fileID: 0}
+    - target: {fileID: 3996751904966291645, guid: fad4133b85918a846856e7ef01f9dfdf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
