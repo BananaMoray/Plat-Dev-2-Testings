@@ -12,12 +12,12 @@ public class ToppingHandler : MonoBehaviour
     public int PlayerIndex;
     public bool IsScored = false;
     public bool CanBePickedUp = true;
+    public bool IsPickedUp = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
-
         HandleColour(PlayerIndex);
     }
 
@@ -38,6 +38,8 @@ public class ToppingHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         if (IsScored)
         {
             CanBePickedUp = false;
@@ -48,5 +50,8 @@ public class ToppingHandler : MonoBehaviour
             CanBePickedUp = true;
             GetComponent<MeshRenderer>().material = _toppingColours[PlayerIndex];
         }
+
+
     }
+
 }

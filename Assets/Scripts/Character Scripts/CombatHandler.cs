@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,12 +10,16 @@ public class CombatHandler : MonoBehaviour
     private float _hitDistance = 1.5f;
     [SerializeField]
     private float _hitForce = 10f;
+    [SerializeField, Range(0,10)]
+    private float _torqueMultiplier = 1f;
     [SerializeField]
     private GameObject _throwCube;
     [SerializeField]
     private bool _canEarnPointsThroughAttacking = true;
     [SerializeField]
-    private float _stunTime = 1f;
+    private float _hitStunTime = 2f;
+    [SerializeField]
+    private float _blockStunTime = 2f;
 
     [Header("Component Data")]
     [SerializeField]
@@ -117,10 +122,21 @@ public class CombatHandler : MonoBehaviour
         hitPlayer.transform.SetParent(throwCube.transform);
 
         _objectVelocity = (transform.forward + Vector3.up * 0.5f).normalized * _hitForce;
+        throwCube.GetComponent<ThrowCubeHandler>()._timeToReset = _hitStunTime;
         throwCube.GetComponent<Rigidbody>().AddForce(_objectVelocity, ForceMode.Impulse);
+        throwCube.GetComponent<Rigidbody>().AddTorque(RandomizeTorque(_torqueMultiplier), ForceMode.Impulse);
 
         hitPlayer.GetComponent<CharacterController>().enabled = false;
         hitPlayer.GetComponent<CharacterMovement>().enabled = false;
+    }
+
+    private Vector3 RandomizeTorque(float multiplier)
+    {
+        float x = UnityEngine.Random.Range(-1,1);
+        float y = UnityEngine.Random.Range(-1,1);
+        float z = UnityEngine.Random.Range(-1,1);
+
+        return new Vector3(x,y,z) * multiplier;
     }
 
     private void StunSelf()
@@ -130,7 +146,7 @@ public class CombatHandler : MonoBehaviour
         GetComponent<CharacterManager>().HandlePlayerColour(_playerInput.playerIndex + 4);
         _hitAudio.Play();
         
-        StartCoroutine(StunPlayer(_stunTime));
+        StartCoroutine(StunPlayer(_blockStunTime));
     }
 
     IEnumerator StunPlayer(float seconds)

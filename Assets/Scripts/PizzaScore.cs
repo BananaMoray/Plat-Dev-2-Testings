@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class PizzaScoreZone : MonoBehaviour
 {
+
     [SerializeField] 
     private int _maxPlayers = 4;
     public static List<int> PlayerScores;
     [SerializeField]
     private int _toppingValue = 3;
+    [SerializeField]
+    private GameObject _text;
 
     //[SerializeField]
     //private GameObject _pizza;
@@ -35,10 +38,20 @@ public class PizzaScoreZone : MonoBehaviour
             {
                 PlayerScores[playerIndex] += _toppingValue;
                 topping.IsScored = true;
+                InstantiateFloatingText(topping.gameObject);
+
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
             }
         }
+    }
+
+    
+    private void InstantiateFloatingText(GameObject gameObject)
+    {
+        if (_text == null) return;
+
+        Instantiate(_text, gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
     }
 
     //inversion of the previous code, now we can also remove toppings

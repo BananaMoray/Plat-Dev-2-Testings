@@ -3,10 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PickupHandler : MonoBehaviour
 {
+    [SerializeField, Tooltip("Enabled only allows the pickup of toppings of the same ID as the player. Disable to pick up all toppings regardless of ID.")]
+    private bool _canPickUpOnlyIDToppings = true;
+
+    [Header("Pick Up Values")]
     [SerializeField]
     private float _pickupDistance = 2f;
     [SerializeField]
     private float _timeToPickup = 1.5f;
+    [Header("Throw Values")]
     [SerializeField]
     private float _throwForce = 15f;
     [SerializeField]
@@ -15,6 +20,8 @@ public class PickupHandler : MonoBehaviour
     private float _timeToFullThrowForce = 2f;
     [SerializeField]
     private float _minimumThrowTime = 0.1f;
+
+    [Header("Line Renderer Data")]
     [SerializeField]
     private LineRenderer _lineRenderer;
     [SerializeField]
@@ -27,6 +34,7 @@ public class PickupHandler : MonoBehaviour
     private Rigidbody _heldToppingBody;
     private float _pickupTimer = 0f;
     private float _throwTimer = 0f;
+
     private bool _canPickup = true;
 
     private Vector3 _gravity = new Vector3(0, -9.81f, 0);
@@ -86,8 +94,10 @@ public class PickupHandler : MonoBehaviour
         foreach (Collider collider in colliders)
         {
             ToppingHandler topping = collider.GetComponent<ToppingHandler>();
-            if (topping == null || !topping.CanBePickedUp) continue;
-            if (topping.PlayerIndex != _playerInput.playerIndex) continue;
+
+            if (topping == null || !topping.CanBePickedUp || topping.IsPickedUp) continue;
+
+            if (_canPickUpOnlyIDToppings && topping.PlayerIndex != _playerInput.playerIndex) continue;
 
             AssignHeldObject(collider.gameObject);
             HoldObject(true);
@@ -108,8 +118,6 @@ public class PickupHandler : MonoBehaviour
 
     private void ThrowObject()
     {
-        Debug.Log("Throwing Topping");
-
         HoldObject(false);
         _heldTopping.transform.SetParent(null);
 
@@ -122,8 +130,16 @@ public class PickupHandler : MonoBehaviour
         StartPickupCooldown();
     }
 
+    public void DropObject()
+    {
+        if (_heldTopping == null) return;
+
+        ThrowObject();
+    }
+
     private void HoldObject(bool v)
     {
+        _heldTopping.GetComponent<ToppingHandler>().IsPickedUp = v;
         _heldToppingBody.useGravity = !v;
         _heldToppingBody.isKinematic = v;
     }

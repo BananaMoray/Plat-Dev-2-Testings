@@ -7,7 +7,7 @@ public class ThrowCubeHandler : MonoBehaviour
     private GameObject _player;
 
     [SerializeField]
-    private float _timeToReset = 3f;
+    public float _timeToReset  =3f;
     private float _resetTimer;
 
 

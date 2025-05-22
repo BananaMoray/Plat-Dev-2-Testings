@@ -14,18 +14,26 @@ public class ToppingSpawner : MonoBehaviour
 
     [SerializeField]
     private GameObject _toppingPrefab;
-    [SerializeField] 
+    [Header("Weight Values")]
+    [SerializeField]
+    [Tooltip("The starting weight score that the current toppings are being compared to.")]
     private int _maxWeight = 15;
+    [SerializeField]
+    [Tooltip("Multiplies the topping amount with this value, a higher multiplier leads to faster low weight.")]
+    private int _weightMultiplier = 1;
+
+    [Header("Spawn Values")]
     [SerializeField]
     private float _radius = 15f;
     [SerializeField]
     private float _spawnDelay = 0;
     [SerializeField]
-    private float _toppingSpawnTimer;
-    [SerializeField]
     private float _maxTime = 3f;
     [SerializeField]
     private int _height = 15;
+
+    private float _toppingSpawnTimer;
+
 
     private void Update()
     {
@@ -92,7 +100,7 @@ public class ToppingSpawner : MonoBehaviour
             // a player with 0 toppings has a weight of _maxWeight - 0 to have a topping spawn
             //a player with 5 toppings has a weight of _maxWeight - 5
             //we add a math max so that players with more than _maxWeight toppings dont have a weight of 0 but 1 (there should always be a chance to get toppings)
-            int weight = Mathf.Max(1, _maxWeight - toppingCounts[i]);
+            int weight = Mathf.Max(1, _maxWeight - toppingCounts[i] * _weightMultiplier);
 
 
             //this one is pretty stupid but shoudl still work for now

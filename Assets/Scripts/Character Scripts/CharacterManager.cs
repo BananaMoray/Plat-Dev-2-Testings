@@ -67,13 +67,15 @@ public class CharacterManager : MonoBehaviour
 
     private void Update()
     {
-        if (_combat.IsHit) return;
-
+        if (_combat.IsHit) 
+        {
+            _pickup.DropObject();
+            return;
+        }
         _movement.SetInputs(_movementInput, _lookInput);
         _movement.IsHoldingObject = _pickup.IsHolding;
 
         _combat.HandleAttack(_fire, _pickup.IsHolding);
         _pickup.ChargeThrow(_interact);
-
     }
 }

@@ -757,9 +757,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitDistance: 1.5
   _hitForce: 10
+  _torqueMultiplier: 1
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _canEarnPointsThroughAttacking: 1
-  _stunTime: 1
+  _hitStunTime: 2
+  _blockStunTime: 2
   _hitAudio: {fileID: 5708116854645112622}
   IsHit: 0
   IsBlocking: 0
@@ -775,6 +777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767d90580d6548a45ba391d9d769e44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canPickUpOnlyIDToppings: 0
   _pickupDistance: 2
   _timeToPickup: 1.5
   _throwForce: 15
