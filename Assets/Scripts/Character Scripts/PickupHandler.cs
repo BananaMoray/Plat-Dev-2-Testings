@@ -80,11 +80,13 @@ public class PickupHandler : MonoBehaviour
                 ThrowObject();
             }
 
+            _lineRenderer.enabled = true;
             DrawThrowTrajectoryInGameView();
         }
         else if (_throwTimer > _minimumThrowTime)
         {
             ThrowObject();
+            _lineRenderer.enabled = false;
         }
     }
 

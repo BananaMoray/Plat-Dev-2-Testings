@@ -77,6 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayers: 4
+  _toppingValue: 3
+  _text: {fileID: 0}
 --- !u!1 &4624753598533592920
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +178,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -376,6 +378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayers: 4
+  _toppingValue: 3
+  _text: {fileID: 0}
 --- !u!1 &6225268089197189396
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,8 +408,8 @@ Transform:
   m_GameObject: {fileID: 6225268089197189396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.3, z: 0.9}
+  m_LocalPosition: {x: 0, y: 1.07, z: 0}
+  m_LocalScale: {x: 0.88, y: 0.4, z: 0.88}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8769958318867853214}
@@ -453,3 +457,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPlayers: 4
+  _toppingValue: 3
+  _text: {fileID: 1437184923465280443, guid: d3e17b16618f08341b352f771261b2da, type: 3}

@@ -13,6 +13,7 @@ public class ToppingHandler : MonoBehaviour
     public bool IsScored = false;
     public bool CanBePickedUp = true;
     public bool IsPickedUp = false;
+    public int Value = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

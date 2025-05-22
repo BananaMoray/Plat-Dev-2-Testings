@@ -8,8 +8,6 @@ public class PizzaScoreZone : MonoBehaviour
     private int _maxPlayers = 4;
     public static List<int> PlayerScores;
     [SerializeField]
-    private int _toppingValue = 3;
-    [SerializeField]
     private GameObject _text;
 
     //[SerializeField]
@@ -36,10 +34,9 @@ public class PizzaScoreZone : MonoBehaviour
 
             if (IsValidPlayer(playerIndex) && !topping.IsScored)
             {
-                PlayerScores[playerIndex] += _toppingValue;
+                PlayerScores[playerIndex] += topping.Value;
                 topping.IsScored = true;
                 InstantiateFloatingText(topping.gameObject);
-
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
             }
@@ -66,7 +63,7 @@ public class PizzaScoreZone : MonoBehaviour
 
             if (IsValidPlayer(playerIndex))
             {
-                PlayerScores[playerIndex] -= _toppingValue;
+                PlayerScores[playerIndex] -= topping.Value;
                 topping.IsScored = false;
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
