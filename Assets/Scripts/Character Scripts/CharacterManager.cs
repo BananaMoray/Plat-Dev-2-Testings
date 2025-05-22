@@ -7,6 +7,7 @@ public class CharacterManager : MonoBehaviour
     private Material[] _playerColours;
 
     private PlayerInput _playerInput;
+    public int PlayerIndex;
     private CharacterMovement _movement;
     private CombatHandler _combat;
     private PickupHandler _pickup;
@@ -23,7 +24,8 @@ public class CharacterManager : MonoBehaviour
         _movement = GetComponent<CharacterMovement>();
         _combat = GetComponent<CombatHandler>();
         _pickup = GetComponent<PickupHandler>();
-        HandlePlayerColour(_playerInput.playerIndex);
+        PlayerIndex = _playerInput.playerIndex;
+        HandlePlayerColour(PlayerIndex);
     }
     public void HandlePlayerColour(int playerIndex)
     {
@@ -62,7 +64,7 @@ public class CharacterManager : MonoBehaviour
         GetComponent<CharacterController>().enabled = true;
         GetComponent<CharacterMovement>().enabled = true;
         _combat.IsHit = false;
-        HandlePlayerColour(_playerInput.playerIndex);
+        HandlePlayerColour(PlayerIndex);
     }
 
     private void Update()

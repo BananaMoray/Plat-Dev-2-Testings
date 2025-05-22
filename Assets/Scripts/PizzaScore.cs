@@ -8,7 +8,7 @@ public class PizzaScoreZone : MonoBehaviour
     private int _maxPlayers = 4;
     public static List<int> PlayerScores;
     [SerializeField]
-    private GameObject _text;
+    private GameObject _textObject;
 
     //[SerializeField]
     //private GameObject _pizza;
@@ -36,7 +36,7 @@ public class PizzaScoreZone : MonoBehaviour
             {
                 PlayerScores[playerIndex] += topping.Value;
                 topping.IsScored = true;
-                InstantiateFloatingText(topping.gameObject);
+                InstantiateFloatingText(topping);
 
                 Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
             }
@@ -44,12 +44,15 @@ public class PizzaScoreZone : MonoBehaviour
     }
 
     
-    private void InstantiateFloatingText(GameObject gameObject)
+    private void InstantiateFloatingText(ToppingHandler topping)
     {
-        if (_text == null) return;
+        if (_textObject == null) return;
         Debug.Log("Text Instantiated");
 
-        Instantiate(_text, gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
+        GameObject text = Instantiate(_textObject, topping.gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
+        FloatingTextItem textItem = text.GetComponent<FloatingTextItem>();
+        textItem.TMP.SetText("+" + topping.Value.ToString());
+        textItem.HandleTextColour(topping.PlayerIndex);
     }
 
     //inversion of the previous code, now we can also remove toppings
