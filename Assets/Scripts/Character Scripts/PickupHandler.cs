@@ -165,7 +165,7 @@ public class PickupHandler : MonoBehaviour
         {
             float time = i * timeStep;
             Vector3 position = startPosition + velocity * time + 0.5f * Physics.gravity * time * time;
-            if (position.y < -2) position.y = -2;
+            //if (position.y < -2) position.y = -2;
             points[i] = position;
         }
 

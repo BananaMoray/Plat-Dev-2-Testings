@@ -781,9 +781,9 @@ MonoBehaviour:
   _pickupDistance: 2
   _timeToPickup: 1.5
   _throwForce: 15
-  _minThrowForce: 3
+  _minThrowForce: 5
   _timeToFullThrowForce: 2
-  _minimumThrowTime: 0.01
+  _minimumThrowTime: 0.001
   _lineRenderer: {fileID: 6754728360942136491}
   _trajectoryResolution: 30
 --- !u!1 &4274502695153550776
