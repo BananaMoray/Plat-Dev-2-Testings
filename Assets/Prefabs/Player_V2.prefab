@@ -724,6 +724,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c1bad24a465470a4d9ba369cda46b49e, type: 2}
   - {fileID: 2100000, guid: f662fb048c999994e821b2b56184afcd, type: 2}
   - {fileID: 2100000, guid: d898ea06c370c4b4391e4b378933d6ea, type: 2}
+  PlayerIndex: 0
 --- !u!114 &4318215162837411488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,11 +759,13 @@ MonoBehaviour:
   _hitDistance: 1.5
   _hitForce: 10
   _torqueMultiplier: 1
+  _hitValue: 1
   _throwCube: {fileID: 3935450636168953160, guid: 366fb2012f768614e8ee47c7ad427e15, type: 3}
   _canEarnPointsThroughAttacking: 1
   _hitStunTime: 2
   _blockStunTime: 2
   _hitAudio: {fileID: 5708116854645112622}
+  _textObject: {fileID: 1437184923465280443, guid: d3e17b16618f08341b352f771261b2da, type: 3}
   IsHit: 0
   IsBlocking: 0
 --- !u!114 &4793337999289507738
