@@ -7,7 +7,7 @@ using System.Linq;
 public class QueueDelay : MonoBehaviour
 {
     [SerializeField] private bool _inQueue = false;
-    [SerializeField] public bool _startGame = false;
+    public static bool IsStarted = false;
 
     [SerializeField] private List<GameObject> _gameUI;
 
@@ -80,10 +80,10 @@ public class QueueDelay : MonoBehaviour
     {
         if(_delay <= 0)
         {
-            _startGame = true;
+            IsStarted = true;
         }
 
-        if(_startGame)
+        if(IsStarted)
         {
             
             for (int i = 0;  i < Players.Count(); i++)

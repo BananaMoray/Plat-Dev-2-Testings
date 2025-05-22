@@ -108,7 +108,7 @@ public class CombatHandler : MonoBehaviour
             }
 
             _hitAudio.Play();
-            if (_canEarnPointsThroughAttacking)
+            if (_canEarnPointsThroughAttacking && QueueDelay.IsStarted)
             {
                 GameObject text = Instantiate(_textObject, gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
                 FloatingTextItem textItem = text.GetComponent<FloatingTextItem>();
