@@ -123,7 +123,7 @@ public class RespawnHandler : MonoBehaviour
         _char.transform.SetParent(null);
         _char.transform.rotation = Quaternion.identity;
         _char.GetComponent<CharacterController>().enabled = true;
-        _char.GetComponent<CharacterControl>().IsHit = false;
+        _char.GetComponent<CombatHandler>().IsHit = false;
 
         print(obj.name);
 

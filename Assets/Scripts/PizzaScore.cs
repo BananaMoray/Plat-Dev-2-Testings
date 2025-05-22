@@ -50,6 +50,7 @@ public class PizzaScoreZone : MonoBehaviour
     private void InstantiateFloatingText(GameObject gameObject)
     {
         if (_text == null) return;
+        Debug.Log("Text Instantiated");
 
         Instantiate(_text, gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
     }
