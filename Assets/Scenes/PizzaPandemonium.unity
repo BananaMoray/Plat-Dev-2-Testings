@@ -1940,6 +1940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pizza
       objectReference: {fileID: 0}
+    - target: {fileID: 4832336808231363295, guid: 8c6184d7d78e8d4468212ebb1f89ddcb, type: 3}
+      propertyPath: _text
+      value: 
+      objectReference: {fileID: 1437184923465280443, guid: d3e17b16618f08341b352f771261b2da, type: 3}
     - target: {fileID: 5366880695985644770, guid: 8c6184d7d78e8d4468212ebb1f89ddcb, type: 3}
       propertyPath: m_Enabled
       value: 1
