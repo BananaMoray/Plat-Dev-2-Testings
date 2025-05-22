@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxPlayers: 4
   _toppingValue: 3
+  _text: {fileID: 0}
 --- !u!4 &991083
 Transform:
   m_ObjectHideFlags: 0
@@ -1831,6 +1832,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd16c6c31814a954cabbe7aba00e9553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inQueue: 0
+  _startGame: 0
+  _gameUI: []
+  Players: []
+  _delay: 0
+  _maxDelay: 0
+  _timerText: {fileID: 0}
+  _playerInputManager: {fileID: 0}
 --- !u!1 &1402443328
 GameObject:
   m_ObjectHideFlags: 0
