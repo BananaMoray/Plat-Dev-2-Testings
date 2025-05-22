@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class MinuteRemaining : MonoBehaviour
@@ -5,7 +6,7 @@ public class MinuteRemaining : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
   
 
-    [SerializeField] private Canvas _timeRemainingCanvas;
+    [SerializeField] private TMP_Text _timeRemainingText;
 
     [SerializeField]
     private GameObject _gameManagerObject;
@@ -13,16 +14,22 @@ public class MinuteRemaining : MonoBehaviour
     private GameManager _gameManager;
     void Start()
     {
-        _timeRemainingCanvas.enabled = false;
+        _timeRemainingText.enabled = false;
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_gameManager._timer <= 60)
+        if (_gameManager._timer <=10)
         {
-           _timeRemainingCanvas.enabled = true;
+            _timeRemainingText.text = "10";
+           _timeRemainingText.enabled = true;
+        } 
+        if (_gameManager._timer <=9)
+        {
+            _timeRemainingText.text = "9";
+           //_timeRemainingText.enabled = true;
         }
     }
 }
