@@ -37,9 +37,7 @@ public class ToppingSpawner : MonoBehaviour
 
     private void Update()
     {
-        _start = _queDelay._startGame;
-
-        if (_start)
+        if (QueueDelay.IsStarted)
         {
             if (_players.Length == 0)
             {
