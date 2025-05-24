@@ -20,9 +20,20 @@ public class QueueDelay : MonoBehaviour
 
     [SerializeField] private GameObject _playerInputManager;
 
+    private GameObject[] _initialToppingSpawns;
+    private GameObject[] _toppings;
+    [SerializeField] private GameObject _toppingPrefab;
+    //private int _currentPlayers;
+
+    [SerializeField] private List<GameObject> _currentPlayers = new List<GameObject>();
+    [SerializeField] private List<GameObject> _currentToppings = new List<GameObject>();
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        _initialToppingSpawns = GameObject.FindGameObjectsWithTag("InitialToppingSpawn");
 
         Mathf.Clamp(_delay, 0, _maxDelay);
 
@@ -37,14 +48,17 @@ public class QueueDelay : MonoBehaviour
     void Update()
     {
         GetPlayers();
-        QueTimer();
-        StartGame();
+        SpawnInitialToppings(_toppingPrefab, _initialToppingSpawns, Players);
+
+        //QueTimer();
+        //StartGame();
     }
 
 
     void GetPlayers()
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
+        _toppings = GameObject.FindGameObjectsWithTag("Ingredient");
     }
 
     void QueTimer()
@@ -62,7 +76,7 @@ public class QueueDelay : MonoBehaviour
                 _delay -= Time.deltaTime;
             }
 
-            _timerText.text ="Starting in: " + _delay.ToString("F0");
+            _timerText.text = "Starting in: " + _delay.ToString("F0");
         }
 
         if (Players.Count() > 1)
@@ -78,15 +92,15 @@ public class QueueDelay : MonoBehaviour
 
     void StartGame()
     {
-        if(_delay <= 0)
+        if (_delay <= 0)
         {
             IsStarted = true;
         }
 
-        if(IsStarted)
+        if (IsStarted)
         {
-            
-            for (int i = 0;  i < Players.Count(); i++)
+
+            for (int i = 0; i < Players.Count(); i++)
             {
                 PizzaScoreZone.PlayerScores[i] = 0;
             }
@@ -99,6 +113,44 @@ public class QueueDelay : MonoBehaviour
             _playerInputManager.SetActive(false);
         }
     }
+
+
+    void SpawnInitialToppings(GameObject prefab, GameObject[] toppicSpawns, GameObject[] players)
+    {
+        GameObject[] currenttoppings = new GameObject[4];
+
+
+
+        foreach (GameObject player in players)
+        {
+            //currentPlayers.Add(player);
+            if (!_currentPlayers.Contains(player))
+            {
+                int i = player.GetComponent<CharacterManager>().PlayerIndex;
+                currenttoppings[i] = Instantiate(prefab, toppicSpawns[i].transform.position, Quaternion.identity);
+                //prefab.GetComponent<ToppingHandler>().PlayerIndex = i;
+
+                _currentPlayers.Add(player);
+            }
+        }
+
+        foreach (GameObject topping in _toppings)
+        {
+            if (!_currentToppings.Contains(topping))
+            {
+                topping.GetComponent<ToppingHandler>().PlayerIndex = _currentPlayers.Count - 1;
+
+                _currentToppings.Add(topping);
+            }
+        }
+    }
+
+
+
+
+
+
+
 
 
 }
