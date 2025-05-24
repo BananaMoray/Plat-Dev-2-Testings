@@ -10,7 +10,7 @@ public class CombatHandler : MonoBehaviour
     private float _hitDistance = 1.5f;
     [SerializeField]
     private float _hitForce = 10f;
-    [SerializeField, Range(0,10)]
+    [SerializeField, Range(0, 10)]
     private float _torqueMultiplier = 1f;
     [SerializeField]
     private int _hitValue = 1;
@@ -43,6 +43,17 @@ public class CombatHandler : MonoBehaviour
     private float _attackCooldownTime = 1f;
     private float _attackTimer = 0f;
 
+    [Header("SHIELD TIMER")]
+
+    [SerializeField, Range(0, 10)]
+    private float _shieldDuration;
+    private float _shieldTimer = 0f;
+
+    [SerializeField, Range(0, 10)]
+    private float _shieldCooldownDuration;
+    private float _shieldCooldownTime = 1000f;
+    //private bool _shieldTimerActive = false;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -61,23 +72,33 @@ public class CombatHandler : MonoBehaviour
         //if (IsBlocking && !fireInput)
         //    IsBlocking = false;
 
-        if (isHolding && fireInput)
+        if (isHolding && fireInput && _shieldTimer < _shieldDuration && _shieldCooldownTime > _shieldCooldownDuration)
         {
             IsBlocking = true;
+            _shieldTimer += Time.deltaTime;
+            //reset shield timer if it is not active yet
         }
         else
         {
             IsBlocking = false;
+            // shield time is not active anymore
+            // if we just got back to not blocking, reset the timer
+            if (_shieldTimer > _shieldDuration)
+            {
+                _shieldCooldownTime = 0f;
+            }
+            _shieldTimer = 0f;
+            _shieldCooldownTime += Time.deltaTime;
+            //_shieldTimerActive = false;
         }
 
         if (IsHit) return;
-
         if (fireInput && !isHolding)
         {
             if (_attackTimer >= _attackCooldownTime)
             {
                 _anim.SetTrigger("Attack");
-                
+
                 _attackTimer = 0;
             }
         }
@@ -142,11 +163,11 @@ public class CombatHandler : MonoBehaviour
 
     private Vector3 RandomizeTorque(float multiplier)
     {
-        float x = UnityEngine.Random.Range(-1,1);
-        float y = UnityEngine.Random.Range(-1,1);
-        float z = UnityEngine.Random.Range(-1,1);
+        float x = UnityEngine.Random.Range(-1, 1);
+        float y = UnityEngine.Random.Range(-1, 1);
+        float z = UnityEngine.Random.Range(-1, 1);
 
-        return new Vector3(x,y,z) * multiplier;
+        return new Vector3(x, y, z) * multiplier;
     }
 
     private void StunSelf()
@@ -155,7 +176,7 @@ public class CombatHandler : MonoBehaviour
         GetComponent<CharacterMovement>().enabled = false;
         GetComponent<CharacterManager>().HandlePlayerColour(_playerInput.playerIndex + 4);
         _hitAudio.Play();
-        
+
         StartCoroutine(StunPlayer(_blockStunTime));
     }
 
