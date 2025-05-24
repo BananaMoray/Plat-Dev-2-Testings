@@ -768,6 +768,8 @@ MonoBehaviour:
   _textObject: {fileID: 1437184923465280443, guid: d3e17b16618f08341b352f771261b2da, type: 3}
   IsHit: 0
   IsBlocking: 0
+  _shieldDuration: 1.01
+  _shieldCooldownDuration: 1.01
 --- !u!114 &4793337999289507738
 MonoBehaviour:
   m_ObjectHideFlags: 0
