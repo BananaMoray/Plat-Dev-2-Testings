@@ -2129,6 +2129,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 458104806519199356, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: _queueDelayManager
+      value: 
+      objectReference: {fileID: 6204667869791945676}
     - target: {fileID: 814143633806797536, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: _pizzaScoreZone
       value: 
