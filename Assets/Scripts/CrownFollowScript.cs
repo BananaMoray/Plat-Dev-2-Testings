@@ -25,12 +25,12 @@ public class CrownFollowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Winning Player Index: " + _winningPlayerIndex);
+        //Debug.Log("Winning Player Index: " + _winningPlayerIndex);
 
-        Debug.Log("List of previous Scores: " + string.Join(", ", _listOfPreviousScores));
-        Debug.Log("List of Scores: " + string.Join(", ", _listOfScores));
-        Debug.Log("best score: " + _listOfScores.Max());
-        Debug.Log("best score: " + _listOfPreviousScores.Max());
+        //Debug.Log("List of previous Scores: " + string.Join(", ", _listOfPreviousScores));
+        //Debug.Log("List of Scores: " + string.Join(", ", _listOfScores));
+        //Debug.Log("best score: " + _listOfScores.Max());
+        //Debug.Log("best score: " + _listOfPreviousScores.Max());
 
 
         for (int i = 0; i < _queueDelay.Players.Count(); i++)

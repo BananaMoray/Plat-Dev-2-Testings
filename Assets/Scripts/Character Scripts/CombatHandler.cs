@@ -13,6 +13,8 @@ public class CombatHandler : MonoBehaviour
     [SerializeField, Range(0,10)]
     private float _torqueMultiplier = 1f;
     [SerializeField]
+    private int _hitValue = 1;
+    [SerializeField]
     private GameObject _throwCube;
     [SerializeField]
     private bool _canEarnPointsThroughAttacking = true;
@@ -25,6 +27,9 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private AudioSource _hitAudio;
     private Animator _anim;
+
+    [SerializeField]
+    private GameObject _textObject;
 
     private PlayerInput _playerInput;
     private CharacterController _characterController;
@@ -103,8 +108,13 @@ public class CombatHandler : MonoBehaviour
             }
 
             _hitAudio.Play();
-            if (_canEarnPointsThroughAttacking)
+            if (_canEarnPointsThroughAttacking && QueueDelay.IsStarted)
             {
+                GameObject text = Instantiate(_textObject, gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
+                FloatingTextItem textItem = text.GetComponent<FloatingTextItem>();
+                textItem.TMP.SetText("+" + _hitValue);
+                textItem.HandleTextColour(_characterManager.PlayerIndex);
+
                 PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
             }
 
