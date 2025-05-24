@@ -6,7 +6,7 @@ using System.Linq;
 
 public class QueueDelay : MonoBehaviour
 {
-    [SerializeField] private bool _inQueue = false;
+    public bool _inQueue = true;
     public static bool IsStarted = false;
 
     [SerializeField] private List<GameObject> _gameUI;
@@ -27,6 +27,7 @@ public class QueueDelay : MonoBehaviour
 
     [SerializeField] private List<GameObject> _currentPlayers = new List<GameObject>();
     [SerializeField] private List<GameObject> _currentToppings = new List<GameObject>();
+    [SerializeField] List<GameObject> _readyPlayer;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,7 +52,7 @@ public class QueueDelay : MonoBehaviour
         SpawnInitialToppings(_toppingPrefab, _initialToppingSpawns, Players);
 
         //QueTimer();
-        //StartGame();
+        StartGame();
     }
 
 
@@ -92,7 +93,7 @@ public class QueueDelay : MonoBehaviour
 
     void StartGame()
     {
-        if (_delay <= 0)
+        if (_readyPlayer.Count >= 2)
         {
             IsStarted = true;
         }
@@ -104,6 +105,17 @@ public class QueueDelay : MonoBehaviour
             {
                 PizzaScoreZone.PlayerScores[i] = 0;
             }
+
+            foreach(GameObject topping in _readyPlayer)
+            {
+                Destroy(topping);
+            }
+
+            foreach(GameObject player in _currentPlayers)
+            {
+                player.GetComponent<PickupHandler>()._canPickUpOnlyIDToppings = false;
+            }
+
 
             foreach (GameObject game in _gameUI)
             {
@@ -126,6 +138,7 @@ public class QueueDelay : MonoBehaviour
             //currentPlayers.Add(player);
             if (!_currentPlayers.Contains(player))
             {
+                player.GetComponent<PickupHandler>()._canPickUpOnlyIDToppings = true;
                 int i = player.GetComponent<CharacterManager>().PlayerIndex;
                 currenttoppings[i] = Instantiate(prefab, toppicSpawns[i].transform.position, Quaternion.identity);
                 //prefab.GetComponent<ToppingHandler>().PlayerIndex = i;
@@ -146,6 +159,21 @@ public class QueueDelay : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        //other = gameObject.GetComponentInChildren<Collider>();
+        //Debug.Log("test");
+        if (other.tag == "Ingredient")
+        {
+            other.gameObject.GetComponent<ToppingHandler>().IsScored = true;
+            _readyPlayer.Add(other.gameObject);
+        }
+    }
+
+    /*private void OnCollisionStay(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }*/
 
 
 

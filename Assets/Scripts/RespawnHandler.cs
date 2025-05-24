@@ -19,7 +19,7 @@ public class RespawnHandler : MonoBehaviour
     Transform[] _respawns;
 
     [SerializeField] private QueueDelay _delay;
-    [SerializeField] private bool _start;
+    //[SerializeField] private bool _start;
 
 
 
@@ -40,10 +40,11 @@ public class RespawnHandler : MonoBehaviour
         {
             HitBoundary(player);
         }
-        /*foreach (GameObject topp in _toppings)
+
+        foreach (GameObject topp in _toppings)
         {
             HitBoundary(topp);
-        }*/
+        }
 
         //_start = _delay._startGame;
 
@@ -111,19 +112,31 @@ public class RespawnHandler : MonoBehaviour
     void Respawn(GameObject obj, int i)
     {
         print("Respawn triggered");
+        if(obj.GetComponent<CharacterController>())
+        {
+            CharacterController _char = obj.GetComponent<CharacterController>();
 
-        CharacterController _char = obj.GetComponent<CharacterController>();
+            _char.enabled = false;
 
-        _char.enabled = false;
+            obj.transform.position = _respawns[i].position;
 
-        obj.transform.position = _respawns[i].position;
+            _char.enabled = true;
 
-        _char.enabled = true;
-
-        _char.transform.SetParent(null);
-        _char.transform.rotation = Quaternion.identity;
-        _char.GetComponent<CharacterController>().enabled = true;
-        _char.GetComponent<CombatHandler>().IsHit = false;
+            _char.transform.SetParent(null);
+            _char.transform.rotation = Quaternion.identity;
+            _char.GetComponent<CharacterController>().enabled = true;
+            _char.GetComponent<CombatHandler>().IsHit = false;
+        }
+        else if(!QueueDelay.IsStarted)
+        {
+            obj.transform.position = _respawns[i].position;
+            obj.transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+            Destroy(obj);
+        }
+        
 
         print(obj.name);
 

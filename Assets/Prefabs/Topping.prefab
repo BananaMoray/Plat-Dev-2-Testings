@@ -161,3 +161,5 @@ MonoBehaviour:
   PlayerIndex: 0
   IsScored: 0
   CanBePickedUp: 1
+  IsPickedUp: 0
+  Value: 3

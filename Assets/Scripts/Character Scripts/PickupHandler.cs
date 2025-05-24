@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PickupHandler : MonoBehaviour
 {
     [SerializeField, Tooltip("Enabled only allows the pickup of toppings of the same ID as the player. Disable to pick up all toppings regardless of ID.")]
-    private bool _canPickUpOnlyIDToppings = true;
+    public bool _canPickUpOnlyIDToppings = true;
 
     [Header("Pick Up Values")]
     [SerializeField]
