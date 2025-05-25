@@ -1671,18 +1671,6 @@ PrefabInstance:
       value: ShieldPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1721,10 +1709,6 @@ PrefabInstance:
     - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 835622975243865770, guid: 43f5d961966fe8740a65f77c3b1b06d0, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
