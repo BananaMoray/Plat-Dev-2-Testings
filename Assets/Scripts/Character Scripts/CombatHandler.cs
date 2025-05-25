@@ -48,6 +48,10 @@ public class CombatHandler : MonoBehaviour
     [SerializeField]
     private GameObject _shieldObject;
     [SerializeField]
+    private GameObject _shieldUI;
+    [SerializeField]
+    private GameObject _shieldSlider;
+    [SerializeField]
     private Vector3 _shieldOffset = new Vector3(0, 0.5f, -1f);
 
     [SerializeField, Range(0, 10)]
@@ -79,24 +83,29 @@ public class CombatHandler : MonoBehaviour
 
         HandleShield(IsBlocking);
 
-        if (isHolding && fireInput && _shieldTimer < _shieldDuration && _shieldCooldownTime > _shieldCooldownDuration)
+        if (_shieldCooldownTime >= _shieldCooldownDuration)
         {
-            IsBlocking = true;
-            _shieldTimer += Time.deltaTime;
-            //reset shield timer if it is not active yet
+            if (isHolding && fireInput && _shieldTimer < _shieldDuration)
+            {
+                IsBlocking = true;
+                _shieldTimer += Time.deltaTime;
+                //reset shield timer if it is not active yet
+
+                if (_shieldTimer > _shieldDuration)
+                {
+                    _shieldCooldownTime = 0f;
+                }
+            }
+            else
+            {
+                IsBlocking = false;
+
+                if (_shieldTimer > 0.01f) _shieldTimer -= Time.deltaTime;
+            }
         }
         else
         {
-            IsBlocking = false;
-            // shield time is not active anymore
-            // if we just got back to not blocking, reset the timer
-            if (_shieldTimer > _shieldDuration)
-            {
-                _shieldCooldownTime = 0f;
-            }
-            _shieldTimer = 0f;
             _shieldCooldownTime += Time.deltaTime;
-            //_shieldTimerActive = false;
         }
 
         if (IsHit) return;
@@ -111,17 +120,26 @@ public class CombatHandler : MonoBehaviour
         }
     }
 
-    private void HandleShield(bool active)
+    private void HandleShield(bool isTrue)
     {
-        _shieldObject.GetComponent<MeshRenderer>().enabled = active;
+        _shieldObject.GetComponent<MeshRenderer>().enabled = isTrue;
+        //_shieldUI.SetActive(isTrue);
+        _shieldSlider.transform.localScale = new Vector3(CalculateCurrentShieldDuration(), 1, 1);
+        _shieldUI.transform.rotation = Quaternion.identity;
 
-        if (active )
+        if (isTrue)
         {
             _shieldObject.transform.position = gameObject.transform.position + _shieldOffset;
-            //_shieldObject.transform.LookAt(Camera.main.transform.position);
             _shieldObject.transform.rotation = Quaternion.Euler(90f, 0, 0);
+            //_shieldUI.transform.LookAt(Camera.main.transform.position);
+            
         }
 
+    }
+
+    private float CalculateCurrentShieldDuration()
+    {
+        return 1 - _shieldTimer / _shieldDuration;
     }
 
     public void Attack()
