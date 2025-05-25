@@ -45,6 +45,7 @@ public class QueueDelay : MonoBehaviour
         foreach (GameObject game in _gameUI)
         {
             game.SetActive(false);
+            Debug.Log(game.name);
         }
 
     }

@@ -85,7 +85,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b756e7bfcb1364492fa8385aba9a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerShields: []
   _queueDelayManager: {fileID: 0}
+  _shieldHeightOffset: 0
 --- !u!1 &1691533142557541425
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b756e7bfcb1364492fa8385aba9a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerShields: []
   _queueDelayManager: {fileID: 0}
+  _shieldHeightOffset: 0
 --- !u!1 &3382704635097515990
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +600,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b756e7bfcb1364492fa8385aba9a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerShields: []
   _queueDelayManager: {fileID: 0}
+  _shieldHeightOffset: 0
 --- !u!1 &6247861353900611884
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b756e7bfcb1364492fa8385aba9a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerShields: []
   _queueDelayManager: {fileID: 0}
+  _shieldHeightOffset: 0
 --- !u!1 &7224960789061356447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b756e7bfcb1364492fa8385aba9a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerShields: []
   _queueDelayManager: {fileID: 0}
+  _shieldHeightOffset: 0
 --- !u!1 &8835299529817159215
 GameObject:
   m_ObjectHideFlags: 0

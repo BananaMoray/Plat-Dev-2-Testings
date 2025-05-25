@@ -73,13 +73,13 @@ public class RespawnHandler : MonoBehaviour
                 {
                     //Bottom Left
                     Respawn(obj, 0);
-                    print("BL");
+                    //print("BL");
                 }
                 if (obj.transform.position.z >= 0)
                 {
                     //Top Left
                     Respawn(obj, 1);
-                    print("TL");
+                    //print("TL");
 
                 }
 
@@ -91,20 +91,20 @@ public class RespawnHandler : MonoBehaviour
                 {
                     //Bottom Right
                     Respawn(obj, 2);
-                    print("BR");
+                    //print("BR");
 
                 }
                 if (obj.transform.position.z >= 0)
                 {
                     //Top Right
                     Respawn(obj, 3);
-                    print("TR");
+                    //print("TR");
 
                 }
 
             }
 
-            obj.transform.position = new Vector3(0, 5, 0);
+            //obj.transform.position = new Vector3(0, 5, 0);
         }
 
     }
@@ -112,7 +112,7 @@ public class RespawnHandler : MonoBehaviour
     void Respawn(GameObject obj, int i)
     {
         print("Respawn triggered");
-        if(obj.GetComponent<CharacterController>())
+        if (obj.GetComponent<CharacterController>())
         {
             CharacterController _char = obj.GetComponent<CharacterController>();
 
@@ -127,18 +127,21 @@ public class RespawnHandler : MonoBehaviour
             _char.GetComponent<CharacterController>().enabled = true;
             _char.GetComponent<CombatHandler>().IsHit = false;
         }
-        else if(!QueueDelay.IsStarted)
+        else if (!QueueDelay.IsStarted)
         {
-            obj.transform.position = _respawns[i].position;
-            obj.transform.rotation = Quaternion.identity;
+            //obj.transform.position = _respawns[i].position;
+            //obj.transform.rotation = Quaternion.identity;
+            obj.GetComponent<Rigidbody>().MovePosition(_respawns[i].localPosition);
+            obj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            Debug.Log(i);
         }
         else
         {
             Destroy(obj);
         }
-        
 
-        print(obj.name);
+
+        //print(obj.name);
 
     }
 }
