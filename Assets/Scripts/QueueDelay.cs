@@ -23,6 +23,8 @@ public class QueueDelay : MonoBehaviour
     private GameObject[] _initialToppingSpawns;
     private GameObject[] _toppings;
     [SerializeField] private GameObject _toppingPrefab;
+    [SerializeField] private GameObject _InstructionPrefab;
+    private GameObject _instructions;
     //private int _currentPlayers;
 
     [SerializeField] private List<GameObject> _currentPlayers = new List<GameObject>();
@@ -35,6 +37,8 @@ public class QueueDelay : MonoBehaviour
     {
 
         _initialToppingSpawns = GameObject.FindGameObjectsWithTag("InitialToppingSpawn");
+
+        _instructions = Instantiate(_InstructionPrefab,transform.position,Quaternion.identity);
 
         Mathf.Clamp(_delay, 0, _maxDelay);
 
@@ -66,7 +70,7 @@ public class QueueDelay : MonoBehaviour
     {
         if (Players.Count() < 2)
         {
-            _timerText.text = "Waiting for Players" + "/nTo Start throw your topping on the pizza";
+            _timerText.text = "<br>Waiting for Players" + "<br>To Start throw your topping on the pizza";
             _delay = _maxDelay;
         }
         else if (_readyPlayer.Count == _currentPlayers.Count)
@@ -119,6 +123,7 @@ public class QueueDelay : MonoBehaviour
             {
                 game.SetActive(true);
             }
+            Destroy(_instructions);
             gameObject.GetComponent<QueueDelay>().enabled = false;
             _playerInputManager.SetActive(false);
         }
