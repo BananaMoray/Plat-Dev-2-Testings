@@ -46,7 +46,7 @@ public class CombatHandler : MonoBehaviour
     [Header("Shield Data")]
 
     [SerializeField]
-    private GameObject _shieldObject;
+    private GameObject _shieldObjectUI;
     [SerializeField]
     private GameObject _shieldUI;
     [SerializeField]
@@ -59,9 +59,16 @@ public class CombatHandler : MonoBehaviour
     private float _shieldTimer = 0f;
 
     [SerializeField, Range(0, 10)]
-    private float _shieldCooldownDuration;
-    private float _shieldCooldownTime = 1000f;
-    //private bool _shieldTimerActive = false;
+    private float _shieldChargeCooldownDuration;
+    [SerializeField, Range(0, 10)]
+    private float _rechargeMultiplier = 2f;
+    private float _shieldChargeCooldownTime = 0f;
+    private bool _canBlock = true;
+    private bool _canCharge = true;
+
+    [Header("Hurt UI")]
+    [SerializeField]
+    private GameObject _hurtUI;
 
     private void Awake()
     {
@@ -74,39 +81,57 @@ public class CombatHandler : MonoBehaviour
     public void Update()
     {
         _attackTimer += Time.deltaTime;
+        HandleHurt(IsHit);
     }
+
+    private bool _previousFire;
+    private bool _currentFire;
 
     public void HandleAttack(bool fireInput, bool isHolding)
     {
+
         //if (IsBlocking && !fireInput)
         //    IsBlocking = false;
 
-        HandleShield(IsBlocking);
+        HandleShield(IsBlocking, isHolding);
 
-        if (_shieldCooldownTime >= _shieldCooldownDuration)
+        if (_canBlock)
         {
-            if (isHolding && fireInput && _shieldTimer < _shieldDuration)
+            if (isHolding && fireInput)
             {
+                _canCharge = false;
+                _shieldChargeCooldownTime = 0;
                 IsBlocking = true;
                 _shieldTimer += Time.deltaTime;
-                //reset shield timer if it is not active yet
 
-                if (_shieldTimer > _shieldDuration)
+                if (_shieldTimer >= _shieldDuration)
                 {
-                    _shieldCooldownTime = 0f;
+                    _canBlock = false;
+                    _shieldChargeCooldownTime = 0;
                 }
             }
             else
             {
                 IsBlocking = false;
-
-                if (_shieldTimer > 0.01f) _shieldTimer -= Time.deltaTime;
             }
         }
         else
         {
-            _shieldCooldownTime += Time.deltaTime;
+            IsBlocking = false;
         }
+
+        if (_previousFire == true && fireInput == false)
+        {
+            Debug.Log("Let go of button");
+            _shieldChargeCooldownTime = 0;
+        }
+
+        Debug.Log("Can Charge: " + _canCharge);
+        HandleChargeDelay();
+
+        HandleShieldCharge(_canCharge);
+
+        _previousFire = fireInput;
 
         if (IsHit) return;
         if (fireInput && !isHolding)
@@ -120,22 +145,49 @@ public class CombatHandler : MonoBehaviour
         }
     }
 
-    private void HandleShield(bool isTrue)
+    private void HandleShield(bool isBlocking, bool isHolding)
     {
-        _shieldObject.GetComponent<MeshRenderer>().enabled = isTrue;
-        //_shieldUI.SetActive(isTrue);
-        _shieldSlider.transform.localScale = new Vector3(CalculateCurrentShieldDuration(), 1, 1);
-        _shieldUI.transform.rotation = Quaternion.identity;
+        _shieldUI.SetActive(isHolding);
+        _shieldObjectUI.SetActive(isBlocking);
 
-        if (isTrue)
+        if (isHolding)
         {
-            _shieldObject.transform.position = gameObject.transform.position + _shieldOffset;
-            _shieldObject.transform.rotation = Quaternion.Euler(90f, 0, 0);
-            //_shieldUI.transform.LookAt(Camera.main.transform.position);
-            
+            _shieldSlider.transform.localScale = new Vector3(CalculateCurrentShieldDuration(), 1, 1);
+            _shieldUI.transform.rotation = Quaternion.identity;
         }
 
+        if (isBlocking)
+        {
+            _shieldObjectUI.transform.position = gameObject.transform.position + _shieldOffset;
+            _shieldObjectUI.transform.LookAt(Camera.main.transform.position);
+        }
     }
+
+    private void HandleShieldCharge(bool canCharge)
+    {
+        if (canCharge && _shieldTimer > 0) _shieldTimer -= Time.deltaTime * _rechargeMultiplier;
+    }
+
+    private void HandleChargeDelay()
+    {
+        if (_shieldChargeCooldownTime >= _shieldChargeCooldownDuration)
+        {
+            _canCharge = true;
+            _canBlock = true;
+        }
+        else
+        {
+            _canCharge = false;
+            _shieldChargeCooldownTime += Time.deltaTime;
+        }
+    }
+
+    private void HandleHurt(bool isHit)
+    {
+        _hurtUI.SetActive(isHit);
+        _hurtUI.transform.LookAt(Camera.main.transform.position);
+    }
+
 
     private float CalculateCurrentShieldDuration()
     {
@@ -223,6 +275,4 @@ public class CombatHandler : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _characterManager.ResetPlayer();
     }
-
-
 }
