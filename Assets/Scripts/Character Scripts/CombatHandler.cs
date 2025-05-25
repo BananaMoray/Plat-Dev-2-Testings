@@ -63,6 +63,10 @@ public class CombatHandler : MonoBehaviour
     private float _shieldCooldownTime = 1000f;
     //private bool _shieldTimerActive = false;
 
+    [Header("Hurt UI")]
+    [SerializeField]
+    private GameObject _hurtUI;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -74,6 +78,7 @@ public class CombatHandler : MonoBehaviour
     public void Update()
     {
         _attackTimer += Time.deltaTime;
+        HandleHurt(IsHit);
     }
 
     public void HandleAttack(bool fireInput, bool isHolding)
@@ -94,6 +99,7 @@ public class CombatHandler : MonoBehaviour
                 if (_shieldTimer > _shieldDuration)
                 {
                     _shieldCooldownTime = 0f;
+                    IsBlocking = false;
                 }
             }
             else
@@ -118,6 +124,12 @@ public class CombatHandler : MonoBehaviour
                 _attackTimer = 0;
             }
         }
+    }
+
+    private void HandleHurt(bool isHit)
+    {
+        _hurtUI.SetActive(isHit);
+        _hurtUI.transform.LookAt(Camera.main.transform.position);
     }
 
     private void HandleShield(bool isTrue)
