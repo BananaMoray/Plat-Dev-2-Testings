@@ -43,7 +43,12 @@ public class CombatHandler : MonoBehaviour
     private float _attackCooldownTime = 1f;
     private float _attackTimer = 0f;
 
-    [Header("SHIELD TIMER")]
+    [Header("Shield Data")]
+
+    [SerializeField]
+    private GameObject _shieldObject;
+    [SerializeField]
+    private Vector3 _shieldOffset = new Vector3(0, 0.5f, -1f);
 
     [SerializeField, Range(0, 10)]
     private float _shieldDuration;
@@ -71,6 +76,8 @@ public class CombatHandler : MonoBehaviour
     {
         //if (IsBlocking && !fireInput)
         //    IsBlocking = false;
+
+        HandleShield(IsBlocking);
 
         if (isHolding && fireInput && _shieldTimer < _shieldDuration && _shieldCooldownTime > _shieldCooldownDuration)
         {
@@ -102,6 +109,19 @@ public class CombatHandler : MonoBehaviour
                 _attackTimer = 0;
             }
         }
+    }
+
+    private void HandleShield(bool active)
+    {
+        _shieldObject.GetComponent<MeshRenderer>().enabled = active;
+
+        if (active )
+        {
+            _shieldObject.transform.position = gameObject.transform.position + _shieldOffset;
+            //_shieldObject.transform.LookAt(Camera.main.transform.position);
+            _shieldObject.transform.rotation = Quaternion.Euler(90f, 0, 0);
+        }
+
     }
 
     public void Attack()
