@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3a91719ea1fb34494f6cb1709a5903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _queueDelay: {fileID: 6204667869791945676}
+  _queueDelay: {fileID: 1634505862}
 --- !u!1 &873303904 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6600505068249264563, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
@@ -2332,6 +2332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkSpace_Stijn
       objectReference: {fileID: 0}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _InstructionPrefab
+      value: 
+      objectReference: {fileID: 2751783341221497828, guid: 82f4c417513023846a3fb0e34693a7a4, type: 3}
     - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _playerInputManager
       value: 
