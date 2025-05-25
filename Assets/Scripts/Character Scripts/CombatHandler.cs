@@ -122,11 +122,11 @@ public class CombatHandler : MonoBehaviour
 
         if (_previousFire == true && fireInput == false)
         {
-            Debug.Log("Let go of button");
+            //Debug.Log("Let go of button");
             _shieldChargeCooldownTime = 0;
         }
 
-        Debug.Log("Can Charge: " + _canCharge);
+        //Debug.Log("Can Charge: " + _canCharge);
         HandleChargeDelay();
 
         HandleShieldCharge(_canCharge);

@@ -49,7 +49,7 @@ public class FloatingTextItem : MonoBehaviour
     IEnumerator RemoveAfterSetTime()
     {
         yield return new WaitForSeconds(_timeUntilDisappear);
-        Debug.Log("Destroy");
+        //Debug.Log("Destroy");
         Destroy(gameObject);
     }
 }

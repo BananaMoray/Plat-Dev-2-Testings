@@ -63,7 +63,7 @@ public class PickupHandler : MonoBehaviour
             {
                 _canPickup = true;
                 _pickupTimer = 0f;
-                Debug.Log("Can pick up again");
+                //Debug.Log("Can pick up again");
             }
         }
     }
@@ -103,7 +103,7 @@ public class PickupHandler : MonoBehaviour
 
             AssignHeldObject(collider.gameObject);
             HoldObject(true);
-            Debug.Log("Picked up Ingredient");
+            //Debug.Log("Picked up Ingredient");
 
             StartPickupCooldown();
             break;
