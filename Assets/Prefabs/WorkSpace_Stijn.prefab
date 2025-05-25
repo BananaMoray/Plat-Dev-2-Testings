@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 369093723340539700}
   - component: {fileID: 3817628284191686794}
+  - component: {fileID: 7708768115029730171}
   m_Layer: 0
   m_Name: Center
   m_TagString: Untagged
@@ -61,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 9222512826388435270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 21, y: 0.3, z: 21}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89,6 +90,33 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &7708768115029730171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222512826388435270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd16c6c31814a954cabbe7aba00e9553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inQueue: 0
+  _gameUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 546617508845689358}
+  - {fileID: 0}
+  Players: []
+  _delay: 0
+  _maxDelay: 10
+  _timerText: {fileID: 1428792248845621103}
+  _playerInputManager: {fileID: 0}
+  _toppingPrefab: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
+  _currentPlayers: []
+  _currentToppings: []
+  _readyPlayer: []
 --- !u!1001 &1189439782655729747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165,7 +193,8 @@ PrefabInstance:
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4537821248423954353, guid: 652e064f0400cf740835d8fa0f181833, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2458572261682077841, guid: 652e064f0400cf740835d8fa0f181833, type: 3}
@@ -413,6 +442,10 @@ PrefabInstance:
     - target: {fileID: 385417327289153728, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
       propertyPath: m_SizeDelta.x
       value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 3286474532988790640, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
+      propertyPath: m_text
+      value: Throw the toppings on the Pizza
       objectReference: {fileID: 0}
     - target: {fileID: 3994638321213142066, guid: 6675f2f4912b7b34f9d9de5eba0fae04, type: 3}
       propertyPath: m_Name

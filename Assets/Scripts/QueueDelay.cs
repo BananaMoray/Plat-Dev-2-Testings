@@ -51,7 +51,7 @@ public class QueueDelay : MonoBehaviour
         GetPlayers();
         SpawnInitialToppings(_toppingPrefab, _initialToppingSpawns, Players);
 
-        //QueTimer();
+        QueTimer();
         StartGame();
     }
 
@@ -66,34 +66,32 @@ public class QueueDelay : MonoBehaviour
     {
         if (Players.Count() < 2)
         {
-            _timerText.text = "Waiting for Players";
+            _timerText.text = "Waiting for Players" + "/nTo Start throw your topping on the pizza";
             _delay = _maxDelay;
         }
-        else
+        else if (_readyPlayer.Count == _currentPlayers.Count)
         {
             _timerText.enabled = true;
-            if (_delay > 0)
-            {
-                _delay -= Time.deltaTime;
-            }
+
+            _delay -= Time.deltaTime;
 
             _timerText.text = "Starting in: " + _delay.ToString("F0");
         }
 
-        if (Players.Count() > 1)
+        /*if (Players.Count() > 1)
         {
             if (_delay <= 0)
             {
                 _inQueue = false;
             }
-        }
+        }*/
 
 
     }
 
     void StartGame()
     {
-        if (_readyPlayer.Count >= 2)
+        if (_delay <= 0)
         {
             IsStarted = true;
         }
@@ -106,12 +104,12 @@ public class QueueDelay : MonoBehaviour
                 PizzaScoreZone.PlayerScores[i] = 0;
             }
 
-            foreach(GameObject topping in _readyPlayer)
+            foreach (GameObject topping in _readyPlayer)
             {
                 Destroy(topping);
             }
 
-            foreach(GameObject player in _currentPlayers)
+            foreach (GameObject player in _currentPlayers)
             {
                 player.GetComponent<PickupHandler>()._canPickUpOnlyIDToppings = false;
             }

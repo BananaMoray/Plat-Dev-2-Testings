@@ -1638,65 +1638,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1634505859
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1634505860}
-  - component: {fileID: 1634505861}
-  m_Layer: 0
-  m_Name: Center
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1634505860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1634505859}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 21, y: 0.3, z: 21}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1753157346}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1634505861
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1634505859}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1753157346 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3647677499398799554, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+--- !u!114 &1634505862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
   m_PrefabInstance: {fileID: 3504954221428936340}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd16c6c31814a954cabbe7aba00e9553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1789939481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2122,22 +2074,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3348471729888307170, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-      propertyPath: _playerInputManager
-      value: 
-      objectReference: {fileID: 58884779}
-    - target: {fileID: 3348471729888307170, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-      propertyPath: '_gameUI.Array.data[0]'
-      value: 
-      objectReference: {fileID: 317159365}
-    - target: {fileID: 3348471729888307170, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-      propertyPath: '_gameUI.Array.data[1]'
-      value: 
-      objectReference: {fileID: 885943647}
-    - target: {fileID: 3348471729888307170, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-      propertyPath: '_gameUI.Array.data[3]'
-      value: 
-      objectReference: {fileID: 1484557548}
     - target: {fileID: 3483567197564540633, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2182,12 +2118,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkSpace_Stijn
       objectReference: {fileID: 0}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _playerInputManager
+      value: 
+      objectReference: {fileID: 58884779}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: '_gameUI.Array.data[0]'
+      value: 
+      objectReference: {fileID: 317159365}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: '_gameUI.Array.data[1]'
+      value: 
+      objectReference: {fileID: 885943647}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: '_gameUI.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1484557548}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3647677499398799554, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1634505860}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
 --- !u!1001 &5741466784353946584
@@ -2287,6 +2236,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134854535628150787, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
+      propertyPath: _queDelay
+      value: 
+      objectReference: {fileID: 1634505862}
     - target: {fileID: 1966017854248728571, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
       propertyPath: _timerText
       value: 
@@ -2405,6 +2358,10 @@ PrefabInstance:
       propertyPath: _pizzaScoreZone
       value: 
       objectReference: {fileID: 991082}
+    - target: {fileID: 932315218752633272, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: _queueDelayManager
+      value: 
+      objectReference: {fileID: 1634505862}
     - target: {fileID: 1691533142557541425, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_Name
       value: WorkSpace_Liam
@@ -2441,6 +2398,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4041902541729257008, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: _queueDelayManager
+      value: 
+      objectReference: {fileID: 1634505862}
     - target: {fileID: 4517818311757511820, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -2457,6 +2418,10 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278255103
       objectReference: {fileID: 0}
+    - target: {fileID: 5578839591818181951, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: _queueDelayManager
+      value: 
+      objectReference: {fileID: 1634505862}
     - target: {fileID: 5764843861320790312, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2505,6 +2470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6762152776002805568, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: _queueDelayManager
+      value: 
+      objectReference: {fileID: 1634505862}
     - target: {fileID: 6956726151192994704, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_fontColor.b
       value: 0
