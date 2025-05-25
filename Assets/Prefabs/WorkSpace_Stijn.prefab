@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 0}
   Players: []
   _delay: 0
-  _maxDelay: 10
+  _maxDelay: 5
   _timerText: {fileID: 1428792248845621103}
   _playerInputManager: {fileID: 0}
   _toppingPrefab: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
