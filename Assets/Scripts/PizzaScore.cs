@@ -38,7 +38,7 @@ public class PizzaScoreZone : MonoBehaviour
                 topping.IsScored = true;
                 InstantiateFloatingText(topping);
 
-                Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
+                //Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
             }
         }
     }
@@ -47,7 +47,7 @@ public class PizzaScoreZone : MonoBehaviour
     private void InstantiateFloatingText(ToppingHandler topping)
     {
         if (_textObject == null) return;
-        Debug.Log("Text Instantiated");
+        //Debug.Log("Text Instantiated");
 
         GameObject text = Instantiate(_textObject, topping.gameObject.transform.position + Vector3.up * 2, Quaternion.identity);
         FloatingTextItem textItem = text.GetComponent<FloatingTextItem>();
@@ -69,7 +69,7 @@ public class PizzaScoreZone : MonoBehaviour
                 PlayerScores[playerIndex] -= topping.Value;
                 topping.IsScored = false;
 
-                Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
+                //Debug.Log($"Player {playerIndex} Score: " + GetPlayerScore(playerIndex));
             }
         }
     }
@@ -82,7 +82,6 @@ public class PizzaScoreZone : MonoBehaviour
             return PlayerScores[playerIndex];
         return 0;
     }
-
 
     //i ran into some issues with exceptions, so now we also check whether or not a players index is correct
     //yes i know, but trust me this will save us so much pain in the future

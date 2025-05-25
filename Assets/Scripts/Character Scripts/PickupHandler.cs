@@ -63,7 +63,7 @@ public class PickupHandler : MonoBehaviour
             {
                 _canPickup = true;
                 _pickupTimer = 0f;
-                Debug.Log("Can pick up again");
+                //Debug.Log("Can pick up again");
             }
         }
     }
@@ -86,7 +86,7 @@ public class PickupHandler : MonoBehaviour
         else if (_throwTimer > _minimumThrowTime)
         {
             ThrowObject();
-            _lineRenderer.enabled = false;
+            
         }
     }
 
@@ -103,7 +103,7 @@ public class PickupHandler : MonoBehaviour
 
             AssignHeldObject(collider.gameObject);
             HoldObject(true);
-            Debug.Log("Picked up Ingredient");
+            //Debug.Log("Picked up Ingredient");
 
             StartPickupCooldown();
             break;
@@ -120,6 +120,7 @@ public class PickupHandler : MonoBehaviour
 
     private void ThrowObject()
     {
+        _lineRenderer.enabled = false;
         HoldObject(false);
         _heldTopping.transform.SetParent(null);
 
@@ -177,6 +178,7 @@ public class PickupHandler : MonoBehaviour
     {
         if (_combatHandler.IsBlocking)
         {
+            _lineRenderer.enabled = false;
             if (_heldTopping != null)
                 _heldTopping.transform.localRotation = Quaternion.Euler(90f, 0, 0);
             _throwTimer = 0f;
