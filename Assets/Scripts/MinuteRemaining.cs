@@ -13,9 +13,9 @@ public class MinuteRemaining : MonoBehaviour
     private GameObject _gameManagerObject;
     private GameManager _gameManager;
 
-    [SerializeField] private AudioClip _coundDownClip;
-    [SerializeField] private AudioClip _winClip;
-    [SerializeField] private AudioSource _coundDownSrc;
+    //[SerializeField] private AudioClip _coundDownClip;
+    //[SerializeField] private AudioClip _winClip;
+    //[SerializeField] private AudioSource _coundDownSrc;
 
     bool _hasPlayed = false;
 
@@ -29,8 +29,8 @@ public class MinuteRemaining : MonoBehaviour
         _timeRemainingText.enabled = false;
         _gameManager = _gameManagerObject.GetComponent<GameManager>();
 
-        _coundDownSrc.clip = _coundDownClip;
-        _coundDownSrc.pitch = 0.2f;
+        //_coundDownSrc.clip = _coundDownClip;
+        //_coundDownSrc.pitch = 0.2f;
     }
 
     // Update is called once per frame
@@ -45,22 +45,22 @@ public class MinuteRemaining : MonoBehaviour
             _timeRemainingText.text = currentSecond.ToString();
             _timeRemainingText.enabled = true;
 
-            _coundDownSrc.pitch = _coundDownSrc.pitch + 0.01f;
-            Debug.Log(_coundDownSrc.pitch);
-            _coundDownSrc.Play();
+            //_coundDownSrc.pitch = _coundDownSrc.pitch + 0.01f;
+            //Debug.Log(_coundDownSrc.pitch);
+            //_coundDownSrc.Play();
             _lastSecondPlayed = currentSecond;
         }
-        if (currentSecond <=0&&!_hasPlayed)
-        {
-            _coundDownSrc.clip = _winClip;
-            if (!_coundDownSrc.isPlaying)
-            {
-                _coundDownSrc.pitch = 1;
-                _coundDownSrc.Play();
-                Debug.Log("has played");
-            }
-            _hasPlayed = true;
-        }
+        //if (currentSecond <=0&&!_hasPlayed)
+        //{
+        //    _coundDownSrc.clip = _winClip;
+        //    if (!_coundDownSrc.isPlaying)
+        //    {
+        //        _coundDownSrc.pitch = 1;
+        //        _coundDownSrc.Play();
+        //        Debug.Log("has played");
+        //    }
+        //    _hasPlayed = true;
+        //}
 
 
     }
