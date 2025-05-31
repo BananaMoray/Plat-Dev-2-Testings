@@ -972,8 +972,8 @@ MonoBehaviour:
   _canPickUpOnlyIDToppings: 0
   _pickupDistance: 2
   _timeToPickup: 1.5
-  _throwForce: 15
-  _minThrowForce: 5
+  _throwForce: 30
+  _minThrowForce: 15
   _timeToFullThrowForce: 1
   _minimumThrowTime: 0.001
   _lineRenderer: {fileID: 6754728360942136491}

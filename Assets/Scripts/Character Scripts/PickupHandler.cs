@@ -32,6 +32,7 @@ public class PickupHandler : MonoBehaviour
 
     private GameObject _heldTopping;
     private Rigidbody _heldToppingBody;
+    private float _toppingMass = 2f;
     private float _pickupTimer = 0f;
     private float _throwTimer = 0f;
 
@@ -74,14 +75,17 @@ public class PickupHandler : MonoBehaviour
 
         if (interact)
         {
+            _lineRenderer.enabled = true;
+            DrawThrowTrajectoryInGameView();
+
             _throwTimer += Time.deltaTime;
             if (_throwTimer >= _timeToFullThrowForce)
             {
                 ThrowObject();
             }
 
-            _lineRenderer.enabled = true;
-            DrawThrowTrajectoryInGameView();
+            
+            
         }
         else if (_throwTimer > _minimumThrowTime)
         {
@@ -115,6 +119,7 @@ public class PickupHandler : MonoBehaviour
         _heldTopping = obj;
         _heldTopping.transform.SetParent(transform);
         _heldToppingBody = obj.GetComponent<Rigidbody>();
+        _toppingMass = _heldToppingBody.mass;
         _heldToppingBody.transform.localPosition = new Vector3(0, 1, 1);
     }
 
@@ -165,8 +170,7 @@ public class PickupHandler : MonoBehaviour
         for (int i = 0; i < _trajectoryResolution; i++)
         {
             float time = i * timeStep;
-            Vector3 position = startPosition + velocity * time + 0.5f * Physics.gravity * time * time;
-            //if (position.y < -2) position.y = -2;
+            Vector3 position = startPosition + velocity / _toppingMass * time + 0.5f * Physics.gravity * time * time;
             points[i] = position;
         }
 
