@@ -63,7 +63,7 @@ public class ToppingSpawner : MonoBehaviour
         {
             int selectedPlayerIndex = GetPlayerByWeight();
 
-            GameObject topping = Instantiate(_toppingPrefab, spawnPosition, Quaternion.identity);
+            GameObject topping = Instantiate(_toppingPrefab, spawnPosition, Quaternion.Euler(0f,Random.Range(0,360),0f));
             ToppingHandler toppingHandler = topping.GetComponent<ToppingHandler>();
 
             if (toppingHandler != null)
