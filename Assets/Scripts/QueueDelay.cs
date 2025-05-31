@@ -35,7 +35,6 @@ public class QueueDelay : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         _initialToppingSpawns = GameObject.FindGameObjectsWithTag("InitialToppingSpawn");
 
         _instructions = Instantiate(_InstructionPrefab,transform.position,Quaternion.identity);
@@ -155,7 +154,8 @@ public class QueueDelay : MonoBehaviour
         {
             if (!_currentToppings.Contains(topping))
             {
-                topping.GetComponent<ToppingHandler>().PlayerIndex = _currentPlayers.Count - 1;
+                
+                topping.GetComponent<ToppingHandler>().ChangeIndex(_currentPlayers.Count - 1);
 
                 _currentToppings.Add(topping);
             }

@@ -1405,11 +1405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7543165615ba1824fa7dd9b597ea3bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1484557548 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8187871582829218143, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
-  m_PrefabInstance: {fileID: 6204667869791945673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1493543436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1643,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789939481}
   m_CullTransparentMesh: 1
+--- !u!1 &1805266215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8256529675695779676, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
+  m_PrefabInstance: {fileID: 6204667869791945673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1848831617 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7231647577666622533, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
@@ -2093,6 +2093,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorkSpace_Stijn
       objectReference: {fileID: 0}
+    - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _timer
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _toppingPrefab
+      value: 
+      objectReference: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
     - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _InstructionPrefab
       value: 
@@ -2112,7 +2120,7 @@ PrefabInstance:
     - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: '_gameUI.Array.data[3]'
       value: 
-      objectReference: {fileID: 1484557548}
+      objectReference: {fileID: 1805266215}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2223,6 +2231,10 @@ PrefabInstance:
       propertyPath: _queDelay
       value: 
       objectReference: {fileID: 1634505862}
+    - target: {fileID: 134854535628150787, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
+      propertyPath: _toppingPrefab
+      value: 
+      objectReference: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
     - target: {fileID: 1966017854248728571, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
       propertyPath: _timerText
       value: 
