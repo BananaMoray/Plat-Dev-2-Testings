@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 210768904}
   - component: {fileID: 210768903}
   m_Layer: 0
-  m_Name: UI of score (1)
+  m_Name: UI punch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,7 +791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9212206179221814250, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -784
+      value: -916.6
       objectReference: {fileID: 0}
     - target: {fileID: 9212206179221814250, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -876,6 +876,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1577948606}
     m_Modifications:
+    - target: {fileID: 1713644421076366954, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
+      objectReference: {fileID: 0}
     - target: {fileID: 2723608984501453006, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Name
       value: BackgroundScores (1)
@@ -891,6 +895,10 @@ PrefabInstance:
     - target: {fileID: 2863287400941384706, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 577.3926
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767223030242335172, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
       objectReference: {fileID: 0}
     - target: {fileID: 9112743968373712667, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Pivot.x
@@ -1166,6 +1174,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1577948606}
     m_Modifications:
+    - target: {fileID: 1713644421076366954, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
+      objectReference: {fileID: 0}
     - target: {fileID: 2723608984501453006, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Name
       value: BackgroundScores (2)
@@ -1193,6 +1205,10 @@ PrefabInstance:
     - target: {fileID: 2863287400941384706, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 277.37112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767223030242335172, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
       objectReference: {fileID: 0}
     - target: {fileID: 9112743968373712667, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Pivot.x
@@ -1466,7 +1482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6096500972586226905, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -917
+      value: -784.2
       objectReference: {fileID: 0}
     - target: {fileID: 6096500972586226905, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2007,9 +2023,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1577948606}
     m_Modifications:
+    - target: {fileID: 1713644421076366954, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
+      objectReference: {fileID: 0}
     - target: {fileID: 2723608984501453006, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Name
       value: BackgroundScores
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767223030242335172, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
       objectReference: {fileID: 0}
     - target: {fileID: 9112743968373712667, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Pivot.x
@@ -2121,6 +2145,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1577948606}
     m_Modifications:
+    - target: {fileID: 1713644421076366954, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
+      objectReference: {fileID: 0}
     - target: {fileID: 2723608984501453006, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Name
       value: BackgroundScores (3)
@@ -2148,6 +2176,10 @@ PrefabInstance:
     - target: {fileID: 2863287400941384706, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 277.37112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767223030242335172, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
+      propertyPath: m_Color.a
+      value: 0.25490198
       objectReference: {fileID: 0}
     - target: {fileID: 9112743968373712667, guid: c880ae124d8673348ad9fc85e2f44794, type: 3}
       propertyPath: m_Pivot.x
@@ -2680,7 +2712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6096500972586226905, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -917
+      value: -785.7
       objectReference: {fileID: 0}
     - target: {fileID: 6096500972586226905, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3039,6 +3071,10 @@ PrefabInstance:
     - target: {fileID: 3323765879794182748, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9212206179221814250, guid: 772f3e1115f775a4cb7db9917c7f878d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -870
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3686,6 +3722,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6204667869791945676}
     - target: {fileID: 814143633806797536, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 814143633806797536, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: _pizzaScoreZone
       value: 
       objectReference: {fileID: 991082}
@@ -3780,6 +3820,10 @@ PrefabInstance:
     - target: {fileID: 5764843861320790312, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5968317562050590071, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -109
       objectReference: {fileID: 0}
     - target: {fileID: 6473422302508584459, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_IsActive
@@ -3877,6 +3921,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7551429113045409788, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7862830223246773759, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3924,10 +3972,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6718489468483887459, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       insertIndex: 0
-      addedObject: {fileID: 1577948606}
+      addedObject: {fileID: 210768901}
     - targetCorrespondingSourceObject: {fileID: 6718489468483887459, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 210768901}
+      addedObject: {fileID: 1577948606}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6247861353900611884, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       insertIndex: -1
