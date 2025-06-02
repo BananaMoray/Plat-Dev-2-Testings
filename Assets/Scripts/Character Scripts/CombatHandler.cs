@@ -37,6 +37,7 @@ public class CombatHandler : MonoBehaviour
 
     public bool IsHit;
     public bool IsBlocking;
+    public bool IsPunching;
 
     private Vector3 _objectVelocity = Vector3.zero;
 
@@ -139,7 +140,7 @@ public class CombatHandler : MonoBehaviour
             if (_attackTimer >= _attackCooldownTime)
             {
                 _anim.SetTrigger("Attack");
-
+                IsPunching = true;
                 _attackTimer = 0;
             }
         }
