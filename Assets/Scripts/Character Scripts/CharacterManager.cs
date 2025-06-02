@@ -34,7 +34,7 @@ public class CharacterManager : MonoBehaviour
 
     private void HandlePlayerHorns()
     {
-        for (int i = 0;  i < _playerHorns.Length - 1; i++)
+        for (int i = 0;  i < _playerHorns.Length; i++)
         {
             int remove = UnityEngine.Random.Range(0, _playerHorns.Length - i);
             Destroy(_playerHorns[remove]);

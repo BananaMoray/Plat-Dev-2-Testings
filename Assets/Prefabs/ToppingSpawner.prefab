@@ -52,5 +52,5 @@ MonoBehaviour:
   _weightMultiplier: 2
   _radius: 15
   _spawnDelay: 0
-  _maxTime: 3
+  _maxTime: 2.5
   _height: 15
