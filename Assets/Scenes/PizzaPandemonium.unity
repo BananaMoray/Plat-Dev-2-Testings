@@ -2408,6 +2408,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.637
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754461784262975113, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7615623227036623061, guid: b14bddb90aa38ac4bbfb6c8c9646afa8, type: 3}
       propertyPath: m_Name
       value: WorkSpace_Larissa
