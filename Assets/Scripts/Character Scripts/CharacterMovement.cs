@@ -16,6 +16,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] 
     private float _minimumInput = 0.1f;
 
+    private Animator _anim;
+
     private CharacterController _controller;
     private Camera _mainCamera;
 
@@ -34,6 +36,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _controller = GetComponent<CharacterController>();
         _mainCamera = Camera.main;
+        _anim = GetComponent<Animator>();
         CalculateCameraDirections();
     }
 
@@ -75,10 +78,19 @@ public class CharacterMovement : MonoBehaviour
     private void HandleMovement()
     {
         Vector3 inputDir = Vector3.zero;
-        if (Mathf.Abs(_movementInput.x) >= _minimumInput || Mathf.Abs(_movementInput.y) >= _minimumInput)
-            inputDir = (_cameraForward * _movementInput.y + _cameraRight * _movementInput.x).normalized;
 
-        Velocity += inputDir * _acceleration;
+        if (Mathf.Abs(_movementInput.x) >= _minimumInput || Mathf.Abs(_movementInput.y) >= _minimumInput)
+        {
+            inputDir = (_cameraForward * _movementInput.y + _cameraRight * _movementInput.x).normalized;
+            _anim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            _anim.SetBool("IsWalking", false);
+        }
+
+
+            Velocity += inputDir * _acceleration;
 
         if (_controller.isGrounded)
             Velocity *= (1 - Time.deltaTime * _groundDrag);
