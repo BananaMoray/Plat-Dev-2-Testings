@@ -3607,6 +3607,10 @@ PrefabInstance:
       propertyPath: _toppingPrefab
       value: 
       objectReference: {fileID: 3383739555412080138, guid: 33096f712e8ee0549a8b3601e0f62b6c, type: 3}
+    - target: {fileID: 134854535628150787, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
+      propertyPath: _randomSpawnAmount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1966017854248728571, guid: 90e089b3ff049824faa3197d0eb606f0, type: 3}
       propertyPath: _timerText
       value: 
