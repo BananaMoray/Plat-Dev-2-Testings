@@ -42,14 +42,19 @@ public class PickupHandler : MonoBehaviour
 
     public bool IsHolding => _heldTopping != null;
 
+    private Animator _anim;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
         _combatHandler = GetComponent<CombatHandler>();
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        _anim.SetBool("IsHolding", IsHolding);
+
         HandleBlock();
 
         if (_canPickup && _heldTopping == null && !_combatHandler.IsHit)

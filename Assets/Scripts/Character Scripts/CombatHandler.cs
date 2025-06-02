@@ -186,6 +186,7 @@ public class CombatHandler : MonoBehaviour
     {
         _hurtUI.SetActive(isHit);
         _hurtUI.transform.LookAt(Camera.main.transform.position);
+        _anim.SetBool("IsHit", isHit);
     }
 
 
@@ -229,7 +230,7 @@ public class CombatHandler : MonoBehaviour
                 PizzaScoreZone.PlayerScores[_playerInput.playerIndex]++;
             }
 
-            otherCombat.gameObject.GetComponent<CharacterManager>().HandlePlayerColour(otherIndex + 4);
+            //otherCombat.gameObject.GetComponent<CharacterManager>().HandlePlayerColour(otherIndex + 4);
             LaunchPlayer(otherCombat.gameObject, otherCombat);
             break;
         }
