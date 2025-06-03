@@ -31,6 +31,8 @@ public class ToppingSpawner : MonoBehaviour
     private float _maxTime = 3f;
     [SerializeField]
     private int _height = 15;
+    [SerializeField]
+    private int _randomSpawnAmount = 2;
 
     private float _toppingSpawnTimer;
 
@@ -54,27 +56,35 @@ public class ToppingSpawner : MonoBehaviour
 
     void SpawnAtRandomCirclePosition()
     {
-        _toppingSpawnTimer -= Time.deltaTime;
+        int randomInt = Random.Range(1, _randomSpawnAmount);
 
-        float angle = Random.Range(0f, Mathf.PI * 2f);
-        Vector3 spawnPosition = new Vector3(Mathf.Cos(angle) * _radius, _height, Mathf.Sin(angle) * _radius);
+        _toppingSpawnTimer -= Time.deltaTime;
 
         if (_toppingSpawnTimer <= 0)
         {
-            int selectedPlayerIndex = GetPlayerByWeight();
-
-            GameObject topping = Instantiate(_toppingPrefab, spawnPosition, Quaternion.Euler(0f,Random.Range(0,360),0f));
-            ToppingHandler toppingHandler = topping.GetComponent<ToppingHandler>();
-
-            if (toppingHandler != null)
+            for (int i = 0; i < randomInt; i++)
             {
-                toppingHandler.PlayerIndex = selectedPlayerIndex;
+                float angle = Random.Range(0f, Mathf.PI * 2f);
+                Vector3 spawnPosition = new Vector3(Mathf.Cos(angle) * _radius, _height, Mathf.Sin(angle) * _radius);
+                SpawnTopping(spawnPosition);
             }
-
             _toppingSpawnTimer = _maxTime;
         }
 
+    }
 
+    private void SpawnTopping(Vector3 spawnPosition)
+    {
+        int selectedPlayerIndex = GetPlayerByWeight();
+
+        GameObject topping = Instantiate(_toppingPrefab, spawnPosition, Quaternion.Euler(0f, Random.Range(0, 360), 0f));
+        ToppingHandler toppingHandler = topping.GetComponent<ToppingHandler>();
+
+        if (toppingHandler != null)
+        {
+            toppingHandler.PlayerIndex = selectedPlayerIndex;
+        }
+        Debug.Log("TOpping spawned");
     }
 
     int GetPlayerByWeight()

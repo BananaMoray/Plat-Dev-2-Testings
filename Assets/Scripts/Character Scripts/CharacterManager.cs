@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterManager : MonoBehaviour
 {
     [SerializeField]
-    private Material[] _playerColours;
+    private Color[] _playerColours;
+    [SerializeField]
+    private GameObject[] _playerHorns;
 
     private PlayerInput _playerInput;
     public int PlayerIndex;
@@ -25,11 +28,29 @@ public class CharacterManager : MonoBehaviour
         _combat = GetComponent<CombatHandler>();
         _pickup = GetComponent<PickupHandler>();
         PlayerIndex = _playerInput.playerIndex;
+        HandlePlayerHorns();
         HandlePlayerColour(PlayerIndex);
     }
+
+    private void HandlePlayerHorns()
+    {
+        for (int i = 0;  i < _playerHorns.Length; i++)
+        {
+            int remove = UnityEngine.Random.Range(0, _playerHorns.Length - i);
+            Destroy(_playerHorns[remove]);
+        }
+    }
+
     public void HandlePlayerColour(int playerIndex)
     {
-        GetComponent<MeshRenderer>().material = _playerColours[playerIndex];
+        ////GetComponent<MeshRenderer>().material = _playerColours[playerIndex];
+        MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers)
+        {
+            Debug.Log("Changed Colours");
+            renderer.material.SetColor("_ChangeColor", _playerColours[PlayerIndex]);
+        }
+        GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_ChangeColor", _playerColours[PlayerIndex]);
     }
 
     public void OnMove(InputAction.CallbackContext context)
