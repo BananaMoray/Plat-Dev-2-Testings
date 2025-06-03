@@ -11,6 +11,11 @@ public class PickupHandler : MonoBehaviour
     private float _pickupDistance = 2f;
     [SerializeField]
     private float _timeToPickup = 1.5f;
+    [SerializeField]
+    private Vector3 _toppingOffset = new Vector3(0, 1, 1);
+    [SerializeField]
+    private float _throwAngle = 0.5f;
+
     [Header("Throw Values")]
     [SerializeField]
     private float _throwForce = 15f;
@@ -125,7 +130,7 @@ public class PickupHandler : MonoBehaviour
         _heldTopping.transform.SetParent(transform);
         _heldToppingBody = obj.GetComponent<Rigidbody>();
         _toppingMass = _heldToppingBody.mass;
-        _heldToppingBody.transform.localPosition = new Vector3(0, 1, 1);
+        _heldToppingBody.transform.localPosition = _toppingOffset;
     }
 
     private void ThrowObject()
@@ -134,7 +139,7 @@ public class PickupHandler : MonoBehaviour
         HoldObject(false);
         _heldTopping.transform.SetParent(null);
 
-        Vector3 throwVelocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+        Vector3 throwVelocity = new Vector3(transform.forward.x, _throwAngle, transform.forward.z).normalized * CalculateThrowForce();
         _heldToppingBody.AddForce(throwVelocity, ForceMode.Impulse);
 
         _heldTopping = null;
@@ -169,7 +174,7 @@ public class PickupHandler : MonoBehaviour
 
         Vector3[] points = new Vector3[_trajectoryResolution];
         Vector3 startPosition = _heldTopping.transform.position;
-        Vector3 velocity = new Vector3(transform.forward.x, 0.5f, transform.forward.z).normalized * CalculateThrowForce();
+        Vector3 velocity = new Vector3(transform.forward.x, _throwAngle, transform.forward.z).normalized * CalculateThrowForce();
 
         float timeStep = 0.1f;
         for (int i = 0; i < _trajectoryResolution; i++)
