@@ -4206,6 +4206,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1127874702}
     m_Modifications:
     - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_text
+      value: 'Player Green
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 205619726538439046, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_margin.z
       value: -62.416473
       objectReference: {fileID: 0}
@@ -4359,7 +4365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_text
-      value: Player "Red"
+      value: Player Red
       objectReference: {fileID: 0}
     - target: {fileID: 4682080579792225312, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_fontAsset
@@ -4392,6 +4398,10 @@ PrefabInstance:
     - target: {fileID: 5259643799329880937, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
+      propertyPath: m_text
+      value: Player Yellow
       objectReference: {fileID: 0}
     - target: {fileID: 5595415586075287945, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_margin.z
@@ -4435,7 +4445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_text
-      value: Player "White"
+      value: Player White
       objectReference: {fileID: 0}
     - target: {fileID: 5831699542103720678, guid: d2076ca74fb16ae48ae43b46d4243048, type: 3}
       propertyPath: m_margin.z
