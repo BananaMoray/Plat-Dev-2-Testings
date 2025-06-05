@@ -87,7 +87,12 @@ public class QueueDelay : MonoBehaviour
 
     void QueTimer()
     {
-        if (_readyPlayer.Count == _currentPlayers.Count)
+        if (Players.Count() < 2)
+        {
+            _timerText.text = "<br>Waiting for Players" + "<br>To Start throw your topping on the pizza";
+            _delay = _maxDelay;
+        }
+        else if (_readyPlayer.Count == _currentPlayers.Count)
         {
             _timerText.enabled = true;
 
