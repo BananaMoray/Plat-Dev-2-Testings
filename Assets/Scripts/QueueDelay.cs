@@ -24,7 +24,7 @@ public class QueueDelay : MonoBehaviour
     [SerializeField] private GameObject[] _initialToppingSpawns;
     private GameObject[] _toppings;
     [SerializeField] private GameObject _toppingPrefab;
-    [SerializeField] private GameObject _InstructionPrefab;
+    //[SerializeField] private GameObject _InstructionPrefab;
     //private GameObject _instructions;
     //private int _currentPlayers;
 
@@ -224,16 +224,14 @@ public class QueueDelay : MonoBehaviour
 
         if (i == _explinaition.Count)
         {
+            _input.enabled = false;
             _explinaition[i - 1].SetActive(false);
             _playerInput.SetActive(true);
-            _input.enabled = false;
+            
         }
-
     }
 
-
-
-
-
-
 }
+
+
+
