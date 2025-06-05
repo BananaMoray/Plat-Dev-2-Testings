@@ -622,6 +622,10 @@ PrefabInstance:
       value: ToppingSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 5878527779541965202, guid: 09e33a0cfc7116544ae6f144a6bbf949, type: 3}
+      propertyPath: _baseTime
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878527779541965202, guid: 09e33a0cfc7116544ae6f144a6bbf949, type: 3}
       propertyPath: _queDelay
       value: 
       objectReference: {fileID: 1966017854248728571}
@@ -629,6 +633,14 @@ PrefabInstance:
       propertyPath: _toppingPrefab
       value: 
       objectReference: {fileID: 2925561846417556301, guid: a2926115cf975d64e85d40e472804c19, type: 3}
+    - target: {fileID: 5878527779541965202, guid: 09e33a0cfc7116544ae6f144a6bbf949, type: 3}
+      propertyPath: _playerTimeWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878527779541965202, guid: 09e33a0cfc7116544ae6f144a6bbf949, type: 3}
+      propertyPath: _weightMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
