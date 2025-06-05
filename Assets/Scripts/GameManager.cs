@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         if (_timer <= 61 && _durationOf1MinuteRemaining > 0)
         {
             _oneMinuteRemainingText.text = "1 MINUTE REMAINING!";
+
             _fireParticles.SetActive(true);
             _oneMinuteRemainingText.gameObject.transform.localScale = Vector3.Lerp(_oneMinuteRemainingText.gameObject.transform.localScale, _goToScale, _scaleSpeed*Time.deltaTime);
             _durationOf1MinuteRemaining -= Time.deltaTime;
