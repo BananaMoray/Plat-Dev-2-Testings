@@ -13,15 +13,14 @@ public class MinuteRemaining : MonoBehaviour
     private GameObject _gameManagerObject;
     private GameManager _gameManager;
 
-    //[SerializeField] private AudioClip _coundDownClip;
-    //[SerializeField] private AudioClip _winClip;
-    //[SerializeField] private AudioSource _coundDownSrc;
+
 
     bool _hasPlayed = false;
 
-    //private bool _hasPlayedCountdown = false;
+    [SerializeField]
+    private GameObject _timeUI;
 
-    private int _lastSecondPlayed = -1; // Initialize to -1 so 10 is triggered first
+    private int _lastSecondPlayed = -1; 
 
 
     void Start()
@@ -42,25 +41,14 @@ public class MinuteRemaining : MonoBehaviour
 
         if (currentSecond <= 10 && currentSecond >= 0 && currentSecond != _lastSecondPlayed)
         {
+            
+
             _timeRemainingText.text = currentSecond.ToString();
             _timeRemainingText.enabled = true;
-
-            //_coundDownSrc.pitch = _coundDownSrc.pitch + 0.01f;
-            //Debug.Log(_coundDownSrc.pitch);
-            //_coundDownSrc.Play();
             _lastSecondPlayed = currentSecond;
+            _timeUI.SetActive(false);
         }
-        //if (currentSecond <=0&&!_hasPlayed)
-        //{
-        //    _coundDownSrc.clip = _winClip;
-        //    if (!_coundDownSrc.isPlaying)
-        //    {
-        //        _coundDownSrc.pitch = 1;
-        //        _coundDownSrc.Play();
-        //        Debug.Log("has played");
-        //    }
-        //    _hasPlayed = true;
-        //}
+
 
 
     }
