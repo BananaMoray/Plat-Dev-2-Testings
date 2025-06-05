@@ -39,9 +39,10 @@ public class QueueDelay : MonoBehaviour
     [SerializeField] private GameObject _bg;
     [SerializeField] private float _explinaitionDelay = 1;
     private float _Explenationtimer;
-
+    [SerializeField] private GameObject _start;
     private PlayerInput _input;
     [SerializeField] private GameObject _playerInput;
+    [SerializeField] private GameObject _toolTip;
 
 
 
@@ -83,13 +84,20 @@ public class QueueDelay : MonoBehaviour
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
         _toppings = GameObject.FindGameObjectsWithTag("Ingredient");
+    
+    
+        if(Players.Length >= 1)
+        {
+            _start.SetActive(false);
+        }
+    
     }
 
     void QueTimer()
     {
         if (Players.Count() < 2)
         {
-            _timerText.text = "<br>Waiting for Players" + "<br>To Start throw your topping on the pizza";
+            _timerText.text = "";
             _delay = _maxDelay;
         }
         else if (_readyPlayer.Count == _currentPlayers.Count)
@@ -97,6 +105,8 @@ public class QueueDelay : MonoBehaviour
             _timerText.enabled = true;
 
             _delay -= Time.deltaTime;
+
+            Destroy(_toolTip);
 
             _timerText.text = "Starting in: " + _delay.ToString("F0");
         }
