@@ -36,7 +36,7 @@ public class QueueDelay : MonoBehaviour
     [Header("intro")]
     [SerializeField] private List<GameObject> _explinaition;
     [SerializeField] private int _explinaitionCount = 0;
-
+    [SerializeField] private GameObject _bg;
     [SerializeField] private float _explinaitionDelay = 1;
     private float _Explenationtimer;
 
@@ -224,6 +224,7 @@ public class QueueDelay : MonoBehaviour
 
         if (i == _explinaition.Count)
         {
+            _bg.SetActive(false);
             _input.enabled = false;
             _explinaition[i - 1].SetActive(false);
             _playerInput.SetActive(true);
