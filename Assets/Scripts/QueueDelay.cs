@@ -40,6 +40,8 @@ public class QueueDelay : MonoBehaviour
     [SerializeField] private float _explinaitionDelay = 1;
     private float _Explenationtimer;
 
+    [SerializeField] private GameObject _start;
+
     private PlayerInput _input;
     [SerializeField] private GameObject _playerInput;
 
@@ -83,6 +85,12 @@ public class QueueDelay : MonoBehaviour
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
         _toppings = GameObject.FindGameObjectsWithTag("Ingredient");
+
+        if(Players.Length >= 1)
+        {
+            _start.SetActive(false);
+        }
+
     }
 
     void QueTimer()
