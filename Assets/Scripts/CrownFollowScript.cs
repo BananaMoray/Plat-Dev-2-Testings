@@ -38,6 +38,6 @@ public class CrownFollowScript : MonoBehaviour
                 }
             }
         _listOfPreviousScores = _listOfScores;
-        transform.position = Vector3.Lerp(transform.position, _playerPositions[_winningPlayerIndex] + new Vector3(0, 3, 0), Time.deltaTime * 5);
+        transform.position = Vector3.Lerp(transform.position, _playerPositions[_winningPlayerIndex] + new Vector3(0, 3.5f, 0), Time.deltaTime * 5);
     }
 }
