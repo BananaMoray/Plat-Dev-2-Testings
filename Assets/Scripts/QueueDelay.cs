@@ -74,9 +74,6 @@ public class QueueDelay : MonoBehaviour
 
         Instruction(_explinaitionCount);
 
-
-
-
         QueTimer();
         StartGame();
     }
