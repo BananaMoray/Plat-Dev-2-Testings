@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     TMP_Text _timerVisuals;
+
+    [SerializeField] TMP_Text _oneMinuteRemainingText;
+    [SerializeField]
+    private Vector3 _goToScale;
+    [SerializeField]
+    private float _scaleSpeed = 0.5f;
 
     [SerializeField] //in seconds
     public float _timer;
@@ -37,11 +44,16 @@ public class GameManager : MonoBehaviour
     {
         Timer();
         //IsGamePaused(_UIScreens[1]);
-        if( _minutes < 1&& _durationOf1MinuteRemaining > 0)
+        if (_timer <= 61 && _durationOf1MinuteRemaining > 0)
         {
-            _timerVisuals.text = "1 MINUTE REMAINING!";
-            _timerVisuals.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            _oneMinuteRemainingText.text = "1 MINUTE REMAINING!";
+
+            _oneMinuteRemainingText.gameObject.transform.localScale = Vector3.Lerp(_oneMinuteRemainingText.gameObject.transform.localScale, _goToScale, _scaleSpeed*Time.deltaTime);
             _durationOf1MinuteRemaining -= Time.deltaTime;
+        }
+        else
+        {
+            _oneMinuteRemainingText.gameObject.transform.localScale = Vector3.Lerp(_oneMinuteRemainingText.gameObject.transform.localScale, Vector3.zero, _scaleSpeed * Time.deltaTime);
         }
     }
 
@@ -72,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     private void IsGamePaused(GameObject pauseScreen)
     {
-      
+
         if (pauseScreen)
         {
             PauseGame();
