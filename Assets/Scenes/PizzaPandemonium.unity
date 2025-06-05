@@ -3750,6 +3750,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _fireParticles
+      value: 
+      objectReference: {fileID: 7719223132850208772}
+    - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _oneMinuteRemainingText
       value: 
       objectReference: {fileID: 1050750157}
@@ -4057,6 +4061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireParticlesParent
       objectReference: {fileID: 0}
+    - target: {fileID: 3823257708733080588, guid: 38d370c568ac3cb4e8574da1619b14ed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4532498785869261987, guid: 38d370c568ac3cb4e8574da1619b14ed, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -4166,6 +4174,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38d370c568ac3cb4e8574da1619b14ed, type: 3}
+--- !u!1 &7719223132850208772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3823257708733080588, guid: 38d370c568ac3cb4e8574da1619b14ed, type: 3}
+  m_PrefabInstance: {fileID: 7719223132850208771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8268343982441719545
 PrefabInstance:
   m_ObjectHideFlags: 0
