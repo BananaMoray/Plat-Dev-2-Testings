@@ -27,14 +27,21 @@ public class ToppingSpawner : MonoBehaviour
     private float _radius = 15f;
     [SerializeField]
     private float _spawnDelay = 0;
-    [SerializeField]
-    private float _maxTime = 3f;
+
     [SerializeField]
     private int _height = 15;
     [SerializeField]
     private int _randomSpawnAmount = 2;
 
     private float _toppingSpawnTimer;
+    private float _spawnTime;
+    [SerializeField]
+    [Tooltip("The minimum time it takes to spawn a topping.")]
+    private float _baseTime = 3f;
+    [SerializeField]
+    [Tooltip("Increases the base time for toppings to spawn per missing player with this value.")]
+    private float _playerTimeWeight = 0.5f;
+
 
 
     private void Update()
@@ -44,6 +51,8 @@ public class ToppingSpawner : MonoBehaviour
             if (_players.Length == 0)
             {
                 _players = _queDelay.Players;
+                _spawnTime = CalculateToppingSpawnTime(_players.Length);
+                Debug.Log("It takes " +_spawnTime.ToString() + " seconds to spawn toppings.");
             }
 
             _spawnDelay -= Time.deltaTime;
@@ -52,6 +61,11 @@ public class ToppingSpawner : MonoBehaviour
                 SpawnAtRandomCirclePosition();
             }
         }
+    }
+
+    private float CalculateToppingSpawnTime(int count)
+    {
+        return _baseTime + (_playerTimeWeight * 4 - (float) count * _playerTimeWeight);
     }
 
     void SpawnAtRandomCirclePosition()
@@ -68,7 +82,7 @@ public class ToppingSpawner : MonoBehaviour
                 Vector3 spawnPosition = new Vector3(Mathf.Cos(angle) * _radius, _height, Mathf.Sin(angle) * _radius);
                 SpawnTopping(spawnPosition);
             }
-            _toppingSpawnTimer = _maxTime;
+            _toppingSpawnTimer = _spawnTime;
         }
 
     }
