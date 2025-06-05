@@ -43,9 +43,13 @@ public class PickupHandler : MonoBehaviour
 
     private bool _canPickup = true;
 
+    
+
     private Vector3 _gravity = new Vector3(0, -9.81f, 0);
 
     public bool IsHolding => _heldTopping != null;
+
+    public bool IsThrowing;
 
     private Animator _anim;
 
@@ -82,12 +86,12 @@ public class PickupHandler : MonoBehaviour
     public void ChargeThrow(bool interact)
     {
         if (_heldTopping == null) return;
-
+        //IsThrowing = true;
         if (interact)
         {
             _lineRenderer.enabled = true;
             DrawThrowTrajectoryInGameView();
-
+            IsThrowing = true;
             _throwTimer += Time.deltaTime;
             if (_throwTimer >= _timeToFullThrowForce)
             {
@@ -100,8 +104,9 @@ public class PickupHandler : MonoBehaviour
         else if (_throwTimer > _minimumThrowTime)
         {
             ThrowObject();
-            
+            IsThrowing = false;
         }
+        
     }
 
     private void TryPickupObject()
