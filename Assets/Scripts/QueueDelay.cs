@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class QueueDelay : MonoBehaviour
 {
@@ -20,11 +21,11 @@ public class QueueDelay : MonoBehaviour
 
     [SerializeField] private GameObject _playerInputManager;
 
-    private GameObject[] _initialToppingSpawns;
+    [SerializeField] private GameObject[] _initialToppingSpawns;
     private GameObject[] _toppings;
     [SerializeField] private GameObject _toppingPrefab;
     [SerializeField] private GameObject _InstructionPrefab;
-    private GameObject _instructions;
+    //private GameObject _instructions;
     //private int _currentPlayers;
 
     [SerializeField] private List<GameObject> _currentPlayers = new List<GameObject>();
@@ -34,15 +35,25 @@ public class QueueDelay : MonoBehaviour
 
     [Header("intro")]
     [SerializeField] private List<GameObject> _explinaition;
+    [SerializeField] private int _explinaitionCount = 0;
+
+    [SerializeField] private float _explinaitionDelay = 1;
+    private float _Explenationtimer;
+
+    private PlayerInput _input;
+    [SerializeField] private GameObject _playerInput;
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _initialToppingSpawns = GameObject.FindGameObjectsWithTag("InitialToppingSpawn");
+        //_initialToppingSpawns = GameObject.FindGameObjectsWithTag("InitialToppingSpawn");
+        _Explenationtimer = _explinaitionDelay;
 
-        _instructions = Instantiate(_InstructionPrefab,transform.position,Quaternion.identity);
+        _input = GetComponent<PlayerInput>();
+
+        //_instructions = Instantiate(_InstructionPrefab, transform.position, Quaternion.identity);
 
         Mathf.Clamp(_delay, 0, _maxDelay);
 
@@ -59,6 +70,12 @@ public class QueueDelay : MonoBehaviour
     {
         GetPlayers();
         SpawnInitialToppings(_toppingPrefab, _initialToppingSpawns, Players);
+
+
+        Instruction(_explinaitionCount);
+
+
+
 
         QueTimer();
         StartGame();
@@ -128,7 +145,7 @@ public class QueueDelay : MonoBehaviour
             {
                 game.SetActive(true);
             }
-            Destroy(_instructions);
+            //Destroy(_instructions);
             gameObject.GetComponent<QueueDelay>().enabled = false;
             _playerInputManager.SetActive(false);
         }
@@ -159,7 +176,7 @@ public class QueueDelay : MonoBehaviour
         {
             if (!_currentToppings.Contains(topping))
             {
-                
+
                 topping.GetComponent<ToppingHandler>().ChangeIndex(_currentPlayers.Count - 1);
 
                 _currentToppings.Add(topping);
@@ -184,6 +201,38 @@ public class QueueDelay : MonoBehaviour
         Debug.Log(collision.gameObject.name);
     }*/
 
+    private void Instruction(int i)
+    {
+
+
+
+
+        if (i < _explinaition.Count)
+        {
+            _Explenationtimer -= Time.deltaTime;
+            _explinaition[i].SetActive(true);
+
+        }
+
+
+        if (_input.actions["Submit"].triggered && _Explenationtimer <= 0)
+        {
+            _explinaition[i].SetActive(false);
+
+
+
+            _explinaitionCount++;
+            _Explenationtimer = _explinaitionDelay;
+        }
+
+        if (i == _explinaition.Count)
+        {
+            _explinaition[i - 1].SetActive(false);
+            _playerInput.SetActive(true);
+            _input.enabled = false;
+        }
+
+    }
 
 
 
