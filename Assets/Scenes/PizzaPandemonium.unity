@@ -3949,6 +3949,10 @@ PrefabInstance:
       propertyPath: _queueDelayManager
       value: 
       objectReference: {fileID: 1634505862}
+    - target: {fileID: 1281610766577566647, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: c94e24ee7d49c24419f6a46bfd4fbc67, type: 3}
     - target: {fileID: 1691533142557541425, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_Name
       value: WorkSpace_Liam
@@ -3995,6 +3999,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3163312357584736407, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3251362750221792712, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3601971404161195799, guid: 1026581c77c01a644898a6656dbe195d, type: 3}
