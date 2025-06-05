@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _UIScreens;
     //numbereing is 0 = start screen, 1 = Pause Screen, 2 = End Screen
 
+    [SerializeField]
+    float _durationOf1MinuteRemaining = 0.5f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,7 +37,12 @@ public class GameManager : MonoBehaviour
     {
         Timer();
         //IsGamePaused(_UIScreens[1]);
-
+        if( _minutes < 1&& _durationOf1MinuteRemaining > 0)
+        {
+            _timerVisuals.text = "1 MINUTE REMAINING!";
+            _timerVisuals.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            _durationOf1MinuteRemaining -= Time.deltaTime;
+        }
     }
 
     void Timer()

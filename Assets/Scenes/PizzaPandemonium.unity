@@ -3597,6 +3597,10 @@ PrefabInstance:
       propertyPath: _timer
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7230958258275377494, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
+      propertyPath: _durationOf1MinuteRemaining
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7708768115029730171, guid: a594be495dd332e4fb5fae31798d1618, type: 3}
       propertyPath: _toppingPrefab
       value: 
