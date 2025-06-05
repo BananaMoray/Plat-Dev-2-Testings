@@ -32,6 +32,11 @@ public class QueueDelay : MonoBehaviour
     [SerializeField] List<GameObject> _readyPlayer;
 
 
+    [Header("intro")]
+    [SerializeField] private List<GameObject> _explinaition;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
