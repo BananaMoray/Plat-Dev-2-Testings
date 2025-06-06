@@ -43,7 +43,7 @@ public class PickupHandler : MonoBehaviour
 
     private bool _canPickup = true;
 
-    
+
 
     private Vector3 _gravity = new Vector3(0, -9.81f, 0);
 
@@ -89,7 +89,17 @@ public class PickupHandler : MonoBehaviour
         //IsThrowing = true;
         if (interact)
         {
+
             _lineRenderer.enabled = true;
+            // Set the LineRenderer color to green
+            if (gameObject.GetComponent<CharacterManager>().PlayerIndex == 0)
+                _lineRenderer.material.color = Color.green;
+            if (gameObject.GetComponent<CharacterManager>().PlayerIndex == 1)
+                _lineRenderer.material.color = Color.white;
+            if (gameObject.GetComponent<CharacterManager>().PlayerIndex == 2)
+                _lineRenderer.material.color = Color.red;
+            if (gameObject.GetComponent<CharacterManager>().PlayerIndex == 3)
+                _lineRenderer.material.color = Color.yellow;
             DrawThrowTrajectoryInGameView();
             IsThrowing = true;
             _throwTimer += Time.deltaTime;
@@ -98,15 +108,15 @@ public class PickupHandler : MonoBehaviour
                 ThrowObject();
             }
 
-            
-            
+
+
         }
         else if (_throwTimer > _minimumThrowTime)
         {
             ThrowObject();
             IsThrowing = false;
         }
-        
+
     }
 
     private void TryPickupObject()
@@ -169,14 +179,14 @@ public class PickupHandler : MonoBehaviour
 
     private float CalculateThrowForce()
     {
-        
+
         return _minThrowForce + _throwForce * Mathf.Clamp01(_throwTimer / _timeToFullThrowForce);
     }
 
     private void DrawThrowTrajectoryInGameView()
     {
-        if (_lineRenderer == null || _heldTopping == null) return;
 
+        if (_lineRenderer == null || _heldTopping == null) return;
         Vector3[] points = new Vector3[_trajectoryResolution];
         Vector3 startPosition = _heldTopping.transform.position;
         Vector3 velocity = new Vector3(transform.forward.x, _throwAngle, transform.forward.z).normalized * CalculateThrowForce();
@@ -191,6 +201,7 @@ public class PickupHandler : MonoBehaviour
 
         _lineRenderer.positionCount = _trajectoryResolution;
         _lineRenderer.SetPositions(points);
+
     }
 
     private void HandleBlock()

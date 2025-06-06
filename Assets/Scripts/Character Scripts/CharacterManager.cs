@@ -34,10 +34,14 @@ public class CharacterManager : MonoBehaviour
 
     private void HandlePlayerHorns()
     {
-        for (int i = 0;  i < _playerHorns.Length; i++)
+
+        int rnrmHornIndex = UnityEngine.Random.Range(0, _playerHorns.Length - 1);
+        for (int i = 0; i < _playerHorns.Length; i++)
         {
-            int remove = UnityEngine.Random.Range(0, _playerHorns.Length - i);
-            Destroy(_playerHorns[remove]);
+            if (rnrmHornIndex != i)
+            {
+                _playerHorns[i].SetActive(false);
+            }
         }
     }
 
@@ -90,7 +94,7 @@ public class CharacterManager : MonoBehaviour
 
     private void Update()
     {
-        if (_combat.IsHit) 
+        if (_combat.IsHit)
         {
             _pickup.DropObject();
             return;
